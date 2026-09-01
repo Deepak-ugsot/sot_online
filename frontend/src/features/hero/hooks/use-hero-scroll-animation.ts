@@ -24,15 +24,32 @@ const p = (fraction: number) => fraction * CONTENT_END;
 const RUNWAY_DESKTOP = 2.4;
 const RUNWAY_TABLET = 1.6;
 
+/**
+ * Widest viewport that plays the video instead of scrubbing it.
+ *
+ * Scrubbing means seeking, and seeking is only cheap when the target frame is a
+ * keyframe. `Hero_BG_Video.mp4` carries **two** keyframes across its 240 frames, so
+ * an arbitrary seek makes the decoder replay everything since the last one — up to
+ * 146 frames of 720p to put a single frame on screen.
+ *
+ * Desktop CPUs absorb that. Mobile decoders do not: they re-prime on every seek and
+ * service them one at a time, so a scroll-driven seek stream queues up faster than it
+ * drains and never catches up. Below this width the playhead is therefore left alone
+ * and the video simply loops, which costs one steady hardware-decode pass and stays
+ * smooth on hardware that could never scrub.
+ *
+ * The copy choreography is unaffected either way — it animates `transform` and
+ * `opacity`, which the compositor handles without touching the main thread.
+ */
+const PLAYBACK_MAX_WIDTH = 1024;
+
 /** Skip a seek smaller than this (seconds) — sub-frame seeks only cause decoder churn. */
 const SEEK_EPSILON = 1 / 60;
 
 /**
- * Pins the hero and scrubs the background video's playhead with scroll, fading the
- * headline, subtext, CTAs and scroll cue out on their own offsets.
- *
- * This mirrors the reference design's hero, which scrubs a 30-frame JPEG sequence.
- * Here the same choreography drives an MP4's `currentTime` instead.
+ * Pins the hero and fades the headline, subtext, CTAs and scrim out on staggered
+ * offsets — driving the background video's playhead from scroll on desktop, and
+ * letting it loop under its own power at `PLAYBACK_MAX_WIDTH` and below.
  *
  * @param scopeRef - The section wrapping the hero. All selectors are scoped to it,
  *   so the hook never reaches outside its own feature.
@@ -51,20 +68,28 @@ export function useHeroScrollAnimation(scopeRef: RefObject<HTMLElement | null>) 
 
       matchMedia.add(
         {
-          isAnimated: "(prefers-reduced-motion: no-preference)",
+          isScrubbed: `(min-width: ${PLAYBACK_MAX_WIDTH + 1}px) and (prefers-reduced-motion: no-preference)`,
+          isPlayed: `(max-width: ${PLAYBACK_MAX_WIDTH}px) and (prefers-reduced-motion: no-preference)`,
           isStatic: "(prefers-reduced-motion: reduce)",
         },
         (mmContext) => {
-          const { isStatic } = mmContext.conditions as { isStatic: boolean };
+          const { isScrubbed, isStatic } = mmContext.conditions as {
+            isScrubbed: boolean;
+            isPlayed: boolean;
+            isStatic: boolean;
+          };
 
-          // Reduced motion: no pin, no scrub. Hold the first frame and leave the
-          // content statically visible.
+          // Reduced motion: no pin, no scrub, no playback. Hold the first frame and
+          // leave the content statically visible.
           if (isStatic) {
-            if (video) video.currentTime = 0;
+            if (video) {
+              video.pause();
+              video.currentTime = 0;
+            }
             return;
           }
 
-          // --- Video scrubbing -------------------------------------------------
+          // --- Video: scrubbed ------------------------------------------------
           // Seeking is decoupled from the scroll event: `onUpdate` only records the
           // target time, and a rAF loop applies at most one seek per frame. Setting
           // `currentTime` directly from the scroll handler would queue up seeks
@@ -72,18 +97,45 @@ export function useHeroScrollAnimation(scopeRef: RefObject<HTMLElement | null>) 
           let targetTime = 0;
           let rafId = 0;
 
-          const renderLoop = () => {
-            rafId = requestAnimationFrame(renderLoop);
+          const seekLoop = () => {
+            rafId = requestAnimationFrame(seekLoop);
             if (!video || video.readyState < 2) return;
+            // A seek is still in flight. Issuing another one now would not cancel it,
+            // it would only deepen the decoder's queue — so skip this frame and let
+            // the next one act on the newest target instead of a stale one.
+            if (video.seeking) return;
             if (Math.abs(video.currentTime - targetTime) < SEEK_EPSILON) return;
             video.currentTime = targetTime;
           };
 
+          const startSeeking = () => {
+            if (!rafId) rafId = requestAnimationFrame(seekLoop);
+          };
+
+          const stopSeeking = () => {
+            if (!rafId) return;
+            cancelAnimationFrame(rafId);
+            rafId = 0;
+          };
+
+          // --- Video: played --------------------------------------------------
+          // `play()` rejects when the browser declines autoplay — iOS Low Power Mode
+          // is the common case. There is no recovery worth attempting and nothing
+          // the user needs to be told: the hero simply holds its first frame, which
+          // is a perfectly good backdrop. Swallow it rather than throwing into an
+          // unhandled rejection.
+          const resumePlayback = () => {
+            void video?.play().catch(() => {});
+          };
+
           if (video) {
-            // The playhead is driven entirely by scroll, so the video must never
-            // play on its own.
-            video.pause();
-            rafId = requestAnimationFrame(renderLoop);
+            if (isScrubbed) {
+              // The playhead is driven entirely by scroll, so the video must never
+              // play on its own.
+              video.pause();
+            } else {
+              resumePlayback();
+            }
           }
 
           // --- Timeline --------------------------------------------------------
@@ -95,14 +147,31 @@ export function useHeroScrollAnimation(scopeRef: RefObject<HTMLElement | null>) 
               end: () =>
                 "+=" +
                 window.innerHeight *
-                  (window.innerWidth <= 1024 ? RUNWAY_TABLET : RUNWAY_DESKTOP),
+                  (window.innerWidth <= PLAYBACK_MAX_WIDTH
+                    ? RUNWAY_TABLET
+                    : RUNWAY_DESKTOP),
               scrub: 0.2,
               pin: stage,
               pinSpacing: true,
               anticipatePin: 1,
               invalidateOnRefresh: true,
+              // Nothing about the video needs servicing once the hero has left the
+              // viewport: the seek loop would burn a rAF callback per frame for the
+              // whole page, and playback would keep a decoder — and on a phone, the
+              // battery — busy behind content nobody is looking at.
+              onToggle: (self) => {
+                if (!video) return;
+                if (isScrubbed) {
+                  if (self.isActive) startSeeking();
+                  else stopSeeking();
+                } else if (self.isActive) {
+                  resumePlayback();
+                } else {
+                  video.pause();
+                }
+              },
               onUpdate: (self) => {
-                if (!video?.duration) return;
+                if (!isScrubbed || !video?.duration) return;
                 const contentProgress = Math.min(1, self.progress / CONTENT_END);
                 targetTime = contentProgress * video.duration;
               },
@@ -122,7 +191,7 @@ export function useHeroScrollAnimation(scopeRef: RefObject<HTMLElement | null>) 
             // The scrim only exists to make the copy readable, so it dissolves in step
             // with it — linearly, and running a touch past the last line of copy so
             // nothing is ever left standing on the bare footage. Once it clears, the
-            // scrubbing video plays unobstructed for the rest of the pin.
+            // video plays unobstructed for the rest of the pin.
             .to(HERO_SELECTORS.copyScrim, { autoAlpha: 0, duration: p(0.36) }, p(0.02))
             .to(
               HERO_SELECTORS.subtext,
@@ -148,7 +217,8 @@ export function useHeroScrollAnimation(scopeRef: RefObject<HTMLElement | null>) 
             .to({}, { duration: 1 - CONTENT_END });
 
           return () => {
-            cancelAnimationFrame(rafId);
+            stopSeeking();
+            video?.pause();
           };
         },
       );

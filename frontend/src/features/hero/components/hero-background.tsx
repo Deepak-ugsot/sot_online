@@ -32,13 +32,17 @@ const HERO_FRAME =
 /**
  * The hero's full-bleed video backdrop, plus the scrims and grain on top of it.
  *
- * Purely presentational — a Server Component with no client JS. The video's playhead
- * is driven by scroll from `useHeroScrollAnimation`, which finds it via the
- * `data-hero="video"` attribute.
+ * Purely presentational — a Server Component with no client JS. What the video *does*
+ * is decided by `useHeroScrollAnimation`, which finds it via the `data-hero="video"`
+ * attribute: on desktop it drives the playhead from scroll, and at 1024px and below it
+ * lets the video loop on its own because seeking is too expensive for mobile decoders.
  *
- * Note there is no `autoPlay` or `loop`: the video never plays on its own, it is
- * scrubbed. `preload="auto"` matters here — seeking needs buffered data, so waiting
- * for metadata alone would make the first scroll stutter.
+ * Note there is no `autoPlay`, even though small viewports do play. Autoplay is left to
+ * the hook so the two modes are decided in one place — and so a desktop visitor never
+ * catches a frame of unscrubbed playback in the gap before hydration.
+ *
+ * `preload="auto"` serves both modes: seeking needs buffered data ahead of the playhead,
+ * and looping playback needs it just the same.
  */
 export function HeroBackground() {
   return (
@@ -47,6 +51,7 @@ export function HeroBackground() {
         data-hero="video"
         className="h-full w-full object-cover object-center"
         muted
+        loop
         playsInline
         preload="auto"
         aria-hidden="true"
