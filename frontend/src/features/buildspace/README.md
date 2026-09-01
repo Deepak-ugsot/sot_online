@@ -1,13 +1,13 @@
 # BuildSpace
 
-"Build More. Ship Faster. With BuildSpace." — the pitch over a collage of the product:
-five feature cards scattered around a laptop, with a student in front.
+"Build More. Ship Faster. With BuildSpace." — the pitch on a dark, red-lit ground, over a
+window that plays a self-running tour of the BuildSpace product.
 
 ## Public API
 
 - `BuildspaceSection` — the whole section. The only export routes should use.
-- `BuildspaceCard`, `BuildspaceLayer`, `BuildspaceHeadingCopy`,
-  `BuildspaceSubtitleCopy` — shared types.
+- `BuildspaceChapter`, `BuildspaceChapterId`, `BuildspaceCtaCopy`,
+  `BuildspaceCursorBeat`, `BuildspaceHeadingCopy` — shared types.
 
 ```tsx
 import { BuildspaceSection } from "@/features/buildspace";
@@ -18,232 +18,167 @@ import { BuildspaceSection } from "@/features/buildspace";
 ```text
 buildspace/
 ├── components/
-│   ├── buildspace-section.tsx   # Heading, then the pinned stage  ("use client")
-│   └── buildspace-scene.tsx     # The collage (server)
+│   ├── buildspace-section.tsx    # Ground, glows, beams, copy, CTA  ("use client")
+│   ├── buildspace-demo.tsx       # The scaled canvas + tour wiring  ("use client")
+│   └── demo/
+│       ├── demo-icon.tsx         # The product mock's icon set
+│       ├── demo-chrome.tsx       # Product top bar
+│       ├── demo-library.tsx      # Chapter 1: the dashboard
+│       ├── demo-workspace.tsx    # Project header, tabs, step rail
+│       ├── demo-panels.tsx       # Chapters 2-6: the five workspace panels
+│       ├── demo-outro.tsx        # Chapter 7: the sign-off
+│       ├── demo-cursor.tsx       # The simulated pointer
+│       └── demo-compact.tsx      # The phone tour
 ├── constants/
-│   └── buildspace.constants.ts  # Copy, layer coordinates, selector map
+│   ├── buildspace.constants.ts   # Copy, chapters, cursor beats
+│   └── demo.constants.ts         # Everything the product mock displays
 ├── hooks/
-│   └── use-buildspace-reveal.ts # Staggered entrance
+│   ├── use-buildspace-reveal.ts  # Entrance reveal
+│   └── use-demo-tour.ts          # The tour clock
 ├── types/
 │   └── buildspace.types.ts
-├── index.ts                     # Public API
+├── index.ts                      # Public API
 └── README.md
 ```
 
-## The scene is one fixed-ratio box
+## The section is dark, and that is the point
 
-Every layer is placed as a percentage of a scene locked to **1340 / 790**. That ratio
-is what lets the arrangement scale as a single composition — a card at `left: 74%`
-keeps its place at any width instead of drifting as the container grows. Change the
-ratio and the whole collage comes apart.
+This is the page's one dark break between the showcase and the mentors band. BuildSpace is
+itself a dark, lime-accented product; on a light ground a mock of it reads as a screenshot
+pasted onto a brochure, while on near-black the window reads as a screen that is switched
+on. The section stops describing the product and starts showing it.
 
-`relative` on the scene is load-bearing: it is what the absolute layers resolve
-against. Without it they escape to the section and every coordinate is wrong — measured
-before the fix, the cards sat up to 40% of the scene's height above where they belong.
+The ground is `bg-ink-raised` (`#1b1b1f`), which already existed for the ecosystem band.
+Over it sit two `pointer-events-none` layers:
 
-**Only widths are given; heights follow each image's own ratio.** The reference sizes
-its layers with a fixed box plus `object-contain`, which produces the same rendered
-rectangle, but a width-only layer needs no height to lay out — so the same numbers keep
-working on phones, where the scene stops being a fixed-ratio box at all.
+1. **Corner glows** — a large brand-red radial bleeding in from the top right, and a much
+   fainter one bottom left so that corner is not flat black.
+2. **Folded light beams** — a `repeating-linear-gradient` at 115°, masked by a radial from
+   the top-right corner.
 
-That conversion is why `buildspaceCharacter` carries `left: 33.95 / size: 32.1` rather
-than the reference's `left: 31.5 / width: 37`: this portrait fills its box's *height*,
-so what actually appears is 32.1% wide, centred on the same 50% axis.
+The beams are broad ribbons, not hairlines, and the gradient *inside* each band is what
+makes them read as folded: bright pink-red highlight, down through brand red, into black
+before the next band starts. A flat two-stop repeat at this angle reads as hazard stripes
+instead. The radial mask keeps them a corner treatment — the pattern is gone by 78% of the
+way from the top right, so the beams reach into the section and dissolve rather than
+crossing it.
 
-## Responsive behaviour
+The vertical padding (78 top / 80 bottom) is load-bearing: the corner glow is sized from
+the section's *width*, so a shorter section makes the glow fill more of it and the broad
+light corner collapses into a sliver.
 
-| Width   | Scene                                                                  |
-| ------- | ---------------------------------------------------------------------- |
-| ≤640    | overlay dropped — cards on a full-bleed snap rail, laptop then student  |
-| 641–900 | overlay, ratio released to a 620px floor, width capped at 1080px        |
-| ≥901    | overlay at the full `1340 / 790` ratio, sized off viewport height       |
+## The demo is a fixed canvas, scaled
 
-**The scene is sized off the viewport height, not just a width cap.** From 901px it
-lives alone in a full-viewport stage, so the limit that actually binds is vertical:
-`min(88rem, 88vh * 1340/790)` is the widest box that still fits, and every layer inside
-is a percentage — so that one value scales the whole collage as a piece. At 1440×900
-it comes to 1343×792.
+`BuildspaceDemo` renders a **1280x880** canvas and scales it with one `transform` to fit
+the mount (capped at `53.75rem` / 860px, so about 0.67).
 
-Below 901px that cap is overridden back to 1080px. There is no pin and no full-height
-stage there, so a vh-derived width would squeeze the scene against a short phone
-viewport for no reason.
+Every panel inside is real product chrome at real product sizes — 10px labels, 5px
+progress bars, a 196px rail. A fluid version would need every one of those to be a
+`clamp()`, at which point the proportions drift with the container and it stops looking
+like an app. One `scale()` keeps the composition exact and costs nothing: a single
+compositor transform, recomputed only on resize.
 
-**`h-screen` on the stage is scoped to 901px and up too.** The wrapped scene is
-*taller* than the viewport — measured at 640×900 it overflowed a `h-screen` stage by
-133px — so below the pin the stage height is left to its content.
+The canvas never scales *up*. Past 1280px of mount width it would enlarge 10px type into
+14px type, which reads as a zoomed screenshot rather than a screen.
 
-Below 640px the percentages stop working: at phone width they crowd every layer into
-an overlapping stack, so the scene becomes an ordinary wrapped flow instead.
+`aspect-ratio` on the frame reserves the exact height before the canvas is measured, so
+the section never reflows on mount.
 
-### The phone card rail
+## Below 901px it is a different component, not a smaller one
 
-Dropping the overlay is not enough on its own. Wrapped two-up at 375px each card came
-out 133px wide, and all five are dense product screenshots — at that size the UI inside
-is unreadable noise and only the label baked into the artwork survives. So below 641px
-the `<ul>` stops being `display: contents` and becomes a horizontal snap rail: one card
-is `70vw` (263px at 375, capped at `17.5rem` so it does not sprawl by 640), and the
-half-visible next card is the affordance that says to keep swiping.
+At 375px the canvas would scale to 0.29 — 10px labels become 3px and every panel is grey
+noise. Nothing about the desktop composition survives the reduction, so phones get
+`DemoCompact`: the same seven beats rendered one legible card at a time, each showing the
+single thing its chapter is about.
 
-The rail bleeds past the stage's gutter — `-mx-6` with `w-[calc(100%+3rem)]` against a
-matching inner `px-6` — so it reads as running off the edge of the screen rather than
-stopping short inside a box. `scroll-pl-6` puts a snapped card back on that same 24px
-gutter; without it a snap lands flush to the viewport edge. The bleed assumes the scene
-is full-width below 641px, which it is: every max-width in that band is far wider than
-a phone.
+The outer narration line and chapter chips are desktop-only. The compact card already
+prints the chapter title as its own headline and carries progress dots, so on a phone both
+would be the same information twice — and the chips are a pointer affordance that would
+mostly intercept scrolls under a tall card.
 
-The vertical padding on the rail is only there so the scroll container does not clip
-each card's drop shadow, and the scrollbar is hidden because a rail of screenshots is
-self-evidently swipeable. No `tabIndex` is set: the cards contain nothing focusable, so
-browsers already make the scroll container a keyboard-focusable region on their own —
-and the element is `display: contents` from 641px up, where a tab stop would have no
-box to show focus on.
+## Every panel is a pure function of the clock
 
-Two more things are easy to get wrong and were both caught by measuring:
+`useDemoTour` publishes `{ index, progress }`. Each panel derives its whole animated state
+from `progress` — a character count, a number of revealed score rows, whether the submit
+has landed — with **no panel-local state and no timers anywhere**.
 
-- The student is sized by `max-w`, not `width`. A flex basis outranks `width` on the
-  main axis, so `basis-full w-3/5` renders full width — 100% where 60% was wanted.
-- The 620px floor is scoped to the 641–900 band. Left unscoped it also applies to the
-  phone layout, where the scene should size to its content.
+That is what lets the tour be paused, resumed and jumped around: any position renders
+correctly on the first frame. `phase(progress, start, end)` re-scales `progress` into a
+window so one number can sequence several things across a chapter.
 
-Verified with no horizontal overflow at 375, 640, 641, 800 and 1440; the rail's last
-card lands exactly on the 24px gutter at 375; and every card is within 0.1% of its
-reference coordinate at 1440.
+Two consequences worth knowing:
 
-## Sizing the artwork
+- **The tour publishes at ~16fps, not 60.** The fastest thing driven off `progress` is the
+  answer typing itself out, at roughly a character every 40ms. Anything genuinely
+  continuous — score bars, the milestone bar, cursor travel — is a CSS transition on a
+  value that only changes when a discrete reveal fires, so it stays on the compositor
+  regardless of how coarsely the clock ticks.
+- **Nothing publishes while parked.** Off screen or held, the loop skips `publish`
+  entirely. `publish` builds a fresh object each call, so React cannot bail out on an
+  equal value, and a throttled publish would re-render the whole canvas every 62ms for the
+  whole time nobody is looking at it. `hold`, `release` and `goTo` each force one publish.
 
-Two separate levers, and they do different jobs:
+Playback is gated on an `IntersectionObserver`: the section is deep in a long page, and
+without it the tour would animate a canvas nobody is watching — and a viewer scrolling
+back would arrive mid-sentence in whichever chapter the clock had reached.
 
-- **The scene box** (above) scales the collage as a whole, but it is capped by viewport
-  height — on a 900px-tall window it cannot grow much past `1343×792` without the wide
-  `1340 / 790` ratio pushing the bottom off screen.
-- **The layer percentages** fill the box's own empty space, which is where the real
-  headroom is. The reference's coordinates leave roughly a quarter of the box as margin.
+## Two orderings that have to agree
 
-So the artwork was enlarged mostly with the second: cards `1.32×`, student `1.22×`,
-laptop `1.10×`, each **about its own centre** — growing from the stored top-left corner
-would have slid everything down and right and pulled the ring off centre. At 1440×900
-the laptop renders 692px wide, the cards 174–231px, the student 526px.
+`buildspaceChapters` and `demoSteps` are separate arrays, and the rail is the tour's spine
+— the viewer reads progress from how far down it the highlight has moved. A step that
+comes later in `demoSteps` than its chapter does in `buildspaceChapters` sends the
+highlight *backwards* mid-tour and re-locks a step just watched being completed.
 
-The three factors differ on purpose. The laptop is the merge target every card has to
-stay clear of, so it moves least; `github` is the tightest of the five, and each extra
-5% on the laptop costs about that much again in its clearance.
+This is why **Build sits before GitHub** in the rail, unlike the real product: the tour
+builds the milestone first, then shows the commits it produced.
 
-### Scaling alone is not enough — the columns must be re-spaced
+`buildspaceCursorBeats` is indexed to match `buildspaceChapters` too. Its coordinates are
+hand-placed against the rendered canvas rather than measured — measuring a target every
+frame is a layout read inside the tour loop, for a pointer that only needs to be near the
+right button. The trade is that moving a panel's controls means re-checking the beat that
+clicks them.
 
-Each card grows into the space between it and its neighbour *from both sides*, so
-enlarging in place closes the gaps twice as fast as it opens them. At `1.32×` the
-`workspace` / `ai-review` gap collapsed from 6.5% of the scene to **0.53%** — about
-four pixels at 1440×900, which reads as two cards stuck together.
+## Design tokens live in `globals.css`, scoped to `.bsd-root`
 
-So positions are re-spaced by column afterwards: the left column runs down a 4–92 band
-with an even `7.2%` between cards, the right column takes a wider `14.05%` having only
-two, and each column is nudged outward into the slack at the box edge — which buys back
-clearance from the laptop as well. Measured at 1440×900 the gaps come to 56px, 57px and
-111px, with 33–77px between each card and the laptop.
+The product mock is a different design system from this site: lime accent, four levels of
+dark surface, its own typeface. Its tokens are scoped to `.bsd-root` rather than added to
+`@theme` — promoting them would put `bg-bsd-lime` on every element on the site and invite
+the product's palette to leak into the marketing pages.
 
-Three invariants to re-check after touching any of these numbers. All were found by
-search, not by eye, and a uniform `1.30×` scale already overlaps:
+`.bsd-caret` (the blinking insertion point) and `.bsd-shimmer` live there too, since both
+need keyframes.
 
-- no two cards closer than ~7% of the scene (tightest: `workspace` / `ai-review`)
-- every card at least 1.5% clear of the laptop (tightest: `github`, at 2.46%)
-- the composition inside the box, currently x[2.5, 97.5] y[4.0, 92.0]
+## Why there is no pin
 
-## Spacing between the copy and the collage
+The collage this replaced scrubbed a fold-into-the-laptop sequence across a
+viewport-and-a-half of pinned scroll, because static artwork needed the scroll to give it
+something to do. The window plays a tour on a clock of its own; pinning the page over it
+would put two competing motions on screen and hand the viewer's scroll to the one they are
+not watching. The reveal is now a one-shot entrance and nothing else.
 
-The stage carries **no top padding** from 901px up. Padding there would clear the 80px
-fixed header, but it is equally dead space between the copy and the collage on the way
-in, so every pixel shows. It is not needed: centring already drops the scene 54px, and
-the scene's top band is empty for a further 64px before the first card, so the artwork
-starts at y=118 while pinned — 38px clear of the header.
+## Reduced motion
 
-That clearance is the thing to watch. It shrinks if the scene grows to fill more of the
-viewport height, or if the top cards move up.
+`useDemoTour` stops on the **AI review, complete** — the chapter that best explains the
+product in one still frame, and unlike the plan or the ship form it does not depend on an
+animation having run to make sense. The chapter chips still work; they just do not start a
+clock. The entrance reveal is skipped entirely by `gsap.matchMedia`.
 
-## Reveal
+## The mock's data is invented
 
-Heading children stagger in at 0.1s; then the cards pop with a `back.out(1.6)`
-overshoot and the larger layers follow on a plainer `power2.out`. Two separate calls
-rather than one comma-joined selector: the small cards read well with an overshoot,
-while the student at a third of the scene's width looks unsteady with the same bounce.
+Everything in `demo.constants.ts` is fabricated product data for a marketing surface — no
+request is made and nothing is real.
 
-## Images
+The project is the **e-commerce build** on purpose: every workspace panel is about a cart
+and products API (`cartflow-api`, "Milestone 3: Cart & Products API", the guest-cart schema
+question), so the project being opened has to be the one that work belongs to, or the tour
+contradicts itself between the first chapter and the rest.
 
-Product artwork, in `public/assets/BuildSpace/`. **The folder's capitalisation is
-load-bearing** — macOS resolves `buildspace/github.png` just fine while the Linux
-deploy target does not, so a wrong case would pass every local check and 404 only in
-production.
+## Gotchas
 
-Each card's visible label is baked into its artwork, so the `alt` text is the only
-place that name exists as text a screen reader can reach — which is why the cards are a
-`<ul>` with real alt text rather than decorative images. The student is `alt=""`: they
-illustrate the copy rather than adding to it.
-
-## The pinned sequence
-
-**The heading is a sibling of the stage, not inside it.** It sits in ordinary flow and
-scrolls up and away like any other copy; only the stage below it pins. That is what
-makes the collage — and nothing else — hold still. Freezing the heading on screen for
-the whole runway instead reads as the page having stalled.
-
-It also fixes what the pin triggers off: the **stage**, not the section. Triggering off
-the section would start the pin while the heading was still on screen and the stage
-still below the fold, so the scene would jump into place. Off the stage, the pin engages
-exactly when the stage reaches the top — by which point the heading has scrolled past.
-
-From **901px up**, with motion allowed, the stage pins for **1.5 viewport heights** and
-a scrubbed timeline folds the features into the laptop:
-
-1. The laptop swells to `1.1` across the first 70% of the runway.
-2. Each card flies into the laptop's centre, shrinking to `0.1` and fading out.
-3. The student rises out of the laptop as the last cards land.
-
-Motion is compressed into the first `0.9` of the pin, with a no-op tail — the same
-hold-buffer shape the hero uses, and for the same reason: without it `scrub` would
-re-compress an already-scaled timeline and cancel the buffer.
-
-Below 901px there is no pin — a scrubbed pin does not translate to a short, narrow
-viewport — so the student simply fades in with the rest of the scene. Under reduced
-motion nothing is registered at all and everything renders in place.
-
-### What gives it its character
-
-The numbers in `BUILDSPACE_MERGE` are read off the reference implementation of this
-effect, and its defining quality is that the cards **hang almost still and then rush
-inward**. Two things produce that, and both are easy to lose in a tidy-up:
-
-- `DURATION` (0.58) is long and `STAGGER` (0.045) is short, so every card is in flight
-  at once rather than firing one clean card at a time — the last card starts before the
-  first is a third of the way home.
-- `power2.in` back-loads each card's own window: halfway through its tween a card has
-  covered under a fifth of its distance.
-
-Shorten the duration or flatten the ease and it degrades into an ordinary staggered
-fly-out, which is precisely the thing it is not.
-
-The restraint elsewhere is also deliberate. **The heading holds its place through the
-entire pin and the scene box is never scaled or translated** — the laptop's slight swell
-is the only other movement. That is what keeps the eye on the cards; animating the frame
-as well makes the whole composition lurch and the merge stops reading.
-
-`scrub: true` rather than a lag value: the page already runs ScrollSmoother, and a
-second smoothing pass on top of it detaches the cards from the wheel.
-
-### Two things that would silently break it
-
-**The merge distances are measured from `offsetLeft`/`offsetTop`, not
-`getBoundingClientRect()`.** Those are layout values, so they are immune to the
-entrance tween's transform still sitting on the card when the timeline is built. A rect
-would be read mid-reveal and every distance would be wrong. They are also wrapped in
-functions with `invalidateOnRefresh`, so a resize re-measures instead of keeping
-first-paint numbers.
-
-No grow factor is applied to those distances. The laptop scales about its own centre
-and the scene box never moves, so the point the cards aim at is the same throughout —
-but reintroduce a scale on the scene and every distance needs the factor back.
-
-**The card merge sets `overwrite: false`.** This timeline is built synchronously, while
-the card entrance tween still exists and owns opacity/y/scale on the same elements —
-its ScrollTrigger simply has not fired yet. GSAP's default auto-overwrite would kill
-that tween's hold the instant these are created, and the cards would never reveal at
-all. Safe here because the entrance always finishes, in scroll position, well before
-this window opens.
+- **`CHART.width` must equal the chart card's real inner width** (1008 = canvas 1280 −
+  rail 196 − panel gutters 2×24 − card padding 2×14). The `<svg>` is `w-full` with a fixed
+  height, so the default `preserveAspectRatio` letterboxes a narrower viewBox: the line
+  renders centred with dead margins and the month labels no longer sit under their points.
+- **The commit line is drawn with `stroke-dasharray`, not by rebuilding `d`.** One length
+  and one offset animate on the compositor; recomputing the path per frame re-rasterises
+  it and is the usual reason a chart like this stutters.

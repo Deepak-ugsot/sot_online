@@ -138,7 +138,7 @@ export function RailScrollArrow({ viewportRef, className }: RailScrollArrowProps
     >
       <ArrowIcon
         direction="right"
-        className="h-[18px] w-[18px] animate-nudge-right motion-reduce:animate-none"
+        className="h-[18px] w-[24px] animate-nudge-right motion-reduce:animate-none"
       />
     </button>
   );

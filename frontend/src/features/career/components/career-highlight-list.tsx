@@ -24,11 +24,17 @@ export function CareerHighlightList() {
         <li
           key={highlight.id}
           data-career="item"
-          className="flex items-start gap-4 border-b border-hairline py-5 font-display text-[1.0625rem] font-medium text-ink sm:text-lg"
+          // Tight on phones by design: stacked, these five rows read as one list, and
+          // the airier `py-6` spaced them far enough apart that they scanned as five
+          // separate blocks. `py-3.5` on a 1.0625rem/1.5 label still clears the 44px
+          // touch-target minimum (14 + 26 + 14 = 54px) even before a label wraps.
+          className="flex items-start gap-4 border-b border-hairline py-3.5 font-display text-[1.0625rem] font-medium text-ink sm:py-4 sm:text-lg"
         >
           <ArrowIcon
             direction="right"
-            className="mt-1 h-[18px] w-[18px] shrink-0 text-brand"
+            // 24×18 keeps the glyph's own 21:16 box unsquashed; a square box here
+            // would letterbox it and quietly shrink the arrow instead.
+            className="mt-1 h-[18px] w-[24px] shrink-0 text-brand"
           />
           {highlight.label}
         </li>

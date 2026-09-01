@@ -43,7 +43,14 @@ export function CareerSection() {
         list, which is what its own `justify-between` needs in order to sit the CTA
         level with the list's last row.
       */}
-      <div className="mx-auto flex max-w-[84rem] flex-col items-start justify-between gap-12 px-6 py-[4.5rem] sm:px-8 lg:flex-row lg:items-stretch lg:gap-20 lg:px-20 lg:py-[6.25rem]">
+      {/*
+        Stacked, the `gap` is the only thing separating the CTA from the list's first
+        rule. It was opened up to `gap-14` on the theory that it needed to do more
+        work there than as the trough between two columns, but that plus the airy
+        rows pushed the list a screen away from the copy it belongs to. `gap-9` keeps
+        the CTA and the list reading as one block; `lg:gap-20` is unchanged.
+      */}
+      <div className="mx-auto flex max-w-[84rem] flex-col items-start justify-between gap-9 px-6 py-[4.5rem] sm:px-8 lg:flex-row lg:items-stretch lg:gap-20 lg:px-20 lg:py-[6.25rem]">
         <CareerIntro />
         <CareerHighlightList />
       </div>
