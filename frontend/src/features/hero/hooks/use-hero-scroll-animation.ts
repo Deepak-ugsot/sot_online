@@ -22,7 +22,21 @@ const p = (fraction: number) => fraction * CONTENT_END;
 
 /** Scroll runway for the pin, as a multiple of viewport height. */
 const RUNWAY_DESKTOP = 2.4;
-const RUNWAY_TABLET = 1.6;
+
+/**
+ * Runway on phones and small tablets — a quarter of the desktop hold.
+ *
+ * A pin is scroll the page absorbs without moving, and how long that reads as
+ * "an effect" rather than "the page is stuck" scales with how much of the page a
+ * screen can show. A desktop viewport still has the next section in peripheral view;
+ * a phone does not, so the same 1.6 screens of held scroll felt like the hero had
+ * jammed. At this length the copy has finished dissolving and the hero releases
+ * within roughly half a screen of scrolling, which reads as a transition.
+ *
+ * The choreography itself is untouched — it is mapped onto the pin's progress, so a
+ * shorter runway plays the same fades over less scroll rather than dropping any.
+ */
+const RUNWAY_COMPACT = 0.6;
 
 /**
  * Widest viewport that plays the video instead of scrubbing it.
@@ -148,7 +162,7 @@ export function useHeroScrollAnimation(scopeRef: RefObject<HTMLElement | null>) 
                 "+=" +
                 window.innerHeight *
                   (window.innerWidth <= PLAYBACK_MAX_WIDTH
-                    ? RUNWAY_TABLET
+                    ? RUNWAY_COMPACT
                     : RUNWAY_DESKTOP),
               scrub: 0.2,
               pin: stage,
