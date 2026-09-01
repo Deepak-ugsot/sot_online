@@ -1,0 +1,75 @@
+import { assets } from "@/config/site.config";
+
+/**
+ * The legibility scrim: an even tint plus a soft full-width band across the rows the
+ * copy occupies.
+ *
+ * The footage is near-white — measured mean relative luminance ~0.86, only 1.2:1
+ * against white text — so some scrim is unavoidable. Both layers are *linear* and
+ * full-bleed on purpose: a radial scrim reads as a visible oval sitting on the
+ * scene, whereas a band has no edge to notice.
+ *
+ * The band is wide and gently ramped so it covers the copy at every viewport,
+ * including narrow ones where the text occupies most of the frame.
+ *
+ * This whole element fades out as the hero scrolls (see `useHeroScrollAnimation`),
+ * leaving the video unobstructed once the copy has gone.
+ */
+const HERO_COPY_SCRIM = [
+  "linear-gradient(180deg, rgba(0,0,0,0) 4%, rgba(0,0,0,0.36) 20%, rgba(0,0,0,0.36) 78%, rgba(0,0,0,0) 94%)",
+  "linear-gradient(rgba(0,0,0,0.34), rgba(0,0,0,0.34))",
+].join(", ");
+
+/**
+ * The permanent frame — the one scrim that does *not* fade with the copy.
+ *
+ * It darkens under the fixed header so the nav stays readable for the whole pin, and
+ * lands on near-black at the bottom so the hero blends into the section below.
+ */
+const HERO_FRAME =
+  "linear-gradient(180deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.14) 18%, rgba(0,0,0,0) 34%, rgba(0,0,0,0) 66%, rgba(0,0,0,0.45) 88%, rgba(0,0,0,0.85) 100%)";
+
+/**
+ * The hero's full-bleed video backdrop, plus the scrims and grain on top of it.
+ *
+ * Purely presentational — a Server Component with no client JS. The video's playhead
+ * is driven by scroll from `useHeroScrollAnimation`, which finds it via the
+ * `data-hero="video"` attribute.
+ *
+ * Note there is no `autoPlay` or `loop`: the video never plays on its own, it is
+ * scrubbed. `preload="auto"` matters here — seeking needs buffered data, so waiting
+ * for metadata alone would make the first scroll stutter.
+ */
+export function HeroBackground() {
+  return (
+    <div className="absolute inset-0 -z-10 overflow-hidden bg-canvas">
+      <video
+        data-hero="video"
+        className="h-full w-full object-cover object-center"
+        muted
+        playsInline
+        preload="auto"
+        aria-hidden="true"
+        tabIndex={-1}
+      >
+        <source src={assets.heroVideo} type="video/mp4" />
+      </video>
+
+      {/*
+        Inline styles rather than arbitrary Tailwind values: stacked gradients in a
+        single bracketed class are unreadable, and each layer needs its rationale
+        next to it.
+      */}
+      <div
+        data-hero="copy-scrim"
+        aria-hidden="true"
+        className="absolute inset-0"
+        style={{ backgroundImage: HERO_COPY_SCRIM }}
+      />
+      <div aria-hidden="true" className="absolute inset-0" style={{ backgroundImage: HERO_FRAME }} />
+
+      {/* Film grain — breaks up gradient banding across the large dark areas. */}
+      <div aria-hidden="true" className="absolute inset-0 opacity-5 mix-blend-overlay bg-grain" />
+    </div>
+  );
+}

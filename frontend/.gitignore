@@ -1,0 +1,33 @@
+# Frontend-specific ignores (Next.js).
+# Shared rules live in the repository root .gitignore.
+
+# Next.js
+.next/
+out/
+
+# Generated TypeScript helpers
+next-env.d.ts
+*.tsbuildinfo
+
+# Frontend test runners
+coverage/
+playwright-report/
+test-results/
+blob-report/
+.playwright/
+
+# Storybook
+storybook-static/
+
+# Hosting / deploy
+.vercel/
+.netlify/
+
+# Package manager debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# Local Next.js env overrides are covered by root .env.* rules.
+# Keep example env files tracked via root !.env.example exceptions.

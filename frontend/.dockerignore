@@ -1,0 +1,23 @@
+# Dependencies and build output
+node_modules
+.next
+out
+
+# Local env (not used in this deployment yet)
+.env
+.env.*
+
+# Git and editor
+.git
+.gitignore
+.vscode
+.idea
+
+# Docs and tooling
+README.md
+*.md
+eslint.config.mjs
+
+# Test and debug artifacts
+coverage
+npm-debug.log*

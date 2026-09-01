@@ -1,0 +1,281 @@
+@import "tailwindcss";
+
+/* ---------------------------------------------------------------------------
+   Licensed typefaces
+   ---------------------------------------------------------------------------
+   Neue Montreal and Ivy Ora Display are the reference design's fonts. They are not
+   redistributable, so the files are not in this repo. Drop them into
+   `public/assets/fonts/` using the names below and they take over automatically.
+
+   Until then these `src` URLs 404 and the browser falls through to the next family
+   in the stack (the self-hosted Google fonts wired up in `src/lib/fonts.ts`), so a
+   missing file degrades silently rather than breaking the build.
+--------------------------------------------------------------------------- */
+
+@font-face {
+  font-family: "Neue Montreal";
+  src: url("/assets/fonts/NeueMontreal-Regular.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Neue Montreal";
+  src: url("/assets/fonts/NeueMontreal-Medium.otf") format("opentype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+/*
+  Declared over a 700–900 range, not a flat 700: the approach section asks for 800 to
+  match the reference's display weight. Without the range the browser would synthesise
+  a faux-bold on top of the Bold file rather than simply using it.
+*/
+@font-face {
+  font-family: "Neue Montreal";
+  src: url("/assets/fonts/NeueMontreal-Bold.otf") format("opentype");
+  font-weight: 700 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Ivy Ora Display";
+  src: url("/assets/fonts/Ivy-Ora-Display-Medium.otf") format("opentype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ---------------------------------------------------------------------------
+   Design tokens
+   ---------------------------------------------------------------------------
+   Tailwind v4 is configured in CSS, not a JS config file. Everything declared in
+   `@theme` becomes a utility: `--color-brand` → `bg-brand` / `text-brand`,
+   `--font-display` → `font-display`, `--ease-cinematic` → `ease-cinematic`, and so on.
+--------------------------------------------------------------------------- */
+
+@theme {
+  /* Palette — mirrors the reference design's CSS custom properties. */
+  --color-canvas: #0a0708; /* Dark sections (hero) */
+  --color-brand: #e6161f;
+  --color-ink: #0a0a0b; /* Primary text on light sections */
+  --color-ink-muted: #444444; /* Body copy on light sections */
+  --color-ink-raised: #1b1b1f; /* Ecosystem band — a shade above `ink` */
+  --color-surface: #f3f4f6; /* Light section background */
+  --color-hairline: #ececec; /* Divider rules on light sections */
+  /*
+    Two weights of rule for the Career OS grid. Translucent rather than solid so they
+    sit consistently on the section's tinted background — distinct from the opaque
+    `hairline` used by the career section's list.
+  */
+  --color-rule: rgba(30, 32, 34, 0.2); /* Horizontal row rules */
+  --color-rule-soft: rgba(30, 32, 34, 0.12); /* Vertical column dividers */
+
+  /* Type stacks. Licensed family first, self-hosted Google fallback second. */
+  --font-sans: var(--font-plus-jakarta-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Neue Montreal", var(--font-plus-jakarta-sans), ui-sans-serif,
+    system-ui, sans-serif;
+  --font-accent: "Ivy Ora Display", var(--font-playfair-display), ui-serif, Georgia,
+    serif;
+
+  /*
+    The AI Mentor section is set in its own pair of faces. Named after the typefaces
+    rather than a role, because that is exactly what they are — a deliberate local
+    departure from the site-wide `display` / `accent` pairing, not another rung on
+    the same scale.
+  */
+  --font-sora: var(--font-sora-google), ui-sans-serif, system-ui, sans-serif;
+  --font-fraunces: var(--font-fraunces-google), ui-serif, Georgia, serif;
+
+  /* The reference design's signature easing curve, used on every hover/transition. */
+  --ease-cinematic: cubic-bezier(0.22, 1, 0.36, 1);
+
+  /*
+    Logo marquee. The duration here is only a default — each row overrides it with an
+    inline `animation-duration` so the three rows drift at different speeds.
+  */
+  --animate-marquee-left: marquee-left 42s linear infinite;
+  --animate-marquee-right: marquee-right 42s linear infinite;
+
+  /*
+    The gallery's phone scroll arrow. A long pause between nudges is the point — a
+    continuous bounce next to a photograph reads as a broken loop rather than as a
+    hint, so the arrow spends most of the cycle still.
+  */
+  --animate-nudge-right: nudge-right 2.4s var(--ease-cinematic) infinite;
+}
+
+/*
+  Each marquee row holds two identical tracks side by side. Translating a track by a
+  full -100% of its own width slides it exactly off-screen, at which point its twin
+  has moved into precisely the position it started from — so the loop restarts with
+  no visible jump. This only holds while both tracks render the same logos.
+*/
+@keyframes marquee-left {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+@keyframes marquee-right {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+/*
+  Two beats out and back inside the first third of the cycle, then a hold. Kept to 3px
+  so it never looks like the arrow is drifting out of its button.
+*/
+@keyframes nudge-right {
+  0%,
+  30%,
+  100% {
+    transform: translateX(0);
+  }
+  15% {
+    transform: translateX(3px);
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Base layer
+--------------------------------------------------------------------------- */
+
+@layer base {
+  html {
+    /*
+      `clip`, not `hidden`, and on `html` rather than `body` — deliberately.
+
+      `overflow-x: hidden` makes an element a scroll container, which forces its
+      `overflow-y` to compute to `auto`. On `body` that creates a second scroller
+      nested inside the viewport's, and ScrollTrigger then measures against the
+      wrong one — its progress stays pinned at 0 no matter how far the page scrolls.
+
+      `overflow-x: clip` suppresses horizontal overflow *without* creating a scroll
+      container, so the viewport stays the one and only scroller.
+    */
+    overflow-x: clip;
+
+    /* Stops the layout shifting sideways when a scrollbar appears/disappears. */
+    scrollbar-gutter: stable;
+
+    /*
+      Clears the fixed site header. Without it an in-page anchor jump lands with the
+      target's first lines already underneath the header. Sized a little above the
+      header's tallest rendered height (~79px at `lg`) so the target starts with a
+      margin rather than flush against it.
+    */
+    scroll-padding-top: 6.5rem;
+
+    /*
+      No `scroll-behavior: smooth` here. Page-wide smoothing is GSAP's ScrollSmoother
+      instead (see `@/components/smooth-scroll`), which eases the content toward the
+      real scroll position rather than easing the scroll position itself — the native
+      one fights ScrollTrigger's scrub, and ScrollSmoother sets this to `auto` at
+      runtime anyway.
+    */
+  }
+
+  body {
+    background-color: var(--color-canvas);
+    color: #ffffff;
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /*
+    The accent serif always sits *inside* a display heading, and every one of those
+    headings is tracked tight (-0.01em to -0.032em) — spacing tuned for Neue Montreal,
+    not for a serif. `letter-spacing` inherits, so without a reset here the serif picks
+    up tracking meant for a different typeface and its letters read as touching.
+
+    `normal` rather than a positive value: the face now has natural proportions, so the
+    right answer is the type designer's own spacing. The previous `0.035em` was
+    propping up a condensed stand-in (see `lib/fonts.ts`) — with a face of normal width
+    it would read as letter-spaced rather than natural.
+
+    Setting it here rather than at each call site means the twelve `font-accent` spans
+    across the page cannot drift apart, and any span that genuinely needs different
+    spacing can still override it with a `tracking-*` utility — utilities beat the base
+    layer.
+  */
+  .font-accent {
+    letter-spacing: normal;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Utilities
+--------------------------------------------------------------------------- */
+
+/*
+  The landing page's heading style, straight from the design file's typography node:
+  Neue Montreal 500 at 133.12% line-height and -0.416px tracking on a 40px body —
+  expressed here as the unitless ratio and the em equivalent (-0.416 / 40) so both
+  follow whatever size the heading is set at.
+
+  Size is deliberately *not* part of this. The spec is written at 40px, but the page
+  needs its hierarchy: the hero reaches 72px, the FAQ 68px, the section titles 40-56px.
+  Each heading keeps its own clamp and takes everything else from here, so there is one
+  place to change when the spec moves.
+
+  Colour is out too — the same heading style runs on light sections (`text-ink`) and
+  dark ones (`text-white`).
+*/
+@utility type-heading {
+  font-family: var(--font-display);
+  font-weight: 500;
+  line-height: 1.3312;
+  letter-spacing: -0.0104em;
+}
+
+/*
+  Hides a scroll container's bar without hiding the overflow.
+
+  For carousels whose scrollability is already signalled by the next card peeking in
+  from the edge — a bar on top of that is noise, and on a touch device it is drawn
+  over the artwork for a second every time the reader swipes.
+
+  Both declarations are needed: `scrollbar-width` covers Firefox, the pseudo-element
+  covers WebKit and Chromium.
+*/
+@utility no-scrollbar {
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@utility bg-grain {
+  /* Inline SVG turbulence — no extra network request, no binary asset to ship. */
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+
+/* ---------------------------------------------------------------------------
+   Accessibility
+   ---------------------------------------------------------------------------
+   Global escape hatch for users who ask for reduced motion. The hero video is
+   paused separately in JS, since CSS cannot control media playback.
+--------------------------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
