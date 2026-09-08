@@ -3,6 +3,15 @@ import type { OneJourneyCard as OneJourneyCardData } from "../types/one-journey.
 
 type OneJourneyCardProps = {
   card: OneJourneyCardData;
+  /**
+   * Whether this is the last card in the deck.
+   *
+   * Only used below `sm`, where the deck is a plain column: the last card's shadow has
+   * nothing beneath it to fall on and reads as a smudge against the section's own
+   * ground, so it is dropped there. A `last:` variant cannot express this — each card
+   * is the only child of its own slot, so it is always "last".
+   */
+  isLast?: boolean;
 };
 
 const toneClasses = {
@@ -31,13 +40,16 @@ const toneClasses = {
  * the rotation; the angle lives in the card's data. A CSS `rotate` would be folded
  * into GSAP's transform on the first write anyway, leaving two owners for one value.
  */
-export function OneJourneyCard({ card }: OneJourneyCardProps) {
+export function OneJourneyCard({ card, isLast = false }: OneJourneyCardProps) {
   return (
     <article
       data-one-journey="card"
       className={cn(
-        "rounded-[1.375rem] p-4 sm:p-6 lg:p-7",
+        // The corner is tighter on a phone: the same 22px radius that reads as soft on
+        // a 750px desktop card reads as a pill on a 340px one.
+        "rounded-xl p-4 sm:rounded-[1.375rem] sm:p-6 lg:p-7",
         "shadow-[0_22px_50px_-30px_rgba(10,10,11,0.45)]",
+        isLast && "max-sm:shadow-none",
         toneClasses[card.tone],
         "lg:absolute",
         card.placementClassName,

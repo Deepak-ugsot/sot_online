@@ -3,7 +3,11 @@
 import { useRef } from "react";
 
 import { RailScrollArrow } from "@/components/ui/rail-scroll-arrow";
-import { galleryCards, galleryHeading } from "../constants/gallery.constants";
+import {
+  galleryCards,
+  galleryHeading,
+  gallerySubtitle,
+} from "../constants/gallery.constants";
 import { useGalleryCarousel } from "../hooks/use-gallery-carousel";
 import { GalleryCard } from "./gallery-card";
 
@@ -37,14 +41,14 @@ export function GallerySection() {
       <div
         data-gallery="stage"
         className={
-          "relative flex h-auto w-full flex-col items-start justify-center gap-10 overflow-hidden px-6 py-18 " +
+          "relative flex h-auto w-full flex-col items-start justify-center gap-6 overflow-hidden px-6 py-14 sm:gap-10 sm:py-18 " +
           "lg:h-[100svh] lg:flex-row lg:items-center lg:gap-[clamp(1.5rem,5vw,4.5rem)] lg:px-[clamp(1.5rem,6vw,5rem)] lg:py-0"
         }
       >
         <div className="shrink-0 lg:basis-[clamp(13.75rem,30vw,23.75rem)]">
           <h2
             id="gallery-heading"
-            className="mb-7 type-heading text-[clamp(1.875rem,3.6vw,2.875rem)] text-ink"
+            className="type-heading text-[clamp(1.875rem,3.6vw,2.875rem)] text-ink"
           >
             {galleryHeading.lead}
             <br />
@@ -52,20 +56,27 @@ export function GallerySection() {
               {galleryHeading.accent}
             </span>
           </h2>
+
+          {/* The three "not someone who…" sentences. `max-w` rather than the column's
+              full width: the intro column is already narrow at `lg`, and on a phone
+              the line would otherwise run the full viewport. */}
+          <p className="mt-4 mb-0 max-w-[26rem] text-[0.9375rem] leading-relaxed text-ink-muted sm:mt-5 lg:mb-7">
+            {gallerySubtitle}
+          </p>
         </div>
 
         {/*
-          Below `lg` the cards simply stack in document flow — a plain vertical column,
-          no scroll container, no JS. At `lg` and up the rail takes over: it is
-          `overflow-hidden` and panned by the pinned page scroll, and under reduced
-          motion there it falls back to a native horizontal scroll-snap rail
-          (`tabIndex={0}` makes that fallback keyboard-scrollable).
+          **Below `lg` this is a native horizontal scroll-snap rail** — the cards are
+          swiped through sideways, one at a time, with no JS at all. At `lg` and up the
+          carousel takes over: the same track becomes `overflow-hidden` and is panned by
+          the pinned page scroll, and under reduced motion there it falls back to the
+          same native rail. `tabIndex={0}` makes the rail keyboard-scrollable in both
+          cases, since the cards themselves hold nothing focusable.
         */}
         {/*
           The wrapper carries the flex sizing so the arrow can be positioned against it.
-          The arrow only shows when the rail is a real horizontal scroll container,
-          which — below `lg` being a vertical stack now — means `lg`+ under reduced
-          motion only.
+          The arrow shows whenever the rail is a real horizontal scroll container, which
+          is now below `lg` as well as `lg`+ under reduced motion.
         */}
         <div className="relative w-full lg:min-w-0 lg:flex-1">
           <div
@@ -74,15 +85,26 @@ export function GallerySection() {
             role="group"
             aria-label="Programme stages"
             tabIndex={0}
+            /*
+              **The rail sits inside the stage's gutter, not bled out of it.** Bleeding
+              it with `-mx-6 px-6` lets the last card reach the viewport edge, but
+              scroll-snap aligns a card to the scrollport rather than to the padding
+              box — so the first card landed 24px left of the heading above it and read
+              as stuck to the screen edge. Kept inside the gutter, the rail's first card
+              lines up with the heading, which is the alignment the eye actually checks.
+
+              `no-scrollbar` hides the bar; the next card peeking in from the right
+              already says the rail scrolls.
+            */
             className={
-              "w-full " +
+              "no-scrollbar w-full snap-x snap-mandatory overflow-x-auto " +
               "lg:snap-none lg:overflow-hidden " +
               "lg:motion-reduce:overflow-x-auto lg:motion-reduce:snap-x lg:motion-reduce:snap-mandatory"
             }
           >
             <div
               data-gallery="track"
-              className="flex w-full flex-col gap-12 lg:flex-row lg:flex-nowrap lg:gap-0 lg:will-change-transform"
+              className="flex w-full flex-nowrap gap-4 lg:gap-0 lg:will-change-transform"
             >
               {galleryCards.map((card, index) => (
                 // Only the first card is visible when the section is reached; the

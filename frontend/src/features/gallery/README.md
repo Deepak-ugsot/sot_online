@@ -1,6 +1,6 @@
 # Gallery
 
-"Your 2-Year Engineering Journey" — a fixed intro column beside a card track that
+"Become a Complete Techie." — a fixed intro column beside a card track that
 advances one card per scroll step: **Foundations → Development → AI → Industry Ready**.
 
 ## Public API
@@ -66,7 +66,16 @@ end = (totalSteps × viewportWidth × 1.6) / 0.85
 
 ## Images
 
-Journey artwork, in `public/assets/Journey/`, at **1366×844** each. The media panel is
+**Two of the six cards carry placeholder artwork,** and they are marked as such in the
+constants. Four reuse the previous journey photos, matched to their nearest new
+meaning; "The Contributor" borrows `oppertunity/Open_Source_Programs.jpg`, which is at
+least on topic, and "The Future-Tech Explorer" borrows
+`oppertunity/Startup_Challenges.jpg`, which is not. Swap both when real artwork exists.
+
+`card.image` is optional: a card without one renders on its `gradient` alone, which is a
+finished-looking panel rather than a broken one.
+
+Journey artwork goes in `public/assets/Journey/`, at **1366×844** each. The media panel is
 ~55vw, which is 792px at a 1440 viewport, so the art covers it at 1× with room to
 spare, but falls well short of DPR 2.
 
@@ -83,11 +92,25 @@ has just read.
 
 Each card's media panel carries its own bespoke three-stop gradient, applied via
 inline `style`. They are not Tailwind classes because they belong to no scale or
-token — four one-off utility classes would only separate them from the card data they
+token — six one-off utility classes would only separate them from the card data they
 describe. They live in `galleryCards` alongside the copy.
 
 The dark scrim over the media is a real element rather than a `::after`, so the
 card's visuals aren't split across two mechanisms.
+
+## Below `lg`
+
+**A native horizontal scroll-snap rail** — the cards are swiped through sideways, one
+at a time, with no JS at all. They used to stack vertically; the rail keeps the same
+reading order as the desktop carousel rather than turning it into a different shape.
+
+Each card is `86%` of the viewport (`70%` at `sm`) with `shrink-0`, so the next one
+peeks in from the right and says the row scrolls. `-mx-6 px-6` on the scroller cancels
+the stage's gutter, so a card can sit flush against the viewport edge as it scrolls
+out — inside the gutter the rail would stop 24px short on both sides.
+
+Measured at 390: cards 294px, the rail scrollable and scrolling, all six photos loaded,
+no page-level horizontal overflow.
 
 ## Verified against the reference
 
@@ -124,7 +147,7 @@ Media padding also steps down (`p-5`, `sm:p-8`), since 32px of it on a 294px car
 lot of the panel.
 
 Verified at 390px: card 294 with a 48px peek, display text at 28px with 12–68px of
-slack on the longest line of all four cards, the track swipeable, no page overflow. And
+slack on the longest line of all six cards, the track swipeable, no page overflow. And
 at 1440px nothing moved — mask `none`, card full-width at 828px so the `-100%` steps
 still land, display text at its 80px cap.
 

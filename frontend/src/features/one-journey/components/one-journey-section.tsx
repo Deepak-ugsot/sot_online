@@ -74,8 +74,12 @@ export function OneJourneySection() {
           data-one-journey="deck"
           className="mt-7 flex flex-col gap-3 sm:mt-10 sm:gap-4 lg:relative lg:mt-8 lg:block lg:min-h-0 lg:flex-1 lg:gap-0 lg:overflow-hidden"
         >
-          {oneJourneyCards.map((card) => (
-            <OneJourneyCard key={card.id} card={card} />
+          {oneJourneyCards.map((card, index) => (
+            <OneJourneyCard
+              key={card.id}
+              card={card}
+              isLast={index === oneJourneyCards.length - 1}
+            />
           ))}
         </div>
 
@@ -84,7 +88,13 @@ export function OneJourneySection() {
           pushed to the far end rather than sitting next to the sentence — the two are
           separate claims, and side by side they read as one.
         */}
-        <div className="mt-7 flex shrink-0 flex-col items-start gap-3 sm:mt-10 sm:flex-row sm:items-end sm:justify-between sm:gap-8 lg:mt-8">
+        {/*
+          Centred below `sm`, and a justified row from there up. Stacked on a phone
+          these two are the only things on the line, and left-aligning a two-line
+          sentence over a big price leaves a ragged edge down the middle of the screen —
+          centred, they read as one closing block.
+        */}
+        <div className="mt-7 flex shrink-0 flex-col items-center gap-3 text-center sm:mt-10 sm:flex-row sm:items-end sm:justify-between sm:gap-8 sm:text-left lg:mt-8">
           <p className="type-heading max-w-[26rem] text-[clamp(1rem,1.6vw,1.375rem)] font-bold text-balance text-ink">
             {oneJourneyClosing.lead}{" "}
             <span className="font-accent text-brand">

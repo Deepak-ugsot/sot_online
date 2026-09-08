@@ -14,13 +14,14 @@ type GalleryCardProps = {
  * **At `lg` the card is exactly one viewport wide** (`w-full`), which is what lets the
  * carousel translate the track in whole `-100%` steps to bring each card into frame.
  *
- * **Below `lg` it is full width**, because there is no rail down there any more — the
- * cards stack vertically in document flow, so each one takes the whole column and the
- * next simply follows beneath it.
+ * **Below `lg` it is a fixed-width snap card** in a horizontal rail — `86%` of the
+ * viewport, so the next card peeks in from the right and says the row scrolls.
+ * `shrink-0` is what stops six cards being squeezed onto one screen instead of forming
+ * a rail.
  */
 export function GalleryCard({ card, priority = false }: GalleryCardProps) {
   return (
-    <article className="relative w-full lg:flex-none lg:snap-start lg:pr-[clamp(1.5rem,5vw,4.5rem)]">
+    <article className="relative w-[86%] shrink-0 snap-start sm:w-[70%] lg:w-full lg:flex-none lg:pr-[clamp(1.5rem,5vw,4.5rem)]">
       <GalleryCardMedia card={card} priority={priority} />
 
       <div className="flex flex-col items-start gap-3 pt-6 lg:flex-row lg:items-end lg:justify-between lg:gap-6">

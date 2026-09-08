@@ -14,9 +14,10 @@ type GalleryCardMediaProps = {
  * Layer order, bottom to top:
  *
  * 1. **Gradient** — painted on the container itself. Fills the panel while the photo
- *    loads and if it fails, so the card never flashes white.
- * 2. **Photo** — `fill` + `object-cover`, so it crops rather than distorts at any
- *    card size.
+ *    loads, if it fails, and for a card that has no photo yet.
+ * 2. **Photo, when the card has one** — `fill` + `object-cover`, so it crops rather
+ *    than distorts at any card size. A card without artwork simply skips this layer
+ *    and reads as a finished gradient panel rather than a broken image.
  * 3. **Scrim** — keeps the white display text readable over an unknown photo. This
  *    matters more with real photography than it did with the flat gradients, since
  *    nothing guarantees the lower half of the image is dark.
@@ -32,16 +33,18 @@ export function GalleryCardMedia({ card, priority = false }: GalleryCardMediaPro
       className="relative flex h-[46vh] max-h-[38.75rem] items-end overflow-hidden rounded-[4px] p-5 sm:p-8 lg:h-[62vh]"
       style={{ backgroundImage: card.gradient }}
     >
-      <Image
-        src={card.image}
-        alt=""
-        fill
-        priority={priority}
-        // The card is one viewport wide below `lg`, and roughly half of it above —
-        // this stops the optimizer serving a full-width image to the desktop layout.
-        sizes="(min-width: 1024px) 55vw, 100vw"
-        className="object-cover"
-      />
+      {card.image && (
+        <Image
+          src={card.image}
+          alt=""
+          fill
+          priority={priority}
+          // The card is one viewport wide below `lg`, and roughly half of it above —
+          // this stops the optimizer serving a full-width image to the desktop layout.
+          sizes="(min-width: 1024px) 55vw, 100vw"
+          className="object-cover"
+        />
+      )}
 
       <div
         aria-hidden="true"

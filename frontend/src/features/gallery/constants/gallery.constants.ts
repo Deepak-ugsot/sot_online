@@ -6,60 +6,99 @@ import type { GalleryCard, GalleryHeadingCopy } from "../types/gallery.types";
  */
 
 export const galleryHeading: GalleryHeadingCopy = {
-  lead: "Your 2-Year",
-  accent: "Engineering Journey",
+  lead: "Become a",
+  accent: "Complete Techie.",
 };
 
 /**
- * Journey artwork, in `public/assets/Journey/`.
- *
- * **The folder's and filenames' capitalisation is load-bearing.** They are passed
- * through verbatim, because macOS resolves `journey/become_industry_ready.jpg` just
- * fine while the Linux deploy target does not — a wrong case here would pass every
- * local check and 404 only in production.
- *
- * Each file is 1366×844. The media panel is ~55vw wide, which is 792px at a 1440
- * viewport, so the art covers it at 1× with room to spare, though it falls well
- * short of DPR 2.
+ * The line under the heading. Three sentences of what the programme is *not*, which is
+ * what makes the six cards that follow read as one whole rather than as six options.
  */
-const galleryImage = (file: string) => `/assets/Journey/${file}`;
+export const gallerySubtitle =
+  "Not someone who only knows DSA. Not someone who only knows React. Not someone who completed an AI certificate.";
 
+/**
+ * **Filename and folder capitalisation is load-bearing.** These paths are passed
+ * through verbatim, because macOS resolves `journey/become_industry.jpg` just fine
+ * while the Linux deploy target does not — a wrong case here would pass every local
+ * check and 404 only in production. Note `oppertunity/` is spelled that way on disk.
+ *
+ * Four of the six cards reuse the artwork from the previous journey set, matched to
+ * their nearest new meaning. **Two are placeholders** and marked as such on the card:
+ * "The Contributor" borrows the open-source photo, which is at least on topic, and
+ * "The Future-Tech Explorer" borrows the startup-challenges one, which is not — swap
+ * both when the real artwork exists.
+ */
+const journeyImage = (file: string) => `/assets/Journey/${file}`;
+const opportunityImage = (file: string) => `/assets/oppertunity/${file}`;
+
+/**
+ * The six facets of a "complete techie", in order.
+ *
+ * Each `overlay` is the card's own title, broken across two lines with a `\n` so the
+ * display type sets as two balanced lines over the panel rather than one long one. The
+ * break lives here with the copy rather than as a `<br />` in the component.
+ *
+ * Every card keeps its `gradient` even now that all six have artwork: it fills the
+ * panel while the photo loads and if the photo fails, so the card never flashes white
+ * and the overlay text stays legible either way.
+ */
 export const galleryCards: readonly GalleryCard[] = [
   {
-    id: "foundations",
-    image: galleryImage("Build_Strong(1).jpg"),
-    overlay: "Build Strong\nFoundations.",
-    title: "Build Strong Foundations",
+    id: "problem-solver",
+    image: journeyImage("Build_Strong(1).jpg"),
+    overlay: "The Problem\nSolver",
+    title: "The Problem Solver",
     description:
-      "Build a strong foundation in programming, Git & GitHub, Linux, computer science fundamentals, and problem-solving.",
-    gradient: "linear-gradient(160deg, #cfd6d8 0%, #8fa3ab 45%, #3d4b52 100%)",
+      "Build strong foundations in maths, programming, DSA, and competitive programming to sharpen your problem-solving skills and think like an engineer.",
+    gradient: "linear-gradient(160deg, #cfd6d8 0%, #8fa3ab 45%, #2f3a40 100%)",
   },
   {
-    id: "development",
-    image: galleryImage("Master_Software(1).jpg"),
-    overlay: "Master Software\nDevelopment.",
-    title: "Master Software Development",
+    id: "builder",
+    image: journeyImage("Master_Software(1).jpg"),
+    overlay: "The\nBuilder",
+    title: "The Builder",
     description:
-      "Learn frontend, backend, databases, APIs, and full stack development through hands-on projects.",
+      "Build real-world software across frontend, backend, databases, cloud, and systems to turn ideas into scalable products.",
     gradient: "linear-gradient(160deg, #e0c9b0 0%, #b5793f 45%, #4a2e18 100%)",
   },
   {
-    id: "ai",
-    image: galleryImage("Build_AI_Powered(1).jpg"),
-    overlay: "Build AI-Powered\nApplications.",
-    title: "Build AI-Powered Applications",
+    id: "ai-native",
+    image: journeyImage("Build_AI_Powered(1).jpg"),
+    overlay: "The AI-Native\nEngineer",
+    title: "The AI-Native Engineer",
     description:
-      "Master Generative AI, prompt engineering, AI APIs, AI agents, LangChain, and modern AI development.",
+      "Master GenAI, AI APIs, agents, and AI engineering to build intelligent products and become an AI-native engineer.",
     gradient: "linear-gradient(160deg, #c7d9db 0%, #4f8a90 45%, #1b3437 100%)",
   },
   {
-    id: "industry-ready",
-    image: galleryImage("Become_Industry(1).jpg"),
-    overlay: "Become\nIndustry Ready.",
-    title: "Become Industry Ready",
+    id: "contributor",
+    // PLACEHOLDER — on topic, but not shot for this card.
+    image: opportunityImage("Open_Source_Programs.jpg"),
+    overlay: "The\nContributor",
+    title: "The Contributor",
     description:
-      "Gain real-world experience through projects, internships, hackathons, mock interviews, resume building, and placement preparation.",
+      "Build your developer profile through GitHub, open source, GSoC preparation, and active developer communities.",
+    gradient: "linear-gradient(160deg, #d5cfe6 0%, #6f5fa6 45%, #241c3d 100%)",
+  },
+  {
+    id: "professional",
+    image: journeyImage("Become_Industry(1).jpg"),
+    overlay: "The\nProfessional",
+    title: "The Professional",
+    description:
+      "Build the communication, aptitude, interview, and career-readiness skills needed to confidently step into the professional world.",
     gradient: "linear-gradient(160deg, #e0c3c5 0%, #a3444b 45%, #2f1113 100%)",
+  },
+  {
+    id: "future-tech",
+    // PLACEHOLDER — stand-in only, unrelated to the copy.
+    image: opportunityImage("Startup_Challenges.jpg"),
+    overlay: "The Future-Tech\nExplorer",
+    title: "The Future-Tech Explorer",
+    description:
+      "Explore emerging technologies like quantum computing, cybersecurity, and robotics to understand and build for the future.",
+    gradient: "linear-gradient(160deg, #c8d3ea 0%, #4a63a0 45%, #16203c 100%)",
   },
 ] as const;
 

@@ -21,6 +21,7 @@ import { OneJourneySection } from "@/features/one-journey";
 import { OpportunitiesSection } from "@/features/opportunities";
 import { ReadinessSection } from "@/features/readiness";
 import { ShowcaseSection } from "@/features/showcase";
+import { TransformationSection } from "@/features/transformation";
 
 /**
  * Landing page.
@@ -47,6 +48,7 @@ export default function HomePage() {
           <ApproachSection />
           <OneJourneySection />
           <GallerySection />
+          <TransformationSection />
           <ShowcaseSection />
           <BuildspaceSection />
           <MentorsSection />
