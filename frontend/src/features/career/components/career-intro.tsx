@@ -20,10 +20,15 @@ export function CareerIntro() {
   return (
     <div
       data-career="intro"
-      // Basis is wider than the reference's 480px because the fallback face
-      // (Plus Jakarta Sans) sets wider than Neue Montreal — at 480px the heading
-      // spills onto a third line. Licensed fonts installed, this just leaves slack.
-      className="flex flex-col items-start lg:shrink lg:basis-[34rem] lg:justify-between"
+      // `38rem` = 608px, against the 594px "why are students still confused?" measures
+      // at the heading's 40px cap. The copy's own line break puts that whole phrase on
+      // the second line, so a narrower column would break it again mid-phrase and the
+      // heading would run to three lines. The 14px over is the whole margin there is
+      // at `7xl` — see the section's own comment for where the width goes.
+      //
+      // The fallback face (Plus Jakarta Sans) sets wider than Neue Montreal, so the
+      // licensed font only ever needs less than this.
+      className="flex flex-col items-start lg:shrink lg:basis-[38rem] lg:justify-between"
     >
       <div>
         {/* Keyline. Picks up the red of the list's arrows on this side of the
@@ -54,7 +59,7 @@ export function CareerIntro() {
 
         {/* `mb-9` is the floor, not the gap — on `lg` the column's own
             `justify-between` adds whatever is left over on top of it. */}
-        <p className="mt-6 mb-9 max-w-[30rem] text-base leading-relaxed text-ink-muted">
+        <p className="mt-6 mb-9 max-w-[47rem] text-base leading-relaxed text-ink-muted">
           {careerParagraph}
         </p>
       </div>

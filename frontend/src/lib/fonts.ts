@@ -1,6 +1,6 @@
 import {
+  Bricolage_Grotesque,
   Fraunces,
-  Playfair_Display,
   Plus_Jakarta_Sans,
   Sora,
 } from "next/font/google";
@@ -8,16 +8,16 @@ import {
 /**
  * Typography for the site.
  *
- * The reference design uses two licensed typefaces — **Neue Montreal** (UI + display)
- * and **Ivy Ora Display** (the red serif accent). Those cannot be redistributed here,
- * so each is declared as an `@font-face` in `globals.css` pointing at
- * `public/assets/fonts/`, with the Google fonts below as the next entry in the
- * fallback stack.
+ * **Neue Montreal** (UI + display) is licensed and cannot be redistributed here, so it
+ * is declared as an `@font-face` in `globals.css` pointing at `public/assets/fonts/`,
+ * with Plus Jakarta Sans below as the next entry in the fallback stack. Drop the
+ * `.otf` files in and it takes over automatically — no code change. Until then the
+ * browser falls through silently, and the stand-in is metric-similar enough to keep
+ * layout stable. See `README.md` → "Fonts" for the expected filenames.
  *
- * Drop the licensed `.otf` files into `public/assets/fonts/` and they take over
- * automatically — no code change. Until then the browser silently falls through to
- * the self-hosted Google equivalents, which are metric-similar enough to keep layout
- * stable. See `README.md` → "Fonts" for the expected filenames.
+ * The red accent face is **Bricolage Grotesque**, which is a real choice rather than a
+ * stand-in — it is served from Google Fonts and is what the accent is meant to be. It
+ * replaced Ivy Ora Display (and Playfair Display, which stood in for it).
  */
 
 /**
@@ -35,25 +35,25 @@ export const plusJakartaSans = Plus_Jakarta_Sans({
 });
 
 /**
- * Stand-in for Ivy Ora Display — the high-contrast serif used for the accent.
+ * The red accent face — the second colour in every two-tone heading on the page, and
+ * the whole of the footer's tagline plate.
  *
- * **Chosen on measured width, not on looks alone.** The previous stand-in was
- * Instrument Serif, which is a *condensed* display serif: it set "Software Engineer"
- * at 446px where the same string is 588px in Georgia and 631px in the body sans it
- * sits beside. Next to Neue Montreal's stand-in the accent read as squeezed, and no
- * amount of letter-spacing fixes that — tracking moves the glyphs apart, it does not
- * make narrow glyphs wide.
+ * A grotesque, not the high-contrast serif this role used to carry. The accent sets
+ * product names ("uGSOT Beyond") as often as it sets prose, and a display serif made
+ * a name read as decoration — it also rendered a deliberate lowercase initial as a
+ * stylistic flourish rather than as spelling.
  *
- * Playfair Display measures 597px, in line with the rest of the line, and keeps the
- * high-contrast display character the accent is for. It also ships a real 400–900
- * range, so the 500 the call sites ask for is an actual weight rather than something
- * the browser has to fake.
+ * Weights: 300 for the FAQ's light italic, 500 for the `font-medium` call sites, 700
+ * for the two accents in the Beyond College section, which inherit `font-bold` from
+ * their headings — without it loaded the browser fakes the bold by smearing the 600.
+ * 400/600 are headroom. There is no true italic in the family, so the FAQ's `italic`
+ * is a synthesised oblique — which is what the previous face did there too.
  */
-export const playfairDisplay = Playfair_Display({
+export const bricolageGrotesque = Bricolage_Grotesque({
   subsets: ["latin"],
-  weight: ["400", "500", "600"],
+  weight: ["300", "400", "500", "600", "700"],
   display: "swap",
-  variable: "--font-playfair-display",
+  variable: "--font-bricolage-grotesque",
 });
 
 /**
@@ -82,7 +82,7 @@ export const fraunces = Fraunces({
 /** Every font variable, ready to spread onto `<html>`. */
 export const fontVariables = [
   plusJakartaSans.variable,
-  playfairDisplay.variable,
+  bricolageGrotesque.variable,
   sora.variable,
   fraunces.variable,
 ].join(" ");

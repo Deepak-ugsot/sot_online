@@ -16,7 +16,11 @@ import { assets } from "@/config/site.config";
  * leaving the video unobstructed once the copy has gone.
  */
 const HERO_COPY_SCRIM = [
-  "linear-gradient(180deg, rgba(0,0,0,0) 4%, rgba(0,0,0,0.36) 20%, rgba(0,0,0,0.36) 78%, rgba(0,0,0,0) 94%)",
+  // The plateau starts at 12%, not 20%: the copy block begins with the eyebrow, which
+  // sits at roughly 13% of the stage at desktop. At 20% that first line landed on the
+  // ramp rather than the band, and brand red on the near-white plate is the least
+  // legible thing in the block — it needs the band more than the white type does.
+  "linear-gradient(180deg, rgba(0,0,0,0) 2%, rgba(0,0,0,0.36) 12%, rgba(0,0,0,0.36) 78%, rgba(0,0,0,0) 94%)",
   "linear-gradient(rgba(0,0,0,0.34), rgba(0,0,0,0.34))",
 ].join(", ");
 

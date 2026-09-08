@@ -1,7 +1,11 @@
 # Approach
 
-"Our Approach" — a pinned section that reveals one oversized word per scroll step:
-**Mentorship → Projects → AI-Powered → Career-Ready**.
+"You don't need more content. You need…" — a pinned section that completes its own
+sentence one oversized word per scroll step: **Direction → Discipline → Ecosystem**.
+
+The lead line and the three words are one statement, which is why the lead is set as a
+readable sentence rather than as the small letterspaced eyebrow this slot used to hold.
+Only the middle word carries the brand red, so the stack opens and closes in ink.
 
 ## Public API
 
@@ -55,7 +59,7 @@ last word had arrived.
 `gsap.set` hiding the rows. The reference hides them at module scope and then
 un-hides them in a static branch, which flashes the words to invisible first; here
 they simply render in place. The stage also drops its fixed viewport height and the
-eyebrow returns to normal flow, via Tailwind's `motion-reduce:` variants.
+lead returns to normal flow, via Tailwind's `motion-reduce:` variants.
 
 ## Layout notes
 
@@ -65,9 +69,21 @@ mask the text. Its job is to stop the oversized `whitespace-nowrap` words wideni
 document and producing a page-wide horizontal scrollbar on narrow viewports.
 
 **The clamp minimum is `2.625rem` (42px), not the reference's `52px`.** The fallback
-face (Plus Jakarta Sans) sets wider than Neue Montreal — at 52px "Career-Ready" needs
-400px and overflows a 390px viewport, getting visibly shaved at both ends. 42px clears
-every viewport down to 360px. Below that the `overflow-hidden` still catches it.
+face (Plus Jakarta Sans) sets wider than Neue Montreal. The value was measured against
+the longer set this section used to carry — at 52px "Career-Ready" needed 400px and
+overflowed a 390px viewport, getting visibly shaved at both ends. The current three
+words are shorter, so it now has room to spare: at 390 the widest ("Ecosystem") is
+253px against the viewport's 390. Below 360 the `overflow-hidden` still catches it.
+
+**The lead is absolutely positioned, and that is what keeps the word stack optically
+centred** in the pinned stage. In flow it would push the stack down by its own height
+for the whole pin. It carries `w-full px-6` because it is a real sentence now: without
+a width to wrap inside, a translated absolute element sizes to its content and runs off
+both edges of a phone. Measured at 390: one line at 17px, no horizontal overflow.
+
+**The reveal re-spaces itself.** `useApproachReveal` derives its row spacing from
+`rows.length`, so dropping from four words to three needed no change to the hook —
+the last word still lands exactly at the end of the content window.
 
 **Two-element structure is required by the pin** — same as the hero. The outer
 `<section>` is the trigger and must not clip, because GSAP inserts a pin spacer inside

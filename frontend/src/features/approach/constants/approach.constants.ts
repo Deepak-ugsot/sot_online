@@ -5,23 +5,25 @@ import type { ApproachWord } from "../types/approach.types";
  * component — see `features/hero/constants` for the same pattern.
  */
 
-export const approachEyebrow = "Our Approach";
+/**
+ * The lead-in, and half of one sentence: it runs straight into the three words below
+ * it — "You don't need more content. You need DIRECTION, DISCIPLINE, ECOSYSTEM." That
+ * is why it is set as a readable sentence rather than as the small letterspaced label
+ * this slot used to hold; a micro-eyebrow cannot carry a clause.
+ */
+export const approachLead = "You don't need more content. You need";
 
 /**
- * The words revealed one per scroll step.
+ * The words revealed one per scroll step, completing the sentence `approachLead`
+ * starts.
  *
- * `AI‑Powered` and `Career‑Ready` use a non-breaking hyphen (U+2011), matching the
- * reference. The words are `nowrap` anyway, but this keeps them unbreakable if that
- * ever changes.
- *
- * `accent` puts the two middle pillars in brand red, so the stack opens and closes
- * in ink with the colour carried in its centre.
+ * `accent` puts the middle word in brand red, so the stack opens and closes in ink
+ * with the colour carried at its centre.
  */
 export const approachWords: readonly ApproachWord[] = [
-  { id: "mentorship", label: "Mentorship" },
-  { id: "projects", label: "Projects", accent: true },
-  { id: "ai-powered", label: "AI‑Powered", accent: true },
-  { id: "career-ready", label: "Career‑Ready" },
+  { id: "direction", label: "Direction" },
+  { id: "discipline", label: "Discipline", accent: true },
+  { id: "ecosystem", label: "Ecosystem" },
 ] as const;
 
 /**

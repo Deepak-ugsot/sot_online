@@ -18,7 +18,7 @@ export function CareerHighlightList() {
   return (
     <ul
       data-career="list"
-      className="w-full list-none border-t border-hairline lg:shrink lg:basis-[29.8rem]"
+      className="w-full list-none border-t border-hairline lg:shrink lg:basis-[35rem]"
     >
       {careerHighlights.map((highlight) => (
         <li

@@ -36,8 +36,8 @@ italic** (the "Available 24×7" chip), rather than the site-wide `font-display` 
 
 That is the reference's own choice, not drift: this block reads as a product callout
 and is deliberately distinct from the marketing sections around it. Both are genuine
-Google fonts, so unlike Neue Montreal and Ivy Ora elsewhere these are the real
-typefaces rather than stand-ins.
+Google fonts, so unlike Neue Montreal elsewhere these are the real typefaces rather
+than a stand-in.
 
 The theme tokens are named after the typefaces (`font-sora`, `font-fraunces`) rather
 than a role, precisely because they are a local departure and not another rung on the

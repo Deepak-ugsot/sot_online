@@ -1,6 +1,7 @@
 import { SmoothScroll } from "@/components/smooth-scroll";
 import { AiMentorSection } from "@/features/ai-mentor";
 import { ApproachSection } from "@/features/approach";
+import { BeyondCollegeSection } from "@/features/beyond-college";
 import { BuildspaceSection } from "@/features/buildspace";
 import { CareerSection } from "@/features/career";
 import { CareerOsSection } from "@/features/career-os";
@@ -10,6 +11,7 @@ import { EcosystemSection } from "@/features/ecosystem";
 import { FaqSection } from "@/features/faq";
 import { SiteFooter } from "@/features/footer";
 import { GallerySection } from "@/features/gallery";
+import { GlobalAmbitionSection } from "@/features/global-ambition";
 import { SiteHeader } from "@/features/header";
 import { HeroSection } from "@/features/hero";
 import { JourneySection } from "@/features/journey";
@@ -38,6 +40,8 @@ export default function HomePage() {
       <SmoothScroll>
         <main>
           <HeroSection />
+          <BeyondCollegeSection />
+          <GlobalAmbitionSection />
           <CareerSection />
           <ApproachSection />
           <GallerySection />

@@ -3,9 +3,12 @@
 /* ---------------------------------------------------------------------------
    Licensed typefaces
    ---------------------------------------------------------------------------
-   Neue Montreal and Ivy Ora Display are the reference design's fonts. They are not
+   Neue Montreal is the reference design's UI + display face. It is not
    redistributable, so the files are not in this repo. Drop them into
    `public/assets/fonts/` using the names below and they take over automatically.
+
+   The red accent face is Bricolage Grotesque, served from Google Fonts via
+   `src/lib/fonts.ts` — it needs no local file and no `@font-face` here.
 
    Until then these `src` URLs 404 and the browser falls through to the next family
    in the stack (the self-hosted Google fonts wired up in `src/lib/fonts.ts`), so a
@@ -37,14 +40,6 @@
   font-family: "Neue Montreal";
   src: url("/assets/fonts/NeueMontreal-Bold.otf") format("opentype");
   font-weight: 700 900;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Ivy Ora Display";
-  src: url("/assets/fonts/Ivy-Ora-Display-Medium.otf") format("opentype");
-  font-weight: 500;
   font-style: normal;
   font-display: swap;
 }
@@ -84,8 +79,8 @@
   --font-sans: var(--font-plus-jakarta-sans), ui-sans-serif, system-ui, sans-serif;
   --font-display: "Neue Montreal", var(--font-plus-jakarta-sans), ui-sans-serif,
     system-ui, sans-serif;
-  --font-accent: "Ivy Ora Display", var(--font-playfair-display), ui-serif, Georgia,
-    serif;
+  --font-accent: var(--font-bricolage-grotesque), ui-sans-serif, system-ui,
+    sans-serif;
 
   /*
     The AI Mentor section is set in its own pair of faces. Named after the typefaces
@@ -200,20 +195,19 @@
   }
 
   /*
-    The accent serif always sits *inside* a display heading, and every one of those
+    The accent face always sits *inside* a display heading, and every one of those
     headings is tracked tight (-0.01em to -0.032em) — spacing tuned for Neue Montreal,
-    not for a serif. `letter-spacing` inherits, so without a reset here the serif picks
-    up tracking meant for a different typeface and its letters read as touching.
+    not for Bricolage Grotesque. `letter-spacing` inherits, so without a reset here the
+    accent picks up tracking meant for a different typeface and its letters read as
+    touching.
 
-    `normal` rather than a positive value: the face now has natural proportions, so the
-    right answer is the type designer's own spacing. The previous `0.035em` was
-    propping up a condensed stand-in (see `lib/fonts.ts`) — with a face of normal width
-    it would read as letter-spaced rather than natural.
+    `normal` rather than a positive value: the face has natural proportions, so the
+    right answer is the type designer's own spacing.
 
-    Setting it here rather than at each call site means the twelve `font-accent` spans
-    across the page cannot drift apart, and any span that genuinely needs different
-    spacing can still override it with a `tracking-*` utility — utilities beat the base
-    layer.
+    Setting it here rather than at each call site means the fourteen `font-accent`
+    spans across the page cannot drift apart, and any span that genuinely needs
+    different spacing can still override it with a `tracking-*` utility — utilities
+    beat the base layer.
   */
   .font-accent {
     letter-spacing: normal;

@@ -1,11 +1,12 @@
 # Career
 
-"College Gives You a Degree. We Help You Build a Career." — the first light section,
-sitting directly beneath the hero.
+"The internet has everything. So why are students still confused?" — a light section
+in the upper half of the page.
 
 Two columns on desktop: an intro (heading, paragraph, CTA) on the left and a
-hairline-ruled list of programme highlights on the right. Both reveal on scroll into
-view.
+hairline-ruled list on the right. The list is the heading's evidence — five questions
+in the student's own voice, not a list of features — so the two columns are one
+argument rather than a pitch beside a feature list. Both reveal on scroll into view.
 
 ## Public API
 
@@ -23,7 +24,7 @@ career/
 ├── components/
 │   ├── career-section.tsx         # Section shell + layout  ("use client")
 │   ├── career-intro.tsx           # Heading, paragraph, CTA (server)
-│   └── career-highlight-list.tsx  # Ruled highlight list    (server)
+│   └── career-highlight-list.tsx  # Ruled question list     (server)
 ├── constants/
 │   └── career.constants.ts        # Copy + the data-career selector map
 ├── hooks/
@@ -58,21 +59,48 @@ sync.
 
 ## Layout notes
 
-**Column widths are `basis`-sized, not a 50/50 split**, matching the reference's
-asymmetric measure and keeping the paragraph at a readable line length. The intro's
-basis is `34rem` rather than the reference's `480px` because the fallback face
-(Plus Jakarta Sans) sets wider than Neue Montreal — at `480px` the heading spills onto
-a third line. With the licensed fonts installed this simply leaves a little slack.
+**The section runs to `88rem`** — a step above `7xl`, and wider than the page's own
+`84rem` measure that every other block holds to. This block is two columns pushed to
+opposite edges rather than a centred body of text, so it needs more room between them
+than a centred one does.
+
+**Column widths are `basis`-sized, not a 50/50 split.** The intro is `38rem` (608px),
+sized against the 594px that "why are students still confused?" measures at the
+heading's 40px cap — the copy's own break puts that whole phrase on the second line, and
+a narrower column breaks it again mid-phrase and runs the heading to three lines. The
+list is `35rem` (560px), against the 550px the longest question ("Which competitions,
+projects & internships should I pursue?") needs including its arrow. Both leave a little
+slack, and the fallback face (Plus Jakarta Sans) sets wider than Neue Montreal, so the
+licensed font only ever needs less.
+
+**The gutter and trough are sized against 1280, not 1920.** The container stops growing
+at `88rem`, so the columns are at their tightest at 1280 — where `lg:px-10` and
+`lg:gap-8` leave exactly the 1168px the two bases ask for and nothing shrinks. Widening
+either by one step puts the heading back onto three lines *there* while changing nothing
+at 1920: past 1408 the surplus falls into the trough anyway, because `justify-between`
+hands it to the gap rather than to the columns.
+
+| Viewport | Content span | Columns   | Trough | Heading | Questions   |
+| -------- | ------------ | --------- | ------ | ------- | ----------- |
+| 1920     | 1328px       | 608 / 560 | 160px  | 2 lines | all 1 line  |
+| 1280     | 1200px       | 608 / 560 | 32px   | 2 lines | all 1 line  |
+| 1024     | 928px        | 475 / 437 | 32px   | 3 lines | one wraps   |
+
+1024 is the floor, and it degrades rather than breaking: there is genuinely not room for
+both columns at their natural widths there, so the heading takes a third line and the
+longest question wraps — which is the case the arrow alignment below is built for. No
+horizontal overflow at any width.
 
 **The heading's line break lives in the copy**, as a `\n` in `careerHeading.lead`
 rendered via `whitespace-pre-line`. That keeps the break alongside the text it belongs
 to instead of hard-coding a `<br />` in JSX.
 
 **The break waits for `sm`.** It is only an improvement while the first sentence still
-fits on one line; on a 375px phone at 28px it does not, so the line wraps anyway and
-the forced break then strands "Degree." alone on the second line. Below `sm` the
-heading is `whitespace-normal`, the `\n` collapses to a space, and the same words come
-out as three even lines.
+fits on one line; on a 390px phone at 28px it does not, so the line wraps anyway and
+the forced break then strands "why are" alone on a line. Below `sm` the heading is
+`whitespace-normal`, the `\n` collapses to a space, and the same words come out as
+three even lines. Verified at 390: no horizontal overflow, and the two questions that
+wrap keep their arrows on the first line.
 
 **Rules** come from a `border-t` on the list plus a `border-b` on each row, so the
 first and last rules sit flush with the list edges without doubling up.

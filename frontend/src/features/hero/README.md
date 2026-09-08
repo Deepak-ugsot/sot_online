@@ -3,9 +3,13 @@
 The landing page's opening section: a pinned, scroll-scrubbed video stage with the
 centred headline block and the scroll cue.
 
+The copy block is five elements top to bottom: eyebrow, headline, subtext, footnote,
+CTA row. The footnote sits *above* the buttons so it answers the "do I have to leave
+my degree?" objection before the reader reaches them.
+
 Scrolling pins the section and drives the background video's playhead directly —
-the video does not play on its own. While it scrubs, the headline, subtext, CTAs and
-scroll cue fade out on staggered offsets, then the pin releases.
+the video does not play on its own. While it scrubs, all five fade out on staggered
+offsets, then the pin releases.
 
 The header is **not** part of this feature. It is fixed site chrome that stays visible
 for the whole page — see `@/features/header`.
@@ -40,7 +44,7 @@ hero/
 ## The scroll animation
 
 `useHeroScrollAnimation` builds one GSAP `ScrollTrigger` that pins the stage over a
-runway of **2.4× viewport height** (1.6× at ≤1024px) with `scrub: 0.2`.
+runway of **2.4× viewport height** (0.6× at ≤1024px) with `scrub: 0.2`.
 
 **Video scrubbing.** `onUpdate` only records a target time; a `requestAnimationFrame`
 loop applies at most one seek per frame. Writing `currentTime` straight from the
@@ -54,13 +58,17 @@ flick can unpin the hero before the video has caught up. A trailing no-op tween
 stretches the timeline's own duration back to a true 1.0, so `scrub` doesn't apply
 that same compression twice.
 
-**Fade-out offsets** (as a fraction of the content window), matching the reference:
+**Fade-out offsets** (as a fraction of the content window). The block leaves roughly
+top-down: the eyebrow goes first and the CTA row last, so it dissolves in reading
+order rather than all at once.
 
-| Element     | Starts | Duration | Motion              |
-| ----------- | ------ | -------- | ------------------- |
-| Headline    | 0.02   | 0.30     | fade + `y: -46`     |
-| CTAs        | 0.04   | 0.28     | fade + `scale 0.92` |
-| Subtext     | 0.05   | 0.32     | fade + `y: -22`     |
+| Element  | Starts | Duration | Motion              |
+| -------- | ------ | -------- | ------------------- |
+| Eyebrow  | 0.00   | 0.28     | fade + `y: -52`     |
+| Headline | 0.02   | 0.30     | fade + `y: -46`     |
+| Footnote | 0.04   | 0.30     | fade + `y: -14`     |
+| Subtext  | 0.05   | 0.32     | fade + `y: -22`     |
+| CTAs     | 0.07   | 0.28     | fade + `scale 0.92` |
 
 The site header is deliberately absent from that list: it is fixed page chrome and
 stays put.
@@ -83,10 +91,38 @@ runway. The inner stage is what gets pinned and owns the `overflow-hidden`.
 **Copy lives in `constants/`.** No user-facing string is inline in JSX, so copy
 changes never touch a component — and there's one file to swap when this moves to a CMS.
 
-**Headline wrapping.** The reference renders the headline across two lines at
-desktop. Here it wraps freely with `text-balance` at every breakpoint — it settles
-on two lines at desktop widths and reflows on narrow viewports instead of
-overflowing.
+**Headline wrapping — the break is placed, not left to chance.** The headline is two
+sentences, and each is its own block, so the line break always lands on the full stop
+between them. Left to wrap on its own the first sentence broke as "Your college gives
+you a / degree.", which reads as a typesetting accident. Within each block the text
+still wraps freely with `text-balance`, so narrow viewports reflow onto more lines
+rather than overflowing.
+
+**The content column is `84rem`,** matching the career, mentors and AI-mentor sections
+so the page keeps one measure down its length. The headline is also the only thing that
+uses the full width: at `76rem` the second sentence was 94px too wide to hold one line
+at 72px. The eyebrow (`34rem`), subtext (`47rem`) and footnote (`42rem`) set their own
+narrower caps.
+
+**The headline's `clamp` slope is `5vw`, not `7.5vw`,** and that is what keeps the
+second sentence on one line as the viewport narrows. At `7.5vw` the headline reached
+its 72px cap by 1280 while the column was only 1216 wide: the sentence wrapped, the
+block grew to three lines, and at 1280×720 it overflowed its padded area and left the
+eyebrow 13px under the site header.
+
+Measured across the range — two lines everywhere from 768 up, and the slack is the
+stage's, so a positive number means nothing clips:
+
+| Viewport | Headline | Lines | Slack |
+| -------- | -------- | ----- | ----- |
+| 1440×900 | 72px     | 2     | 176px |
+| 1280×720 | 64px     | 2     | 46px  |
+| 1024×768 | 51px     | 2     | 175px |
+| 768×1024 | 38px     | 2     | 485px |
+| 390×844  | 26px     | 4     | 247px |
+| 320×700  | 26px     | 4     | 66px  |
+
+At 1440 the two lines set 1080px and 1310px against the 1344px column.
 
 **Viewport height.** The section uses `100svh` (with `100vh` as fallback) so the hero
 doesn't jump when mobile browser chrome collapses on scroll.
@@ -130,20 +166,32 @@ back to the reference's approach — export a frame sequence and draw to a canva
 
 ## On a phone
 
-The stage clips, so anything the content column outgrows is simply lost. At 320×700 it
-was: 564px of content in 492px of padded space, **72px over**, with the bottom of the
-CTAs cut off.
+The stage clips, so anything the content column outgrows is simply lost — and 320×700
+is the width everything here is tuned against. The current copy is longer than what it
+replaced and added two elements to the block, which put it **68px over** on first
+render.
 
-Three things fixed it, and each is a floor rather than a cap:
+Every value below is a floor rather than a preference:
 
-- **Column padding** steps down (`pt-24 pb-16`, `sm:pt-28 sm:pb-24`). The mobile header
-  is 72px rather than 79, and the stage has far less height to give away.
-- **The headline's `clamp` floor** drops from `2.125rem` to `1.75rem`. At the old floor
-  it stopped scaling below about 450px, so a 320px phone got five lines at 34px.
-- **The subtext floor** drops from `1rem` to `0.9375rem`.
+- **Column padding** steps down (`pt-20 pb-10`, `sm:pt-28 sm:pb-24`). The mobile header
+  is 72px, so `pt-20` still clears it by 8px.
+- **The headline's `clamp` floor** is `1.625rem`. It stopped scaling below about 450px
+  at the original `2.125rem`; the copy is two sentences now rather than one, so it
+  needs the extra room. The floor binds below roughly 520px, so both phone widths set
+  at 26px.
+- **The subtext floor** is `0.875rem`, and it sets `leading-normal` below `sm` — six
+  lines of `leading-relaxed` is the tallest single thing in the block on a phone.
+- **Gaps tighten below `sm`**: `mb-3` under the eyebrow, `mt-3.5` above the subtext,
+  `mt-3` above the footnote, `mt-5` above the CTA row.
 
-Measured after: 320×700 leaves **99px of slack** with the headline at 28px on four
-lines; 390×844 leaves 261px. Nothing clips at either.
+Measured after, with the block at 514px: 320×700 leaves **66px of slack**, clearing the
+header by 41px and the stage's bottom edge by 73px. 390×844 leaves 247px. Nothing clips
+at either.
+
+**A caveat on every width in this file.** `Neue Montreal` is licensed and not in the
+repo (see `lib/fonts.ts`), so these were measured against its stand-in, Plus Jakarta
+Sans. Drop the real `.otf` files into `public/assets/fonts/` and re-check the 1440
+headline and the 320 slack — the metrics are close but not identical.
 
 **The CTAs are full-width when stacked**, capped at `20rem`. Left to size themselves
 they came out 189px and 192px — near-identical but not identical, which on a centred

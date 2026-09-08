@@ -50,7 +50,25 @@ export function CareerSection() {
         rows pushed the list a screen away from the copy it belongs to. `gap-9` keeps
         the CTA and the list reading as one block; `lg:gap-20` is unchanged.
       */}
-      <div className="mx-auto flex max-w-[84rem] flex-col items-start justify-between gap-9 px-6 py-[4.5rem] sm:px-8 lg:flex-row lg:items-stretch lg:gap-20 lg:px-20 lg:py-[6.25rem]">
+      {/*
+        `88rem` — a step above `7xl` (80rem), and well short of the page-wide `84rem`
+        measure being abandoned entirely.
+
+        The floor is set by the columns, not by taste: they need 1144px between them —
+        594px to hold "why are students still confused?" on one line at the heading's
+        40px cap, and 550px to hold the longest question on one line. At `7xl` with the
+        section's old `lg:px-20` gutter and `lg:gap-20` trough there was only 1120,
+        which broke the heading onto a third line.
+
+        **The gutter and trough are sized against 1280, not against 1920.** The
+        container stops growing at `88rem`, so the columns are tightest at 1280 — where
+        `lg:px-10` and `lg:gap-8` leave exactly the 1168px their bases ask for, and
+        nothing shrinks. Widening either by one step puts the heading back onto three
+        lines *there* while changing nothing at 1920, because past 1408 the surplus
+        falls into the trough anyway: `justify-between` hands it to the gap rather than
+        to the columns, so the trough reads as 160px at 1920 regardless.
+      */}
+      <div className="mx-auto flex max-w-[88rem] flex-col items-start justify-between gap-9 px-6 py-[4.5rem] sm:px-8 lg:flex-row lg:items-stretch lg:gap-8 lg:px-10 lg:py-[6.25rem]">
         <CareerIntro />
         <CareerHighlightList />
       </div>

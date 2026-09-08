@@ -222,7 +222,7 @@ Tailwind CSS v4, configured **in CSS** (`src/app/globals.css`) rather than a
 | `--color-rule`       | `rgba(30,32,34,.2)` — row rules   | `border-t-rule`               |
 | `--color-rule-soft`  | `rgba(30,32,34,.12)` — col rules  | `border-r-rule-soft`          |
 | `--font-display`     | Neue Montreal → Plus Jakarta Sans | `font-display`                |
-| `--font-accent`      | Ivy Ora Display → Playfair Display | `font-accent`                |
+| `--font-accent`      | Bricolage Grotesque               | `font-accent`                 |
 | `--font-sora`        | Sora — AI Mentor section only     | `font-sora`                   |
 | `--font-fraunces`    | Fraunces italic — AI Mentor only  | `font-fraunces`               |
 | `--ease-cinematic`   | `cubic-bezier(0.22, 1, 0.36, 1)`  | `ease-cinematic`              |
@@ -264,31 +264,33 @@ It used to be a positive `0.035em` instead, propping up an over-tight stand-in �
 
 ## Fonts
 
-The design uses two **licensed** typefaces that are not in this repo:
+**Neue Montreal** — the UI and display face — is licensed and not in this repo:
 
-| Family            | Expected file                                      |
-| ----------------- | -------------------------------------------------- |
-| Neue Montreal     | `public/assets/fonts/NeueMontreal-Regular.otf`      |
-|                   | `public/assets/fonts/NeueMontreal-Medium.otf`       |
-|                   | `public/assets/fonts/NeueMontreal-Bold.otf`         |
-| Ivy Ora Display   | `public/assets/fonts/Ivy-Ora-Display-Medium.otf`    |
+| Family        | Expected file                                 |
+| ------------- | --------------------------------------------- |
+| Neue Montreal | `public/assets/fonts/NeueMontreal-Regular.otf` |
+|               | `public/assets/fonts/NeueMontreal-Medium.otf`  |
+|               | `public/assets/fonts/NeueMontreal-Bold.otf`    |
 
-They are declared as `@font-face` in `globals.css`, with **Plus Jakarta Sans** and
-**Playfair Display** (self-hosted via `next/font/google`) next in the fallback stack.
+It is declared as `@font-face` in `globals.css` with **Plus Jakarta Sans**
+(self-hosted via `next/font/google`) next in the fallback stack. Drop the licensed
+files in at those exact paths and they take over automatically — no code change.
+Until then the `@font-face` URLs 404 and the browser falls through to the stand-in,
+so the site renders correctly either way.
 
-Playfair replaced **Instrument Serif** as the accent stand-in because Instrument Serif
-is a *condensed* display face: at 72px it set "Software Engineer" at **446px**, where
-the same string is 588px in Georgia and 631px in the body sans it sits beside — so the
-accent read as squeezed against the rest of its own line. Tracking cannot fix that; it
-moves narrow glyphs apart rather than making them wide, which is why the old base rule
-had to add `0.035em` and still looked tight. Playfair measures **597px**, and it ships a
-real 400–900 range, so the 500 the call sites ask for is an actual weight instead of a
-synthetic bold — which also retired a `-webkit-text-stroke` hack that existed only to
-thicken a single-weight face.
+**Bricolage Grotesque** is the red accent face — the second colour in every two-tone
+heading, and the whole of the footer's tagline plate. It comes from Google Fonts via
+`next/font/google`, so it is the real typeface rather than a stand-in, and needs no
+local file or `@font-face`.
 
-Drop the licensed files in at those exact paths and they take over automatically —
-no code change. Until then the `@font-face` URLs 404 and the browser falls through to
-the Google fallbacks, so the site renders correctly either way.
+It replaced **Ivy Ora Display** (and **Playfair Display**, which stood in for it).
+The accent sets product names as often as it sets prose, and a high-contrast display
+serif made a name read as decoration — it also rendered a deliberate lowercase initial
+as a stylistic flourish rather than as spelling. Weights 300–700 are loaded: 300 for
+the FAQ's light italic, 500 for the `font-medium` call sites, 700 for the accents that
+inherit `font-bold` from their heading. The family ships
+no true italic, so the FAQ's is a synthesised oblique — as it was under the previous
+face too.
 
 ## Responsive breakpoints
 
