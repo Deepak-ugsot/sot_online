@@ -1,7 +1,7 @@
 # AI Mentor
 
-"Meet your personal AI Career Mentor." — copy on the left of the dark band, the mentor
-figure standing at its bottom-right.
+"Don't just build for yourself. Build with the world." — copy on the left of a dark
+band, an android holding a GitHub mark standing at its right.
 
 ## Public API
 
@@ -25,101 +25,66 @@ ai-mentor/
 └── README.md
 ```
 
-No `types/` — the section's data is plain strings and one image descriptor, so there is
-nothing worth naming. Add the folder when real shapes appear.
+## The two-tone band
 
-## Its own typefaces
+The section is **two flat colours meeting on a hard line, not a gradient.** A light
+strip runs across the top and the rest is near-black; the figure is painted *over* the
+seam, so its head sits in the light while its body is in the dark. That layering is the
+design — the figure is what makes the two grounds read as one section rather than two
+stacked bands.
 
-The only section set in **Sora** (eyebrow, heading, description, pills) and **Fraunces
-italic** (the "Available 24×7" chip), rather than the site-wide `font-display` /
-`font-accent` pairing.
+Three things are load-bearing:
 
-That is the reference's own choice, not drift: this block reads as a product callout
-and is deliberately distinct from the marketing sections around it. Both are genuine
-Google fonts, so unlike Neue Montreal elsewhere these are the real typefaces rather
-than a stand-in.
+- **Nothing clips vertically.** The section is `overflow-x-clip`, not
+  `overflow-hidden`: the glow discs are wider than the section and were producing a
+  page-wide horizontal scrollbar, but `hidden` would also force `overflow-y: auto` and
+  cut the head off at exactly the seam the design is built around. `clip` on one axis
+  leaves the other genuinely `visible`.
+- **The band's height is a shared constant.** `AI_MENTOR_BAND_HEIGHT` sets both the
+  strip and the spacer above the copy, because the section's height is set by its own
+  copy — a percentage band would ask the copy to clear a distance the copy defines.
+  `lg:h-28` keeps it inside the reference's 15–20% at both ends of the desktop range
+  (17% at 1440, 20% at 1024); the earlier `h-32` came out at 23% on the short one.
+- **The figure spans the full section height,** `inset-y-0`, with the image
+  bottom-anchored. Anchored to the dark area alone it would stop at the seam.
 
-The theme tokens are named after the typefaces (`font-sora`, `font-fraunces`) rather
-than a role, precisely because they are a local departure and not another rung on the
-site's type scale.
+**Width is what sets how far the head rises.** `object-contain` is width-bound here, so
+the render is `boxWidth / 1.083` tall. At 46% it cleared the seam by ~20px and the head
+read as sitting *on* the line; at 52–54% the render is taller than the dark area at
+every desktop width, which is the only way the head reliably lands in the light.
 
-## Layout
+## The copy column is sized by the heading
 
-**The figure is absolutely positioned from `lg` up, not a grid column.** It has to run
-to the viewport's right edge and sit flush with the band's bottom, and a column inside
-the page's `84rem` measure can do neither — it would stop short on both sides. Taking
-it out of flow also means the section's height is set by the copy alone, so the artwork
-can never push the band taller than the words need.
+`40rem`, and the number comes from one sentence: "Don't just build for yourself."
+measures 575px at the heading's 44px cap. At the earlier `36rem` (576px) it wrapped,
+which turned the copy's deliberate two-line heading into three. The `2.75rem` cap on
+the heading is the other half of that — at `3rem` the same sentence needed 627px and no
+sane column width would hold it.
 
-Below `lg` the figure drops back into normal flow beneath the copy. It is still flush
-with the bottom edge, because nothing follows it inside the section.
+The figure needs 52–54% and the copy 50%, so the two are close to 100% of the section.
+They clear each other because the render carries about 4% of transparent margin down
+its left edge — verified, the artwork's left edge lands right of the copy's right edge
+at 1440.
 
-### Why the two halves cannot collide
+## Measured
 
-The copy is capped at `34rem` inside a centred `84rem` container; the figure is `42%`
-of the viewport anchored right, stepping to `46%` at `xl` where that cap stops binding.
-The tightest case is 1024 — the narrowest viewport using this layout — where the copy
-ends at 568px and the figure's box starts at 594px. Everything wider only opens the gap.
+| Viewport | Result                                                                    |
+| -------- | ------------------------------------------------------------------------- |
+| 1440×900 | Heading 2 lines, band 17%, head 112px into the light, art clears the copy |
+| 1024×900 | Heading 2 lines, band 20%, head 49px into the light                       |
+| 390×900  | Band 80px, figure drops into flow below the copy, no horizontal overflow  |
 
-On top of that the image is `object-contain`, so it is scaled to fit inside its box
-whichever dimension binds; it cannot spill sideways even if the numbers above are ever
-edited into overlap.
+## Accessibility
 
-## The figure
+- The figure's `alt` is empty. It is a stylised render of an android holding a GitHub
+  mark, not information: the heading beside it says "Build with the world" and the
+  description names open source and GSoC outright.
+- The chips are a real `<ul>` — seven steps along one path, in order.
+- The section is labelled by its `<h2>`.
 
-`public/assets/ai_mentor.png`, 625×694, anchored `object-bottom` so the subject runs off
-the section's bottom edge rather than floating in it.
+## A naming note
 
-**It is a true cut-out, verified rather than assumed:** the file's corners are
-`alpha: 0` and the subject is `alpha: 253`, with content reaching the image's own bottom
-and right edges. That is what makes the bottom-right anchoring work — the crop is
-already built for it, so there is no rectangle edge to hide.
-
-`alt` is deliberately empty. The render is decorative: the heading beside it already
-says "Meet your personal AI Career Mentor" and the description says what the mentor
-does, so alt text would only make a screen reader announce the artwork's styling.
-
-This replaced a `YouTubeEmbed` panel that was playing a placeholder video. Nothing else
-in the section depended on it.
-
-## The availability chip
-
-"Available 24×7" is a live-status chip — a `animate-ping` dot in brand red behind a
-solid one — not a line of text. A pulsing dot is the conventional shorthand for "up
-right now", which is exactly what the claim asserts; as flat text beside the eyebrow it
-said the same thing far more quietly.
-
-No reduced-motion guard is needed at the call site: `globals.css` cuts every animation
-on the page to a single 0.01ms pass under that preference.
-
-## The glow
-
-Two blurred brand-red discs behind the figure, `aria-hidden`. The tight one gives the
-glow a core that reads as coming from the figure; the wide one lifts the right side of
-the band off flat `#1b1b1f`.
-
-The section is `isolate overflow-hidden` for them: without `isolate` a `-z-10` child
-escapes to the root stacking context and paints *behind* the section's own background,
-where it is invisible, and `overflow-hidden` clips discs that are deliberately wider
-than the band.
-
-## The reveal
-
-Both halves share one `ScrollTrigger` at `top 85%`, `once: true`.
-
-| Target      | Motion                                      | Timing              |
-| ----------- | ------------------------------------------- | ------------------- |
-| Copy        | fade + `y: 60 → 0`                          | 0.9s `power3.out`   |
-| Figure (lg) | fade + `x: 80 → 0`, `scale: 0.96 → 1`       | 1.1s `power3.out`   |
-| Figure (sm) | fade + `y: 40 → 0`, `scale: 0.96 → 1`       | 1.1s `power3.out`   |
-
-The copy animates as **one block**, not per-child — it is a flex stack, so tweening the
-eyebrow, heading, description, pills and CTA individually would animate the gaps between
-them and let them overlap mid-flight.
-
-The figure scales from `transformOrigin: "bottom center"`, not its centre: it stands on
-the section's bottom line, and scaling about the centre would lift it off that line and
-drop it back down.
-
-The stacked breakpoint rises instead of sliding. See the comment in the hook for why an
-`x` from-state is wrong there.
+The feature is still called `ai-mentor` and the section keeps `id="ai-mentor"`, because
+that anchor is the section's address on the page. The content is now about open source
+and GSoC rather than an AI mentor, so the name no longer describes it — worth renaming
+in one pass if any other anchor work comes up.
