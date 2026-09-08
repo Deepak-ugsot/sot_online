@@ -32,7 +32,14 @@ export function ApproachWords() {
           {/*
             152px / 106% / -0.02em on desktop, uppercase — the ratios are kept in
             em so they hold across the clamp, and the `9.5rem` cap is the 152px
-            desktop size. `uppercase` here rather than in the copy, because unlike
+            desktop size.
+
+            **The `17vh` term caps the words by the stage's height, not just the
+            viewport's width.** The stage is exactly one viewport tall and the stack is
+            three of these rows, so on a short laptop the words would otherwise outgrow
+            the space between the lead sentence and the stage's bottom edge and get
+            clipped. At 900px tall `17vh` is 153px, so the `9.5rem` cap still wins and
+            a normal desktop is unaffected. `uppercase` here rather than in the copy, because unlike
             the hero's CTA labels or "uGSOT BEYOND" these are ordinary words with no
             casing of their own to preserve.
 
@@ -56,7 +63,7 @@ export function ApproachWords() {
           <span
             className={cn(
               "block whitespace-nowrap font-display font-black not-italic uppercase",
-              "text-[clamp(2.875rem,10.5vw,9.5rem)] leading-[1.06] tracking-[-0.02em]",
+              "text-[clamp(2.875rem,min(10.5vw,17vh),9.5rem)] leading-[1.06] tracking-[-0.02em]",
               // See the note above: this is what actually carries the extra weight
               // while the stand-in face is capped at 800. `em`, so it scales with the
               // clamp instead of overwhelming the 46px mobile size.

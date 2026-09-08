@@ -33,29 +33,28 @@ export function ApproachSection() {
       <div
         data-approach="stage"
         className={
-          "relative flex h-[100vh] h-[100svh] w-full flex-col items-center justify-center overflow-hidden " +
+          "relative flex h-[100vh] h-[100svh] w-full flex-col items-center justify-center gap-[clamp(1.5rem,5vh,4.5rem)] overflow-hidden px-6 pt-[7.5rem] pb-16 " +
           "motion-reduce:h-auto motion-reduce:gap-2 motion-reduce:overflow-visible motion-reduce:px-6 motion-reduce:py-30"
         }
       >
         {/*
-          `top` clears the fixed site header (~79px), which sits over this stage for
-          the whole time it is pinned. The reference design has no persistent header,
-          so its own offset would put this line behind ours.
+          **In flow, not absolutely positioned.** It used to be pinned at a fixed
+          `top`, which kept the word stack dead-centre in the stage — but the two were
+          then laid out independently, and on a short viewport they collided: at
+          1600×700 the stack's top sat 58px *above* this line's bottom, running
+          "DIRECTION" straight through the sentence. No word size fixes that, because
+          the stack grows from the centre while this line stays put.
 
-          Absolutely positioned, and that is what keeps the word stack optically
-          centred in the pinned stage: in flow, this line would push the words down by
-          its own height and the stack would sit low for the whole pin.
+          As a flex child the overlap cannot happen at all, and the stage's
+          `pt-[7.5rem]` is what clears the fixed site header (~79px) that sits over
+          this stage for the whole pin.
 
-          `w-full px-6` because it is a real sentence now rather than a two-word label
-          — without a width to wrap inside, a translated absolute element sizes to its
-          content and runs off both edges of a phone.
+          `w-full` because it is a real sentence rather than a two-word label, and
+          needs a width to wrap inside on a phone.
         */}
         <p
           id="approach-lead"
-          className={
-            "absolute top-[7.5rem] left-1/2 w-full -translate-x-1/2 px-6 text-center font-display text-[clamp(1.0625rem,2.1vw,2.5rem)] leading-snug font-medium tracking-[-0.01em] text-balance text-ink " +
-            "motion-reduce:static motion-reduce:mb-8 motion-reduce:translate-x-0"
-          }
+          className="w-full text-center font-display text-[clamp(1.0625rem,2.1vw,2.5rem)] leading-snug font-medium tracking-[-0.01em] text-balance text-ink"
         >
           {approachLead}
         </p>
