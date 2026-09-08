@@ -5,6 +5,7 @@ import { BeyondCollegeSection } from "@/features/beyond-college";
 import { BuildspaceSection } from "@/features/buildspace";
 import { CareerSection } from "@/features/career";
 import { CareerOsSection } from "@/features/career-os";
+import { CompeteSection } from "@/features/compete";
 import { CurriculumSection } from "@/features/curriculum";
 import { DashboardSection } from "@/features/dashboard";
 import { EcosystemSection } from "@/features/ecosystem";
@@ -15,7 +16,6 @@ import { GlobalAmbitionSection } from "@/features/global-ambition";
 import { SiteHeader } from "@/features/header";
 import { HeroSection } from "@/features/hero";
 import { JourneySection } from "@/features/journey";
-import { MentorsSection } from "@/features/mentors";
 import { NotAnotherCourseSection } from "@/features/not-another-course";
 import { OneJourneySection } from "@/features/one-journey";
 import { OpportunitiesSection } from "@/features/opportunities";
@@ -49,19 +49,19 @@ export default function HomePage() {
           <OneJourneySection />
           <GallerySection />
           <TransformationSection />
+          <CompeteSection />
+          <AiMentorSection />
           <ShowcaseSection />
           <BuildspaceSection />
-          <MentorsSection />
+          <CurriculumSection />
           <EcosystemSection />
           <NotAnotherCourseSection />
-          <AiMentorSection />
           <CareerOsSection />
           <ReadinessSection />
           <DashboardSection />
           <OpportunitiesSection />
           <JourneySection />
           <FaqSection />
-          <CurriculumSection />
         </main>
 
         <SiteFooter />
