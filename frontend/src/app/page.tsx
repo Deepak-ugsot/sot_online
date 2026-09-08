@@ -4,6 +4,7 @@ import { ApproachSection } from "@/features/approach";
 import { BuildspaceSection } from "@/features/buildspace";
 import { CareerSection } from "@/features/career";
 import { CareerOsSection } from "@/features/career-os";
+import { CurriculumSection } from "@/features/curriculum";
 import { DashboardSection } from "@/features/dashboard";
 import { EcosystemSection } from "@/features/ecosystem";
 import { FaqSection } from "@/features/faq";
@@ -52,6 +53,7 @@ export default function HomePage() {
           <OpportunitiesSection />
           <JourneySection />
           <FaqSection />
+          <CurriculumSection />
         </main>
 
         <SiteFooter />

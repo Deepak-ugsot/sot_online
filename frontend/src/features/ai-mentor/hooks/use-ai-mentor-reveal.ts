@@ -6,24 +6,18 @@ import { gsap } from "@/lib/gsap";
 import { AI_MENTOR_SELECTORS } from "../constants/ai-mentor.constants";
 
 /**
- * Width at which the copy and media columns stop sharing a row.
+ * Width at which the copy and the figure stop sharing a row.
  *
- * The two are `flex-[1_1_26.25rem]` inside a `gap-15 px-6` row, so they need
- * `2 × 420 + 60 + 48 = 948px` to sit side by side. Rounded up to the `lg` breakpoint the
- * rest of the page already turns on, so the entrance changes on the same line the
- * layout does.
+ * The section switches at Tailwind's `lg`, where the figure leaves normal flow and is
+ * absolutely anchored to the band's bottom-right, so the entrance changes on exactly
+ * the same line the layout does.
  */
 const TWO_COLUMN_MIN_WIDTH = 1024;
 
 /**
- * Reveals the copy column and the video panel together as the section scrolls in.
+ * Reveals the copy and the mentor figure together as the section scrolls in.
  *
  * Fires once and does not reverse — this is an entrance, not a scroll-linked effect.
- *
- * The reference has no entrance here; its right-hand panel is an animated chat demo
- * that plays on its own instead. Since that panel is a video, this matches the
- * copy-plus-media entrance used by the "Not Another Course" section so the two read
- * consistently.
  *
  * @param scopeRef - The section element. Selectors are scoped to it via
  *   `gsap.context`, so the hook can never reach outside its own feature.
@@ -51,8 +45,8 @@ export function useAiMentorReveal(scopeRef: RefObject<HTMLElement | null>) {
           const scrollTrigger = { trigger: scope, start: "top 85%", once: true };
 
           // Animated as one block rather than per-child: the column is a flex stack, so
-          // tweening the eyebrow, heading, tagline and pills separately would animate
-          // the gaps between them and let them overlap mid-flight.
+          // tweening the eyebrow, heading, description, pills and CTA separately would
+          // animate the gaps between them and let them overlap mid-flight.
           gsap.from(AI_MENTOR_SELECTORS.copy, {
             opacity: 0,
             y: 60,
@@ -61,22 +55,28 @@ export function useAiMentorReveal(scopeRef: RefObject<HTMLElement | null>) {
             scrollTrigger,
           });
 
-          gsap.from(AI_MENTOR_SELECTORS.media, {
+          gsap.from(AI_MENTOR_SELECTORS.portrait, {
             opacity: 0,
-            // Sliding in "from the right" only means anything while there *is* a right
-            // column to slide out of. Once the flex row wraps, the panel is full-bleed
-            // and its own width leaves no horizontal room to travel through: a `from`
-            // state of `x: 100` then parks it 100px past the right edge, and because a
-            // `from` tween holds that state until its ScrollTrigger fires — which for a
-            // section this far down the page is not until the user reaches it — the
-            // document is born 65px too wide and the whole page scrolls sideways.
+            // Sliding in "from the right" only means anything while the figure *is* a
+            // right-hand column. Once the layout stacks, the figure is full-bleed and
+            // its own width leaves no horizontal room to travel through: an `x: 80`
+            // from-state parks it 80px past the right edge, and because a `from` tween
+            // holds that state until its ScrollTrigger fires — which for a section
+            // this far down the page is not until the user reaches it — the document
+            // would be born too wide.
             //
-            // So the stacked layout rises instead, which is also the entrance the copy
-            // column above it already uses.
-            x: isSideBySide ? 100 : 0,
+            // The section clips its own overflow now, so that can no longer reach the
+            // page, but the tween is still wrong there: it would animate a figure that
+            // is partly hidden behind the section's edge. So the stacked layout rises
+            // instead, matching the copy above it.
+            x: isSideBySide ? 80 : 0,
             y: isSideBySide ? 0 : 40,
-            scale: 0.94,
-            duration: 1,
+            // A hair under 1, and scaled from its own bottom edge: the figure stands on
+            // the section's bottom line, and scaling about the centre would lift it off
+            // that line and drop it back down.
+            scale: 0.96,
+            transformOrigin: "bottom center",
+            duration: 1.1,
             ease: "power3.out",
             scrollTrigger,
           });
