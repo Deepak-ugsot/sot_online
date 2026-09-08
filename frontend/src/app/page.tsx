@@ -17,6 +17,7 @@ import { HeroSection } from "@/features/hero";
 import { JourneySection } from "@/features/journey";
 import { MentorsSection } from "@/features/mentors";
 import { NotAnotherCourseSection } from "@/features/not-another-course";
+import { OneJourneySection } from "@/features/one-journey";
 import { OpportunitiesSection } from "@/features/opportunities";
 import { ReadinessSection } from "@/features/readiness";
 import { ShowcaseSection } from "@/features/showcase";
@@ -44,6 +45,7 @@ export default function HomePage() {
           <GlobalAmbitionSection />
           <CareerSection />
           <ApproachSection />
+          <OneJourneySection />
           <GallerySection />
           <ShowcaseSection />
           <BuildspaceSection />
