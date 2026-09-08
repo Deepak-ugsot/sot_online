@@ -81,14 +81,17 @@ export function useBeyondCollegeReveal(scopeRef: RefObject<HTMLElement | null>) 
               });
             });
 
-          // Lands after the panels have closed on it, so it reads as the join being
-          // made rather than as a third thing arriving alongside them.
-          gsap.from(BEYOND_COLLEGE_SELECTORS.badge, {
+          // Rises after the panels have closed on either side of him, so he reads as
+          // the thing they arrived for rather than as a third panel.
+          //
+          // `y` rather than a scale pop: the figure stands on the row's baseline, and
+          // scaling about the centre would lift him off it and drop him back down.
+          gsap.from(BEYOND_COLLEGE_SELECTORS.student, {
             opacity: 0,
-            scale: 0.4,
-            duration: 0.6,
-            ease: "back.out(2)",
-            delay: 0.35,
+            y: 44,
+            duration: 0.8,
+            ease: "power3.out",
+            delay: 0.3,
             scrollTrigger: panelTrigger,
           });
 

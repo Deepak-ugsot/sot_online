@@ -43,7 +43,7 @@ export const beyondCollegePanels: readonly [
     items: [
       {
         id: "degree",
-        icon: "file",
+        icon: "cap",
         title: "Your degree",
         description: "A recognized qualification",
       },
@@ -55,7 +55,7 @@ export const beyondCollegePanels: readonly [
       },
       {
         id: "exams",
-        icon: "fileCheck",
+        icon: "document",
         title: "Your exams",
         description: "Structured academic journey",
       },
@@ -113,12 +113,30 @@ export const beyondCollegePanels: readonly [
 ] as const;
 
 /**
+ * The student who stands between the two panels, holding them together.
+ *
+ * **The alt text is not empty, unlike the page's other portraits.** This render has
+ * the section's own argument lettered into it — "Same College." on one side, "Bigger
+ * Future." on the other, with an arrow between them — so it carries text a screen
+ * reader would otherwise never reach. The `alt` is that lettering, not a description
+ * of the photograph.
+ *
+ * `width` / `height` are the file's real pixels, used to reserve the box's ratio.
+ */
+export const beyondCollegeStudent = {
+  src: "/assets/college_student.png",
+  width: 546,
+  height: 608,
+  alt: "Same college. Bigger future.",
+} as const;
+
+/**
  * Animation hooks, by `data-beyond-college` attribute rather than class name, so
  * restyling a component can never silently break the reveal. Mirrors `HERO_SELECTORS`.
  */
 export const BEYOND_COLLEGE_SELECTORS = {
   header: '[data-beyond-college="header"]',
   panel: '[data-beyond-college="panel"]',
-  badge: '[data-beyond-college="badge"]',
+  student: '[data-beyond-college="student"]',
   closing: '[data-beyond-college="closing"]',
 } as const;
