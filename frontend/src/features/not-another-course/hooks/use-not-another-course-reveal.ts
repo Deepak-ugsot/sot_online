@@ -6,17 +6,18 @@ import { gsap } from "@/lib/gsap";
 import { NOT_ANOTHER_COURSE_SELECTORS } from "../constants/not-another-course.constants";
 
 /**
- * Width at which the captions move out beside the collage.
+ * Width at which the labels move out into the collage's corners.
  *
- * Matches the `min-[1100px]:absolute` in `not-another-course-caption.tsx` exactly — the
- * entrance and the layout have to change on the same line, or the captions animate along
+ * Matches the `min-[1100px]:absolute` in `not-another-course-label.tsx` exactly — the
+ * entrance and the layout have to change on the same line, or the labels animate along
  * an axis they do not actually sit on.
  */
-const CAPTIONS_BESIDE_MIN_WIDTH = 1100;
+const LABELS_AROUND_MIN_WIDTH = 1100;
 
 /**
- * Reveals the section as it scrolls in: the heading rises, the collage settles up out
- * of a slight shrink, and the two captions arrive last from their own sides.
+ * Reveals the section as it scrolls in: the heading and subtitle rise, the collage
+ * settles up out of a slight shrink, the four labels arrive from their own sides, and
+ * the sign-off lands last.
  *
  * Fires once and does not reverse — this is an entrance, not a scroll-linked effect.
  *
@@ -34,12 +35,12 @@ export function useNotAnotherCourseReveal(scopeRef: RefObject<HTMLElement | null
       // Under reduced motion nothing is registered, so everything renders in place.
       matchMedia.add(
         {
-          isBeside: `(min-width: ${CAPTIONS_BESIDE_MIN_WIDTH}px) and (prefers-reduced-motion: no-preference)`,
-          isBelow: `(max-width: ${CAPTIONS_BESIDE_MIN_WIDTH - 1}px) and (prefers-reduced-motion: no-preference)`,
+          isAround: `(min-width: ${LABELS_AROUND_MIN_WIDTH}px) and (prefers-reduced-motion: no-preference)`,
+          isBelow: `(max-width: ${LABELS_AROUND_MIN_WIDTH - 1}px) and (prefers-reduced-motion: no-preference)`,
         },
         (mmContext) => {
-          const { isBeside } = mmContext.conditions as {
-            isBeside: boolean;
+          const { isAround } = mmContext.conditions as {
+            isAround: boolean;
             isBelow: boolean;
           };
 
@@ -47,11 +48,12 @@ export function useNotAnotherCourseReveal(scopeRef: RefObject<HTMLElement | null
 
           const timeline = gsap.timeline({ scrollTrigger });
 
-          timeline.from(NOT_ANOTHER_COURSE_SELECTORS.heading, {
+          timeline.from(`${NOT_ANOTHER_COURSE_SELECTORS.heading} > *`, {
             opacity: 0,
             y: 40,
             duration: 0.8,
             ease: "power3.out",
+            stagger: 0.12,
           });
 
           timeline.from(
@@ -60,29 +62,41 @@ export function useNotAnotherCourseReveal(scopeRef: RefObject<HTMLElement | null
             0.15,
           );
 
-          // Each caption comes in from the side it sits on, read off `data-side` — the
-          // one thing about a caption that its class string does not expose to script.
-          // A function rather than one tween per side: both captions share every other
-          // property, and this keeps the stagger across the pair.
+          // Each label comes in from the side it sits on, read off `data-corner` — the
+          // one thing about a label that its class string does not expose to script. A
+          // function rather than one tween per corner: all four share every other
+          // property, and this keeps the stagger across the set.
           //
-          // Below the breakpoint there are no sides: the captions are full-width blocks
-          // stacked under the collage, so a sideways entrance has nowhere to come from —
-          // and the right-hand one's `x: 40` start state would push the document 40px
-          // wider until its trigger fires. They rise instead.
+          // Below the breakpoint there are no corners: the labels are grid cells under
+          // the collage, so a sideways entrance has nowhere to come from — and the
+          // right-hand ones' `x: 40` start state would push the document 40px wider
+          // until the trigger fires. They rise instead.
           timeline.from(
-            NOT_ANOTHER_COURSE_SELECTORS.caption,
+            NOT_ANOTHER_COURSE_SELECTORS.label,
             {
               opacity: 0,
               x: (_index: number, target: HTMLElement) => {
-                if (!isBeside) return 0;
-                return target.dataset.side === "right" ? 40 : -40;
+                if (!isAround) return 0;
+                return target.dataset.corner?.endsWith("right") ? 40 : -40;
               },
-              y: isBeside ? 0 : 24,
+              y: isAround ? 0 : 24,
               duration: 0.7,
               ease: "power3.out",
-              stagger: 0.12,
+              stagger: 0.1,
             },
             0.45,
+          );
+
+          timeline.from(
+            `${NOT_ANOTHER_COURSE_SELECTORS.closing} > *`,
+            {
+              opacity: 0,
+              y: 24,
+              duration: 0.6,
+              ease: "power3.out",
+              stagger: 0.1,
+            },
+            0.8,
           );
         },
       );

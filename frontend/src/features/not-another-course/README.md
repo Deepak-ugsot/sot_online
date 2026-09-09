@@ -1,16 +1,21 @@
 # Not Another Course
 
-"Not Another Course. A Career Operating System." — a centred heading over the product
-collage, with a caption tucked into each of the artwork's open corners.
+"Your college determines your campus. It shouldn't determine **your peer group.**" — a
+collage of students ringed by the four archetypes they might be, closing on "Ambition is
+contagious. Surround yourself with more of it."
 
-Named after its own heading rather than "Career OS", because the reference has a
-*separate* "Introducing Career OS" feature-grid section further down the page. Keeping
-the names distinct avoids a collision when that one is built.
+**The directory name is historical.** It comes from the section's previous heading, "Not
+Another Course. A Career Operating System.", which this replaced wholesale. The name was
+kept because renaming a feature touches its directory, every file in it, the section's
+`id`, its selector map and the route that imports it — churn with no behavioural payoff.
+Rename it in one deliberate pass if it starts to mislead, not as a side effect of a copy
+change.
 
 ## Public API
 
 - `NotAnotherCourseSection` — the whole section. The only export routes should use.
-- `NotAnotherCourseHeadingCopy`, `NotAnotherCourseCaption` — shared types.
+- `NotAnotherCourseHeadingCopy`, `NotAnotherCoursePeerLabel`, `NotAnotherCourseCorner`,
+  `NotAnotherCoursePeerIconName`, `NotAnotherCourseClosingCopy` — shared types.
 
 ```tsx
 import { NotAnotherCourseSection } from "@/features/not-another-course";
@@ -21,10 +26,11 @@ import { NotAnotherCourseSection } from "@/features/not-another-course";
 ```text
 not-another-course/
 ├── components/
-│   ├── not-another-course-section.tsx  # Heading + composition  ("use client")
-│   └── not-another-course-caption.tsx  # One flanking caption (server)
+│   ├── not-another-course-section.tsx  # Heading, composition, sign-off  ("use client")
+│   ├── not-another-course-label.tsx    # One floating peer label (server)
+│   └── not-another-course-icon.tsx     # The four glyphs (server)
 ├── constants/
-│   └── not-another-course.constants.ts # Copy, media, selector map
+│   └── not-another-course.constants.ts # Copy, labels, media, selector map
 ├── hooks/
 │   └── use-not-another-course-reveal.ts
 ├── types/
@@ -33,83 +39,87 @@ not-another-course/
 └── README.md
 ```
 
-## The captions overlap the collage — they do not sit beside it
+## The labels are markup, not part of the artwork
 
-Three columns would have forced a bad trade: either squeeze the artwork to make room,
-or push the captions out to the page edges. Neither is the design.
+`peer_group.png` is only the photography and the red arch. Every label around it —
+"Coders", "AI Hackers", "Builders", "Open-Source Contributor" — is rendered from
+`notAnotherCoursePeerLabels`.
 
-`course.png` has **empty bottom-left and top-right corners**, so the captions are lifted
-out of flow into those instead. The collage takes the middle **65%** of the composition,
-leaving **28%** either side, and each caption overlaps the image's *box* without ever
-touching its *content*:
+That is the whole reason they are not baked into the render: text in the DOM is
+selectable, translatable, readable by a screen reader, and re-typesettable at any width. A
+label flattened into a PNG is none of those, and it also fixes the type size to whatever
+the export was scaled to.
 
-| Caption | Spans (composition) | Sits over | Nearest artwork |
-| ------- | ------------------- | --------- | --------------- |
-| left    | x 0–28%, y 68–90%   | image-local x 0–16% | red shape starts at 33% |
-| right   | x 72–100%, y 13–30% | image-local x 84–100% | code panel ends at 80% |
+## The labels overlap the collage — they do not sit beside it
 
-**Those numbers are tied to this render.** Swap `course.png` for artwork with different
-margins and both need re-checking — nothing enforces the clearance at runtime.
+Four columns around the artwork would force a bad trade: either squeeze the collage to
+make room, or push the labels out to the page edges. Neither is the design.
 
-Placement lives in `SIDE_PLACEMENT` as a lookup of **static class strings**, not a
-template built from `side`. Tailwind scans source text: an interpolated class is never
-generated, and the caption would render unpositioned.
+The photographs step down toward the middle and leave all four outer corners open, so each
+label is lifted out of flow into one of them, reaching a few percent past the edge nearest
+it so it reads as pinned to a face rather than floating in the margin. `CORNER_PLACEMENT`
+holds the numbers, as **static class strings** — Tailwind scans source text, so a class
+built by interpolating `corner` would never be generated and the label would render
+unpositioned.
 
-Below **1100px** the overlap has no room to read, so both captions drop into ordinary
-flow beneath the collage. That switch point is set by the content rather than a Tailwind
-breakpoint — neither `lg` (1024) nor `xl` (1280) lands close enough.
+**Widths there are `rem`, not percentages.** The Figma canvas is 2000px wide where this
+container is 1376, so a percentage that comfortably fits "DSA, Competitive Programming"
+in Figma wraps it to three lines here. Sizing each label to its own text keeps the reading
+right; the percentage offsets keep the placement right.
 
-## Heading line breaks are data, not measurement
+Every number is tied to *this* artwork. Swap `peer_group.png` for a render with different
+margins and they all need re-checking.
 
-The design breaks the heading in two: **"Not Another Course. A Career" / "Operating
-System."** Only the closing phrase is accented.
+Below 1100px the overlap has nowhere to go, so the labels drop into a grid under the
+collage — one column, two from `sm`. The switch point is set by the content rather than a
+Tailwind breakpoint: neither `lg` (1024) nor `xl` (1280) lands close enough to where the
+composition stops fitting.
 
-The reference gets that break from a `max-width` on the line. That only lands for the
-exact typeface it was measured against — with the fallback face it broke as "A Career
-Operating / System." instead, so the break is stated in the data instead.
+## The GitHub mark is hand-drawn; the other three are Lucide
 
-One subtlety: the space between lead and accent is kept even though the accent is a
-block. It collapses visually before a block box, but dropping it makes the accessible
-text read "A CareerOperating System."
+Lucide dropped its brand glyphs, so `Github` does not exist in the installed version. The
+label beside it says "GitHub, GSoC, Communities", and a generic branch or merge icon is a
+worse answer than the mark everyone already reads as GitHub — so that one is a path in
+`not-another-course-icon.tsx` and the rest come from Lucide, the way
+`features/beyond-college` does it.
+
+It is the only filled glyph among four stroked ones. That is invisible at 18px inside four
+separate tiles and would only matter if they sat in a row.
 
 ## The reveal
 
-One timeline on a single `ScrollTrigger` at `top 80%`, `once: true`.
+`use-not-another-course-reveal.ts` runs one timeline on a `once: true` ScrollTrigger:
+heading and subtitle rise, the collage settles up out of a slight shrink, the four labels
+arrive from their own sides, and the sign-off lands last.
 
-| Target   | Motion                          | Starts at |
-| -------- | ------------------------------- | --------- |
-| Heading  | fade + `y: 40 → 0`              | 0s        |
-| Collage  | fade + `y: 50 → 0`, `scale: 0.96 → 1` | 0.15s |
-| Captions | fade + `x: ±40 → 0`, stagger 0.12 | 0.45s   |
+Each label's direction is read off `data-corner` rather than its class string, which
+script cannot introspect. A single tween with a function value rather than one per corner:
+all four share every other property, and this keeps the stagger across the set.
 
-Each caption enters from the side it sits on. The direction is read from `data-side`,
-which exists precisely because the side is otherwise only encoded in a class string and
-so is invisible to script.
+**Below 1100px they rise instead of sliding.** There are no corners there — the labels are
+grid cells — so a sideways entrance has nowhere to come from, and the right-hand ones'
+`x: 40` start state would push the document 40px wider until the trigger fires.
+
+The breakpoint in the hook and the `min-[1100px]:absolute` in the label must stay equal, or
+the labels animate along an axis they do not sit on.
 
 ## Image
 
-`public/assets/course.png` — a local asset, so `next/image` optimises it and no
-`remotePatterns` entry is needed. The `images.unsplash.com` host this section used to
-require has been **removed from `next.config.ts`** along with the stock photo standing
-in for this render; nothing else on the site used it.
-
+`/assets/peer_group.png`, 894x530, local so `next/image` optimises it at build time.
 Intrinsic size is passed rather than `fill`, so the box is reserved from the file's own
-`799 × 471` ratio and the captions never jump as the image loads.
+ratio and nothing below it jumps as the image loads.
 
-It carries **real alt text**, unlike the decorative card art elsewhere: the image
-conveys the section's meaning and is not restated by the surrounding copy.
+Alt text is real, not `""`: the image carries the section's meaning — a peer group, not
+one student — and the surrounding copy does not restate it.
 
-## Dropped in the revamp
+## Copy
 
-The **"Start Your Journey" CTA** and the **"Everything You need" checklist**
-(Learn / Build / Practice / Compete / Get Hired) are gone — neither appears in the new
-design. `not-another-course-checklist.tsx` was deleted with them; both are recoverable
-from git history if the CTA is wanted back.
+Two stray spaces before commas in the Figma labels ("DSA , Competitive programming",
+"Products , AI, Systems") were normalised, and the metas title-cased to match "GenAI,
+Agents, AI Engineering". Change them in `notAnotherCoursePeerLabels` if the design meant
+them literally.
 
 ## Verified
 
-At 1440×900 the composition measures 1376×527 with the collage at 894×527 spanning
-17.5–82.5%, the left caption at x 0–28% / y 68–90% and the right at x 72–100% /
-y 13–30%. Captions go `static` and stack below the collage at 1024. The accent phrase
-stays on one line at 390px (186px of 342px available). No page-level horizontal
-overflow at 1440, 1024 or 390.
+At 1512 and 375: labels land in their corners without covering a face, the composition box
+stays exactly as tall as the image, and the page has no horizontal overflow.

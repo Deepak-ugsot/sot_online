@@ -53,12 +53,12 @@ export default function HomePage() {
           <AiMentorSection />
           <ReadinessSection />
           <BuildspaceSection />
+          <NotAnotherCourseSection />
           <CurriculumSection />
           <LearnFromPeopleSection />
           <EarlyStartSection />
           <EcosystemSection />
           <OneProgramSection />
-          <NotAnotherCourseSection />
           <CareerOsSection />
           <DashboardSection />
           <OpportunitiesSection />
