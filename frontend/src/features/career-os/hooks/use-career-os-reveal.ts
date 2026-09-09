@@ -9,7 +9,7 @@ import { CAREER_OS_SELECTORS } from "../constants/career-os.constants";
 const ITEM_OFFSET_Y = 24;
 
 /**
- * Cascades the six feature tiles in when the grid scrolls into view.
+ * Cascades the eight feature tiles in when the grid scrolls into view.
  *
  * Fires once and does not reverse — this is an entrance, not a scroll-linked effect.
  *

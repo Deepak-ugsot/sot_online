@@ -7,15 +7,24 @@ import type { FooterLinkColumn, SocialLink } from "../types/footer.types";
 
 export const footerCta = {
   /** Two deliberate lines; each is rendered as its own block. */
-  headingLines: ["Your Degree Opens Doors.", "Your Skills Build Careers."],
+  headingLines: ["Now choose how", "far you want to go."],
   paragraph:
-    "Become part of India's next generation of Future Software Engineers. Start building the skills, confidence, and experience top technology companies look for.",
-  link: { label: "Start Your Journey Today", href: "#apply" },
+    "From ICPC and competitive programming to open source, GSoC, AI, internships, and great engineering careers — build the skills and experience that set you apart.",
+  link: { label: "Apply to uGSOT Beyond", href: "#apply" },
+  /**
+   * Eligibility line under the button. Split into three parts because the middle one
+   * is set in brand red — the alternative is markup inside a copy string.
+   */
+  note: {
+    before: "For ambitious ",
+    highlight: "Year 1 & Year 2",
+    after: " students across India",
+  },
 } as const;
 
 export const footerTagline = {
-  lead: "The AI-Powered Career OS for",
-  staticWord: "Future",
+  /** Wraps on its own — no hard break, so the line count follows the viewport. */
+  lead: "Your college gives you a degree. uGSOT Beyond helps you go beyond it.",
 } as const;
 
 /**
@@ -39,18 +48,18 @@ export const footerLinkColumns: readonly FooterLinkColumn[] = [
     id: "quick-links",
     heading: "Quick Links",
     links: [
-      { label: "Admissions", href: "#admissions" },
-      { label: "Scholarships", href: "#scholarships" },
-      { label: "FAQs", href: "#faqs" },
+      { label: "Why Beyond", href: "#why-beyond" },
+      { label: "Journey", href: "#journey" },
+      { label: "Pricing", href: "#pricing" },
     ],
   },
   {
     id: "about",
     heading: "About",
     links: [
+      { label: "FAQs", href: "#faqs" },
       { label: "Privacy Policy", href: "#privacy" },
       { label: "Terms & Conditions", href: "#terms" },
-      { label: "Admission Policy", href: "#admission-policy" },
     ],
   },
 ] as const;
@@ -62,8 +71,13 @@ export const footerSocialLinks: readonly SocialLink[] = [
   { platform: "youtube", label: "YouTube", href: "#" },
 ] as const;
 
-export const footerCopyright =
-  "© 2025 Techiora Labs Private Limited. All rights reserved.";
+/**
+ * The bottom bar. This is a positioning disclaimer rather than a copyright line: it
+ * is what keeps "Beyond" from reading as a replacement for the full-time campus
+ * programme, so it should not be shortened without asking.
+ */
+export const footerDisclaimer =
+  "uGSOT Beyond is a technology accelerator by upGrad School of Technology. It runs alongside your existing college degree and does not replace uGSOT Campus, the full-time higher-education experience offered by upGrad School of Technology.";
 
 /**
  * Animation hooks, by `data-footer` attribute rather than class name, so restyling a

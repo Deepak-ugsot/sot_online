@@ -102,6 +102,14 @@
   --animate-marquee-right: marquee-right 42s linear infinite;
 
   /*
+    One Program's drifting capability columns. Vertical twins of the marquee pair
+    above, and the same rule applies — each column overrides the duration inline so
+    the three rails never fall into lockstep.
+  */
+  --animate-marquee-up: marquee-up 40s linear infinite;
+  --animate-marquee-down: marquee-down 40s linear infinite;
+
+  /*
     The gallery's phone scroll arrow. A long pause between nudges is the point — a
     continuous bounce next to a photograph reads as a broken loop rather than as a
     hint, so the arrow spends most of the cycle still.
@@ -130,6 +138,32 @@
   }
   to {
     transform: translateX(0);
+  }
+}
+
+/*
+  The vertical pair, for the One Program columns. Identical reasoning to the horizontal
+  keyframes above, on the other axis: a track translated a full -100% of its own *height*
+  has moved exactly its own length upward, which puts its twin where it began.
+
+  `marquee-down` runs the same journey backwards, so a column can drift against its
+  neighbours without needing a second copy of the markup.
+*/
+@keyframes marquee-up {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-100%);
+  }
+}
+
+@keyframes marquee-down {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(0);
   }
 }
 

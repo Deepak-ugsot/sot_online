@@ -13,19 +13,25 @@ export type CareerOsIllustrationName =
   | "practice"
   | "compete"
   | "connect"
-  | "career";
+  | "contribute"
+  | "track"
+  | "prepare";
 
 /**
  * Height of a tile's media panel.
  *
- * This is the only knob that tunes the masonry: the three columns hold different
- * numbers of tiles, and these heights are what bring their bottoms back level.
+ * This is the only knob that tunes the masonry: the middle column holds two tiles
+ * against the outer columns' three, and these heights are what bring their bottoms
+ * back level.
+ *
+ * The outer columns are deliberately the same multiset — `short short medium` — so
+ * they balance against each other for free, whatever the numbers end up being. Only
+ * `tall` is then left to solve for.
  */
 export type CareerOsMediaHeight = "short" | "medium" | "tall";
 
 /** One capability tile: illustration panel, title, description. */
 export type CareerOsFeature = {
-  kind: "feature";
   /** Stable React key — do not derive keys from copy, which is editable. */
   id: string;
   illustration: CareerOsIllustrationName;
@@ -34,17 +40,5 @@ export type CareerOsFeature = {
   description: string;
 };
 
-/** The red call-to-action tile. One per grid — it is the composition's focal point. */
-export type CareerOsSpotlight = {
-  kind: "spotlight";
-  id: string;
-  title: string;
-  description: string;
-  href: string;
-};
-
-/** Anything the grid can render in a column. */
-export type CareerOsTile = CareerOsFeature | CareerOsSpotlight;
-
 /** One vertical stack of tiles at three columns. */
-export type CareerOsColumn = readonly CareerOsTile[];
+export type CareerOsColumn = readonly CareerOsFeature[];

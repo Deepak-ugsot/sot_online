@@ -13,7 +13,8 @@ import {
 const EXIT_DURATION_S = 0.3;
 
 /**
- * "The AI-Powered Career OS for Future <rotating word>."
+ * "Your college gives you a degree. uGSOT Beyond helps you go beyond it." with a
+ * rotating word in the red box beneath it.
  *
  * The word in the red box cycles on a timer. The swap is split across two effects on
  * purpose: the interval animates the current word *out* and only then advances the
@@ -82,21 +83,21 @@ export function FooterTagline() {
       data-footer="tagline"
       className="flex flex-col items-center gap-3 text-center"
     >
-      <p className="font-display text-[clamp(1.625rem,3.6vw,3.25rem)] font-medium tracking-[-0.01em] whitespace-nowrap text-white">
+      {/* The lead is a full sentence now, so it wraps rather than being pinned to one
+          line — this `max-w` is what decides where. It is tuned to break after
+          "uGSOT" at the design's width; narrowing it spills the sentence onto a
+          third line. */}
+      <p className="max-w-[56rem] font-display text-[clamp(1.625rem,3.6vw,3.25rem)] leading-[1.2] font-medium tracking-[-0.01em] text-white">
         {taglineCopy.lead}
       </p>
 
-      <p className="flex items-center gap-3 font-display text-[clamp(1.625rem,3.6vw,3.25rem)] font-medium tracking-[-0.01em] whitespace-nowrap text-white">
-        <span>{taglineCopy.staticWord}</span>
-
-        {/* `overflow-hidden` is what clips the word as it slides in and out, so it
-            appears to move behind the edges of the box rather than outside it. */}
-        <span className="inline-flex items-center overflow-hidden bg-brand px-4 py-0.5 font-accent text-[clamp(1.375rem,3.2vw,3rem)] font-medium">
-          <span ref={wordRef} className="inline-block whitespace-nowrap">
-            {footerRotatingWords[wordIndex]}
-          </span>
+      {/* `overflow-hidden` is what clips the word as it slides in and out, so it
+          appears to move behind the edges of the box rather than outside it. */}
+      <span className="inline-flex items-center overflow-hidden bg-brand px-4 py-0.5 font-accent text-[clamp(1.375rem,3.2vw,3rem)] font-medium text-white">
+        <span ref={wordRef} className="inline-block whitespace-nowrap">
+          {footerRotatingWords[wordIndex]}
         </span>
-      </p>
+      </span>
     </div>
   );
 }

@@ -6,8 +6,8 @@ import { useRef } from "react";
 import { CtaButton } from "@/components/ui/cta-button";
 import { assets, siteConfig } from "@/config/site.config";
 import {
-  footerCopyright,
   footerCta,
+  footerDisclaimer,
   footerLinkColumns,
   footerSocialLinks,
 } from "../constants/footer.constants";
@@ -56,14 +56,22 @@ export function SiteFooter() {
               </p>
             </div>
 
-            <CtaButton
-              href={footerCta.link.href}
-              variant="primary"
-              size="lg"
-              withIcon
-            >
-              {footerCta.link.label}
-            </CtaButton>
+            <div className="flex flex-col items-center gap-[18px]">
+              <CtaButton
+                href={footerCta.link.href}
+                variant="primary"
+                size="lg"
+                withIcon
+              >
+                {footerCta.link.label}
+              </CtaButton>
+
+              <p className="font-display text-[13px] text-[#e5e5e5]">
+                {footerCta.note.before}
+                <span className="text-brand">{footerCta.note.highlight}</span>
+                {footerCta.note.after}
+              </p>
+            </div>
           </div>
 
           {/*
@@ -83,10 +91,10 @@ export function SiteFooter() {
             <Image
               src={assets.footerWatermark}
               alt=""
-              // The file's true pixel dimensions — `sips` reports half these, which
-              // would set the wrong intrinsic ratio.
-              width={2309}
-              height={453}
+              // The file's true pixel dimensions; anything else sets the wrong
+              // intrinsic ratio and the reserved box jumps on load.
+              width={3840}
+              height={491}
               className="h-auto w-full"
             />
           </div>
@@ -159,8 +167,8 @@ export function SiteFooter() {
             data-footer="bottom"
             className="w-full border-t border-white/15 pt-8"
           >
-            <p className="text-center font-display text-sm text-white/60">
-              {footerCopyright}
+            <p className="mx-auto max-w-[62.5rem] text-center font-display text-xs leading-[1.6] text-white/60">
+              {footerDisclaimer}
             </p>
           </div>
         </div>

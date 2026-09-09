@@ -63,6 +63,18 @@ export function useEcosystemReveal(scopeRef: RefObject<HTMLElement | null>) {
             once: true,
           },
         });
+
+        gsap.from(ECOSYSTEM_SELECTORS.closing, {
+          opacity: 0,
+          y: 20,
+          duration: 0.6,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: ECOSYSTEM_SELECTORS.closing,
+            start: "top 95%",
+            once: true,
+          },
+        });
       });
 
       return () => matchMedia.revert();

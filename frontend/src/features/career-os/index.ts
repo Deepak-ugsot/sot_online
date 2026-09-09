@@ -9,6 +9,4 @@ export type {
   CareerOsFeature,
   CareerOsIllustrationName,
   CareerOsMediaHeight,
-  CareerOsSpotlight,
-  CareerOsTile,
 } from "./types/career-os.types";

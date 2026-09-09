@@ -3,11 +3,13 @@ import { AiMentorSection } from "@/features/ai-mentor";
 import { ApproachSection } from "@/features/approach";
 import { BeyondCollegeSection } from "@/features/beyond-college";
 import { BuildspaceSection } from "@/features/buildspace";
+import { BuiltForStudentsSection } from "@/features/built-for-students";
 import { CareerSection } from "@/features/career";
 import { CareerOsSection } from "@/features/career-os";
 import { CompeteSection } from "@/features/compete";
 import { CurriculumSection } from "@/features/curriculum";
 import { DashboardSection } from "@/features/dashboard";
+import { EarlyStartSection } from "@/features/early-start";
 import { EcosystemSection } from "@/features/ecosystem";
 import { FaqSection } from "@/features/faq";
 import { SiteFooter } from "@/features/footer";
@@ -15,12 +17,12 @@ import { GallerySection } from "@/features/gallery";
 import { GlobalAmbitionSection } from "@/features/global-ambition";
 import { SiteHeader } from "@/features/header";
 import { HeroSection } from "@/features/hero";
-import { JourneySection } from "@/features/journey";
+import { LearnFromPeopleSection } from "@/features/learn-from-people";
 import { NotAnotherCourseSection } from "@/features/not-another-course";
 import { OneJourneySection } from "@/features/one-journey";
+import { OneProgramSection } from "@/features/one-program";
 import { OpportunitiesSection } from "@/features/opportunities";
 import { ReadinessSection } from "@/features/readiness";
-import { ShowcaseSection } from "@/features/showcase";
 import { TransformationSection } from "@/features/transformation";
 
 /**
@@ -48,19 +50,21 @@ export default function HomePage() {
           <ApproachSection />
           <OneJourneySection />
           <GallerySection />
-          <TransformationSection />
           <CompeteSection />
           <AiMentorSection />
-          <ShowcaseSection />
+          <TransformationSection />
           <BuildspaceSection />
           <CurriculumSection />
+          <EarlyStartSection />
+          <LearnFromPeopleSection />
           <EcosystemSection />
+          <OneProgramSection />
           <NotAnotherCourseSection />
           <CareerOsSection />
           <ReadinessSection />
           <DashboardSection />
           <OpportunitiesSection />
-          <JourneySection />
+          <BuiltForStudentsSection />
           <FaqSection />
         </main>
 

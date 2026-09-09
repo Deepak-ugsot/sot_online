@@ -6,26 +6,25 @@ import { CareerOsIllustration } from "./career-os-illustration";
  * Media panel heights.
  *
  * These are the masonry, and they only mean anything at `lg`. The middle column
- * carries three tiles against the outer columns' two, so its panels are short and
- * theirs are tall — that is what brings all three columns down to the same baseline
+ * carries two tiles against the outer columns' three, so its panels are tall and
+ * theirs are short — that is what brings all three columns down to the same baseline
  * without a single fixed card height.
+ *
+ * The outer columns hold the same three heights (`short short medium`, mirrored), so
+ * they balance against each other whatever these numbers are. Only `tall` has to be
+ * solved for, and `15.65rem` is measured, not round: it is the height at which the
+ * two-tile middle column finishes level with its three-tile neighbours.
  *
  * Below `lg` the columns are dissolved and there is nothing left to balance, so the
  * short and medium panels are given back some height: at one and two columns a 6rem
- * panel is a letterbox its illustration rattles around in. `tall` is unchanged — it
- * is already the tightest fit for the busiest illustrations.
+ * panel is a letterbox its illustration rattles around in. `tall` is unchanged — it is
+ * already the tightest fit for the busiest illustrations.
  */
 const mediaHeights: Record<CareerOsMediaHeight, string> = {
-  short: "h-32 lg:h-24",
-  medium: "h-[10.5rem] lg:h-[9.5rem]",
-  // `16.2rem` is measured, not round: it is the height at which the two-tile outer
-  // columns finish level with the three-tile middle one.
-  tall: "h-[16.2rem]",
+  short: "h-28 lg:h-24",
+  medium: "h-[10rem] lg:h-[8.5rem]",
+  tall: "h-[15.65rem]",
 };
-
-/** Card chrome, shared with the spotlight tile so both sit on the same radius. */
-export const CAREER_OS_CARD =
-  "rounded-[1.5rem] p-3 transition-transform duration-500 ease-cinematic hover:-translate-y-1";
 
 /**
  * One capability tile: an illustration panel over a title and description.
@@ -38,9 +37,9 @@ export function CareerOsItem({ feature }: { feature: CareerOsFeature }) {
     <article
       data-career-os="item"
       className={cn(
-        CAREER_OS_CARD,
-        "flex flex-col border border-black/[0.04] bg-white",
+        "flex flex-col rounded-[1.5rem] border border-black/[0.04] bg-white p-3",
         "shadow-[0_1px_2px_rgba(10,10,11,0.04),0_12px_28px_-16px_rgba(10,10,11,0.16)]",
+        "transition-transform duration-500 ease-cinematic hover:-translate-y-1",
       )}
     >
       <div

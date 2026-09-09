@@ -1,4 +1,5 @@
 import type {
+  EcosystemClosingCopy,
   EcosystemHeadingCopy,
   EcosystemLogo,
   EcosystemStat,
@@ -9,13 +10,27 @@ import type {
  * touch a component — see `features/hero/constants` for the same pattern.
  */
 
+/**
+ * `tail` carries the line break as a `\n`, rendered with `whitespace-pre-line` in the
+ * component so the break stays here with the rest of the copy rather than becoming a
+ * `<br />` in JSX. "Designed" closes line one; "To Reach Beyond The Campus." is line
+ * two on its own.
+ */
 export const ecosystemHeading: EcosystemHeadingCopy = {
-  lead: "Backed by",
-  accent: "upGrad's Learning Ecosystem",
+  lead: "Built by",
+  accent: "upGrad School of Technology.",
+  tail: "Designed\nTo Reach Beyond The Campus.",
 };
 
 export const ecosystemSubtitle =
-  "A legacy of 10+ years in higher education, driving learning, hiring, and career success";
+  "uGSOT Campus is building a full-time campus technology education experience. uGSOT Beyond takes a focused technology-acceleration layer to ambitious students who are already pursuing degrees elsewhere.";
+
+/** The line under the stats, naming the brand once more before the section ends. */
+export const ecosystemClosing: EcosystemClosingCopy = {
+  lead: "The",
+  accent: "uGSOT technology",
+  tail: "ecosystem now accessible from wherever you study.",
+};
 
 /**
  * Brand artwork, in `public/assets/ecosystem/`.
@@ -107,4 +122,5 @@ export const ECOSYSTEM_SELECTORS = {
   collage: '[data-ecosystem="collage"]',
   card: '[data-ecosystem="card"]',
   stats: '[data-ecosystem="stats"]',
+  closing: '[data-ecosystem="closing"]',
 } as const;

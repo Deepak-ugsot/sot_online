@@ -1,7 +1,13 @@
 # Ecosystem
 
-"Backed by upGrad's Learning Ecosystem" — a dark band under the mentors section,
-holding a fanned collage of the group's six brands and the figures behind them.
+"Built by upGrad School of Technology. Designed To Reach Beyond The Campus." — a dark
+band holding a fanned collage of the group's six brands, the figures behind them, and a
+closing line naming the ecosystem once more.
+
+The heading is three parts, not two: `lead` and `tail` in white with `accent`
+("upGrad School of Technology.") in brand red partway through the first sentence. `tail`
+carries the line break as a `\n` so the break lives with the copy rather than as a
+`<br />` in JSX, and it is disabled below `sm` where the line wraps naturally anyway.
 
 ## Public API
 

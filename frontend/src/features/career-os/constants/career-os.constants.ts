@@ -9,30 +9,56 @@ import type {
  */
 
 export const careerOsHeading = {
-  lead: "Introducing",
-  accent: "Career OS",
+  lead: "Everything In",
+  accent: "One Place.",
 } as const;
 
-export const careerOsSubtitle = "Your complete Software Engineering Journey.";
+export const careerOsSubtitle = "Powered by the uGSOT Career OS";
 
 /**
  * The grid, written as the three columns it renders at desktop width.
  *
  * Column groups rather than a flat list because this is a **composition, not a feed**:
- * the red spotlight has to land in the third column beside the two tall tiles, and the
- * short tiles have to stack three-up in the middle. A flat list plus CSS masonry would
- * reflow that arrangement at every content edit.
+ * the two tall tiles belong together in the middle, flanked by three short ones on
+ * either side. A flat list plus CSS masonry would reflow that at every content edit.
  *
  * Below `1024px` the column wrappers become `display: contents` and every tile flows
  * into one two-up grid, so this order is also the reading order: left column, then
  * middle, then right.
  *
- * `media` heights are chosen so the three columns end level — see the type docs.
+ * `media` heights are chosen so the three columns end level — see the type docs. The
+ * outer columns carry the same three heights in mirrored order, which is what lets
+ * them balance against each other without any measuring.
  */
 export const careerOsColumns: readonly CareerOsColumn[] = [
   [
     {
-      kind: "feature",
+      id: "build",
+      illustration: "build",
+      media: "short",
+      title: "Build Real Products",
+      description:
+        "Real projects, a portfolio, capstones, and open-source contributions.",
+    },
+    {
+      id: "compete",
+      illustration: "compete",
+      media: "short",
+      title: "Compete & Win",
+      description:
+        "Hackathons, coding competitions, team contests, and innovation challenges.",
+    },
+    {
+      id: "contribute",
+      illustration: "contribute",
+      media: "medium",
+      title: "Contribute",
+      description:
+        "Work on open source, contribute to real-world projects, and grow your developer profile.",
+    },
+  ],
+  [
+    {
       id: "learn",
       illustration: "learn",
       media: "tall",
@@ -41,7 +67,6 @@ export const careerOsColumns: readonly CareerOsColumn[] = [
         "Structured paths, live classes, recorded lectures, AI tutoring, and complete class notes.",
     },
     {
-      kind: "feature",
       id: "practice",
       illustration: "practice",
       media: "tall",
@@ -52,7 +77,6 @@ export const careerOsColumns: readonly CareerOsColumn[] = [
   ],
   [
     {
-      kind: "feature",
       id: "connect",
       illustration: "connect",
       media: "medium",
@@ -61,41 +85,20 @@ export const careerOsColumns: readonly CareerOsColumn[] = [
         "Learn from industry mentors, join a thriving community, and attend live AMA sessions.",
     },
     {
-      kind: "feature",
-      id: "build",
-      illustration: "build",
+      id: "track",
+      illustration: "track",
       media: "short",
-      title: "Build Real Products",
+      title: "Track",
       description:
-        "Real projects, a portfolio, capstones, and open-source contributions.",
+        "Monitor your progress, set goals, and get personalized insights to stay on track.",
     },
     {
-      kind: "feature",
-      id: "compete",
-      illustration: "compete",
+      id: "prepare",
+      illustration: "prepare",
       media: "short",
-      title: "Compete & Win",
+      title: "Prepare",
       description:
-        "Hackathons, coding competitions, team contests, and innovation challenges.",
-    },
-  ],
-  [
-    {
-      kind: "spotlight",
-      id: "spotlight",
-      title: "Start Your Journey",
-      description:
-        "Turn what you learn into real-world projects, build with purpose, and grow your skills through hands-on engineering.",
-      href: "#apply",
-    },
-    {
-      kind: "feature",
-      id: "career",
-      illustration: "career",
-      media: "tall",
-      title: "Get Career Ready",
-      description:
-        "Internships, AI mock interviews, resume building, and placement support.",
+        "Get career-ready with interview prep, aptitude tests, resume building, and placement support.",
     },
   ],
 ] as const;

@@ -10,20 +10,18 @@ import {
 } from "../constants/career-os.constants";
 import { useCareerOsReveal } from "../hooks/use-career-os-reveal";
 import { CareerOsItem } from "./career-os-item";
-import { CareerOsSpotlightCard } from "./career-os-spotlight";
 
 /**
- * "Introducing Career OS" — a seven-tile card grid: six capabilities around one red
- * call to action.
+ * "Everything In One Place." — the eight-tile Career OS capability grid.
  *
  * **Columns are real elements, not a masonry algorithm.** The arrangement is designed
- * — the spotlight belongs beside the two tall tiles, the three short tiles stack in
- * the middle — and CSS masonry would reshuffle that on every copy edit. So each column
- * is its own flex stack, and the tiles' panel heights are tuned to bring all three
- * columns down level.
+ * — the two tall tiles belong together in the middle, flanked by three short ones on
+ * either side — and CSS masonry would reshuffle that on every copy edit. So each
+ * column is its own flex stack, and the tiles' panel heights are tuned to bring all
+ * three columns down level.
  *
  * Below `1024px` the column wrappers drop to `display: contents`, which dissolves them
- * and lets all seven tiles flow into the parent grid two-up (then one-up). Same DOM,
+ * and lets all eight tiles flow into the parent grid two-up (then one-up). Same DOM,
  * same reading order, no duplicated markup for the narrow layout.
  */
 export function CareerOsSection() {
@@ -49,7 +47,7 @@ export function CareerOsSection() {
             className="type-heading text-[clamp(1.75rem,7vw,2rem)] text-ink sm:text-[clamp(2rem,4vw,3.25rem)]"
           >
             {careerOsHeading.lead}{" "}
-            {/* Held together: the line breaks before "Career OS", never inside it. */}
+            {/* Held together: the line breaks before "One Place.", never inside it. */}
             <span className="font-accent font-medium whitespace-nowrap text-brand">
               {careerOsHeading.accent}
             </span>
@@ -74,13 +72,9 @@ export function CareerOsSection() {
                 "lg:flex lg:h-full lg:flex-col lg:gap-6",
               )}
             >
-              {column.map((tile) =>
-                tile.kind === "spotlight" ? (
-                  <CareerOsSpotlightCard key={tile.id} tile={tile} />
-                ) : (
-                  <CareerOsItem key={tile.id} feature={tile} />
-                ),
-              )}
+              {column.map((tile) => (
+                <CareerOsItem key={tile.id} feature={tile} />
+              ))}
             </div>
           ))}
         </div>

@@ -28,6 +28,6 @@ export const navLinks: readonly NavLink[] = [
 export const assets = {
   logoWhite: "/assets/uGSOT_white_logo.png",
   heroVideo: "/assets/Hero_BG_Video.mp4",
-  /** Outlined "upGrad SOT" wordmark used as the footer watermark. 2309×453, RGBA. */
-  footerWatermark: "/assets/upgradSOT.png",
+  /** Outlined "uGSOT Beyond" wordmark used as the footer watermark. 3840×491, RGBA. */
+  footerWatermark: "/assets/upgrad_beyond.png",
 } as const;

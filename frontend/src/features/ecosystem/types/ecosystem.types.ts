@@ -25,10 +25,23 @@ export type EcosystemStat = {
 };
 
 /**
- * The heading is split so the trailing phrase can be rendered in the accent serif and
- * brand red, matching the hero, showcase and gallery sections.
+ * Three parts so the middle phrase can be rendered in the accent serif and brand red,
+ * matching the hero, showcase and gallery sections, while `lead` and `tail` stay in
+ * white. `tail` carries the line break as a `\n` — see `EcosystemSection`.
  */
 export type EcosystemHeadingCopy = {
   lead: string;
   accent: string;
+  tail: string;
+};
+
+/**
+ * The closing line under the stats. Same three-part shape as the heading, but with no
+ * line break — it is one sentence with the brand name picked out in red partway
+ * through it.
+ */
+export type EcosystemClosingCopy = {
+  lead: string;
+  accent: string;
+  tail: string;
 };
