@@ -10,8 +10,8 @@ import type {
 
 export const curriculumHeading: CurriculumHeadingCopy = {
   lead: "A",
-  accent: "curriculum",
-  trail: "built around how engineers actually learn.",
+  accent: "Curriculum",
+  trail: "Built Around How Engineers Actually Learn.",
 };
 
 export const curriculumSubtitle =

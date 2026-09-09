@@ -1,7 +1,8 @@
 # BuildSpace
 
-"Build More. Ship Faster. With BuildSpace." — the pitch on a dark, red-lit ground, over a
-window that plays a self-running tour of the BuildSpace product.
+"BuildSpace — your engineering playground inside Beyond." The pitch down the left of a dark,
+rainbow-washed ground, and a window playing a self-running tour of the BuildSpace product
+down the right.
 
 ## Public API
 
@@ -41,6 +42,28 @@ buildspace/
 └── README.md
 ```
 
+## Two columns above 1180px, stacked below it
+
+The copy and the CTA hold the left column; the window — and the narration and chips that
+belong to it — hold the right.
+
+**1180 is set by the window, not by the copy.** The canvas scales to whatever width its
+column gives it, so a split only pays for itself once the right column is still wide enough
+for the mock to read as an application rather than as a thumbnail. Below that the window
+takes the full measure with the copy centred above it, which is the composition this section
+had throughout.
+
+**The window's track is sized, the window is not.** The columns are
+`[minmax(0,1fr) clamp(38rem,52vw,50rem)]`: the ceiling that keeps the mock from growing sits
+on the *grid track*, and the copy takes whatever is left. Putting that ceiling on the item
+instead — a `max-w-[50rem]` window inside a fluid track — turns the difference into dead
+space between the columns; on a 1512 viewport a 72px gap rendered as a 144px hole and the two
+halves stopped reading as one composition.
+
+The grid is `items-center`: the copy is much the shorter of the two columns once the window
+carries its narration and chips. For that centring to land, nothing in the right column may
+reserve height it is not using — which is why the resume countdown is `absolute`.
+
 ## The section is dark, and that is the point
 
 This is the page's one dark break between the showcase and the mentors band. BuildSpace is
@@ -48,29 +71,81 @@ itself a dark, lime-accented product; on a light ground a mock of it reads as a 
 pasted onto a brochure, while on near-black the window reads as a screen that is switched
 on. The section stops describing the product and starts showing it.
 
-The ground is `bg-ink-raised` (`#1b1b1f`), which already existed for the ecosystem band.
-Over it sit two `pointer-events-none` layers:
+The ground is near-black (`#08080a`). Over it, all `pointer-events-none`:
 
-1. **Corner glows** — a large brand-red radial bleeding in from the top right, and a much
-   fainter one bottom left so that corner is not flat black.
-2. **Folded light beams** — a `repeating-linear-gradient` at 115°, masked by a radial from
-   the top-right corner.
+1. **The aurora** — one bounded, heavily blurred conic blob hung off the top right, behind
+   the card, turning once every 18s.
+2. **A light scrim** — a vertical gradient settling the floor and keeping the aurora's lower
+   shoulder off the copy.
+3. **Film grain** — `bg-grain`, the hero's utility, at 3.5% and un-blended.
+4. **Lit top and bottom edges** — hairline gradients on both seams.
 
-The beams are broad ribbons, not hairlines, and the gradient *inside* each band is what
-makes them read as folded: bright pink-red highlight, down through brand red, into black
-before the next band starts. A flat two-stop repeat at this angle reads as hazard stripes
-instead. The radial mask keeps them a corner treatment — the pattern is gone by 78% of the
-way from the top right, so the beams reach into the section and dissolve rather than
-crossing it.
+This replaced a brand-red corner glow and a set of folded red light beams.
 
-The vertical padding (78 top / 80 bottom) is load-bearing: the corner glow is sized from
-the section's *width*, so a shorter section makes the glow fill more of it and the broad
-light corner collapses into a sliver.
+### The palette is muted on purpose
+
+Vercel's own gradients are pale — violet, rose, amber, mint. At full saturation behind a dark
+card the effect stops reading as light and starts reading as a novelty rainbow, so every stop
+here is softened and the 130px blur does the rest. The card's edge uses the same tones at 70%
+opacity, so it looks lit by the glow rather than drawn on top of it.
+
+### The aurora rotates, and getting back to a rotation took a detour
+
+The first attempt drifted two 3000px-wide full-bleed gradients in opposite directions on CSS
+keyframes, one of them in `mix-blend-mode: screen`, both pinned with `will-change`. It tore
+the page apart — not this section, the whole page, with sections appearing to slide over one
+another as it scrolled.
+
+What survived the post-mortem is that the *pattern* was not the problem: the page's own
+marquees are CSS transform animations inside the same ScrollSmoother content and have always
+been fine. The problem was the scale of it — two enormous layers, a blend mode forcing a
+re-blend of the whole section against a backdrop that moves on every scroll frame, and
+`will-change` holding all of it resident.
+
+So the aurora is **one bounded element, no blend mode, no `will-change`**, sized to the card
+it sits behind and mostly outside the frame so the section clips it to a soft shoulder. The
+blur is rasterised once and the cached result is what turns, so the expensive pass never
+repeats.
+
+**If tearing ever returns, `.bs-aurora`'s rotation is the first thing to turn off.** The
+card's edge animation cannot cause it: see below.
+
+### The card's edge animates without moving anything
+
+`.bs-glow-border` (in `globals.css`) animates `--bs-angle`, a property registered with
+`@property` — registration is what makes it interpolate at all, since an unregistered custom
+property is only a string to the animation engine and would jump 0 → 360 with nothing in
+between.
+
+**That makes it a paint animation, not a compositor one, and on this page that is the
+point.** The element never moves; only its gradient is redrawn, on the same thread
+ScrollSmoother runs on. It cannot desync with the smoother the way a transform can.
+
+The ring itself is a `::before` filled edge to edge with the conic gradient, then hollowed by
+compositing two masks — one over the content box, one over the padding box — with `exclude`
+(`xor` on the WebKit-prefixed pair). What survives is exactly the 1px of `padding`: a
+border-shaped window onto a full gradient, which is not something CSS can otherwise do.
+`border-radius: inherit` matters, or the ring cuts corners the card does not have.
+
+Both animations are disabled under `prefers-reduced-motion`.
+
+
+### Nothing over it may use `mix-blend-mode` either
+
+A separate lesson from the same episode, and it still applies now the corner is static. A
+blended element cannot be composited on its own — the browser re-blends it against its
+backdrop every frame that backdrop moves, and under ScrollSmoother the backdrop moves on
+every scroll frame. The second pass shipped as `mix-blend-screen` and the grain as
+`mix-blend-overlay`; together they made scrolling through the section stutter well before
+the tearing showed up. Both are plain alpha now.
+
+The hero can keep its `overlay` grain: the hero's backdrop does not move.
 
 ## The demo is a fixed canvas, scaled
 
-`BuildspaceDemo` renders a **1280x880** canvas and scales it with one `transform` to fit
-the mount (capped at `53.75rem` / 860px, so about 0.67).
+`BuildspaceDemo` renders a **1280x880** canvas and scales it with one `transform` to fit the
+screen inside its frame — `53.75rem` / 860px stacked, and whatever the split layout's clamped
+track gives it, topping out at `50rem` / 800px.
 
 Every panel inside is real product chrome at real product sizes — 10px labels, 5px
 progress bars, a 196px rail. A fluid version would need every one of those to be a
@@ -84,6 +159,33 @@ The canvas never scales *up*. Past 1280px of mount width it would enlarge 10px t
 `aspect-ratio` on the frame reserves the exact height before the canvas is measured, so
 the section never reflows on mount.
 
+### The screen sits in a glass card
+
+Glassmorphism proper — `rgba(20,20,20,0.6)` over `backdrop-filter: blur(20px)` — holding the
+framed screen with padding, with the animated rainbow edge described above running round it.
+
+The radii are concentric on purpose, and it is why this keeps a 32px radius rather than the
+16px a glass card usually takes: `rounded-[32px]` against `p-3.5` leaves 18px, exactly the
+screen frame's own radius inside it. Drop the outer to 16 and the inner corner is rounder
+than the outer, which looks broken in a way nobody can name. The mobile pair (28 − 10) lands
+on 18 too.
+
+### Two traps in measuring the canvas
+
+- **Measure the screen, not the mount.** Between them sit the card's padding and the frame's
+  1px gradient — some 30px the canvas does not get. Measuring the mount puts the canvas's
+  right edge under the frame's `overflow-hidden`.
+- **The observed node lives in state, not a ref.** A ref plus a `[]`-dependency effect breaks
+  silently the moment React *replaces* that node rather than updating it — wrapping the
+  screen in another element does exactly that, and a Fast Refresh mid-edit leaves the
+  observer watching a detached node that can never resize. The scale then freezes at whatever
+  the old tree measured and the canvas renders that many pixels too wide for the rest of the
+  session. Keying the effect on the node makes a swap re-run it.
+
+`clientWidth` is deliberate for the initial read: the entrance reveal tweens `scale(0.97)` on
+an ancestor, and a transformed rect would report 97% of the true width — wrong in the other
+direction and just as sticky.
+
 ## Below 901px it is a different component, not a smaller one
 
 At 375px the canvas would scale to 0.29 — 10px labels become 3px and every panel is grey
@@ -91,7 +193,7 @@ noise. Nothing about the desktop composition survives the reduction, so phones g
 `DemoCompact`: the same seven beats rendered one legible card at a time, each showing the
 single thing its chapter is about.
 
-The outer narration line and chapter chips are desktop-only. The compact card already
+The narration line and chapter chips are desktop-only. The compact card already
 prints the chapter title as its own headline and carries progress dots, so on a phone both
 would be the same information twice — and the chips are a pointer affordance that would
 mostly intercept scrolls under a tall card.
@@ -158,7 +260,8 @@ not watching. The reveal is now a one-shot entrance and nothing else.
 
 ## Reduced motion
 
-`useDemoTour` stops on the **AI review, complete** — the chapter that best explains the
+The glow's bloom is skipped with the rest of the entrance, so it simply renders at full
+strength. `useDemoTour` stops on the **AI review, complete** — the chapter that best explains the
 product in one still frame, and unlike the plan or the ship form it does not depend on an
 animation having run to make sense. The chapter chips still work; they just do not start a
 clock. The entrance reveal is skipped entirely by `gsap.matchMedia`.

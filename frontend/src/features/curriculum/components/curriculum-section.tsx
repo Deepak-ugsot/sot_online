@@ -17,7 +17,7 @@ import { CurriculumSkills, CurriculumSubjects } from "./curriculum-subjects";
 const PANEL_ID = "curriculum-panel";
 
 /**
- * "A curriculum built around how engineers actually learn." — the four semesters as an
+ * "A Curriculum Built Around How Engineers Actually Learn." — the four semesters as an
  * accordion on small screens and a tabbed panel from `lg` up.
  *
  * **Both layouts are the same DOM, rearranged by one grid — there is no media-query hook
@@ -73,7 +73,12 @@ export function CurriculumSection() {
             className="type-heading text-balance text-[clamp(1.625rem,3.2vw,2.5rem)] text-ink"
           >
             {curriculumHeading.lead}{" "}
-            <span className="text-brand">{curriculumHeading.accent}</span>{" "}
+            {/* Bricolage Grotesque via `font-accent`, the same treatment the red word takes
+                in the hero, career, gallery and ecosystem headings — this section was the
+                one that had the colour without the face. */}
+            <span className="font-accent font-medium text-brand">
+              {curriculumHeading.accent}
+            </span>{" "}
             {curriculumHeading.trail}
           </h2>
 

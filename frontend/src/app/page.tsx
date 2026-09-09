@@ -54,8 +54,8 @@ export default function HomePage() {
           <ReadinessSection />
           <BuildspaceSection />
           <CurriculumSection />
-          <EarlyStartSection />
           <LearnFromPeopleSection />
+          <EarlyStartSection />
           <EcosystemSection />
           <OneProgramSection />
           <NotAnotherCourseSection />

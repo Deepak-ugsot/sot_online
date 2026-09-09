@@ -11,9 +11,19 @@ import type {
  */
 
 export const buildspaceHeading: BuildspaceHeadingCopy = {
-  lead: "Build More. Ship Faster. With",
-  accent: "BuildSpace.",
+  accent: "BuildSpace",
+  trail: "- your engineering playground inside Beyond",
 };
+
+/**
+ * The small label that opens the left column.
+ *
+ * **It names what the window beside it is** — a tour of the product, not a screenshot —
+ * which is the one thing the composition cannot say for itself. Deliberately not a second
+ * "free" claim: the subtitle already makes that one, and two of them inside eight words
+ * reads as a pitch rather than as a fact.
+ */
+export const buildspaceEyebrow = "Inside BuildSpace";
 
 /**
  * One plain sentence, not the split lead/badge/trail of the old light layout. The red
@@ -22,7 +32,7 @@ export const buildspaceHeading: BuildspaceHeadingCopy = {
  * the sentence up.
  */
 export const buildspaceSubtitle =
-  "As an SOT student, get FREE ACCESS to BuildSpace to build real projects and in-demand skills.";
+  "As an SOT online student, get FREE ACCESS to BuildSpace to build real projects and in-demand skills.";
 
 export const buildspaceCta: BuildspaceCtaCopy = {
   label: "Explore BuildSpace",
@@ -85,6 +95,7 @@ export const buildspaceOutro = {
 };
 
 export const BUILDSPACE_SELECTORS = {
+  glow: '[data-buildspace="glow"]',
   heading: '[data-buildspace="heading"]',
   demo: '[data-buildspace="demo"]',
 } as const;

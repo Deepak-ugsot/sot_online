@@ -1,10 +1,16 @@
 /**
- * The heading is split so the trailing word can be rendered in the accent serif and
- * brand red, matching the hero, showcase and ecosystem sections.
+ * The heading is split so the product's name can be rendered in the accent face and brand
+ * red, matching the hero, showcase and ecosystem sections.
+ *
+ * **The accent leads here, where those sections trail it.** The line names the product and
+ * then says what it is, so the red is the first thing on the line rather than the payoff at
+ * the end of it.
  */
 export type BuildspaceHeadingCopy = {
-  lead: string;
+  /** Rendered in the accent face and brand red, ahead of the rest of the line. */
   accent: string;
+  /** The rest of the heading, in white. */
+  trail: string;
 };
 
 /** The white pill under the subtitle. */

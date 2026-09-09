@@ -167,6 +167,128 @@
   }
 }
 
+/* ---------------------------------------------------------------------------
+   BuildSpace: the aurora and the glowing card edge
+   ---------------------------------------------------------------------------
+   Both live here rather than in the feature because both need `@keyframes`, and
+   the border additionally needs a registered custom property — neither of which
+   a utility class can express.
+--------------------------------------------------------------------------- */
+
+/*
+  Registering the angle is what makes the border animation possible at all.
+
+  A plain `--angle: 0deg` is just a string to the animation engine, so it would
+  jump from 0 to 360 with nothing in between. `@property` gives it a type, and a
+  typed custom property interpolates — which is what lets a conic gradient's
+  starting angle be tweened rather than switched.
+
+  **This is a paint animation, not a compositor one, and on this page that is the
+  point.** Nothing moves: the element stays exactly where it is and only its
+  gradient is redrawn. ScrollSmoother transforms the whole page's content on the
+  main thread, and a *transform* animation running on the compositor thread is
+  what tore this page apart once already. An angle cannot desync with anything.
+*/
+@property --bs-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+/*
+  The chasing rainbow edge.
+
+  **The two masks are a hollowing trick, not decoration.** The pseudo-element is
+  filled edge to edge with the conic gradient; the first mask covers its content
+  box and the second covers its whole padding box, and compositing them with
+  `exclude` (`xor` on the WebKit-prefixed pair) subtracts the inside from the
+  outside. What survives is exactly the 1px of `padding` — a border-shaped
+  window onto a full gradient. Painting a gradient *into* a border is not
+  something CSS can otherwise do.
+
+  `border-radius: inherit` matters: the ring has to take the radius of whatever
+  card it is applied to, or it cuts corners the card does not have.
+*/
+.bs-glow-border {
+  position: relative;
+}
+
+.bs-glow-border::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  padding: 1px;
+  border-radius: inherit;
+  /*
+    Muted rather than saturated, and matched to the aurora behind the card. A neon
+    conic on a 1px edge reads as a toy; these are the same tones the glow uses, so
+    the edge looks lit by it rather than drawn on top of it.
+  */
+  background: conic-gradient(
+    from var(--bs-angle),
+    #c47bb4,
+    #8b6ee0,
+    #6f9ede,
+    #6fc4cf,
+    #7fd2b8,
+    #e0b184,
+    #e08a90,
+    #c47bb4
+  );
+  opacity: 0.7;
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  animation: bs-border-spin 5s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes bs-border-spin {
+  to {
+    --bs-angle: 360deg;
+  }
+}
+
+/*
+  The aurora behind the card. One bounded element, slowly turning.
+
+  **Bounded, and with no blend mode or `will-change` — all three deliberate.** The
+  version of this that broke the page was two 3000px-wide full-bleed layers, one
+  of them in `mix-blend-mode: screen`, both pinned with `will-change`. A single
+  element roughly the size of the card it sits behind is a layer the compositor
+  can hold without argument, and the page's marquees prove a plain rotation is
+  fine here.
+
+  The blur is applied once and the result is what rotates, so the expensive part
+  never repeats. Animating the gradient's angle instead would look near-identical
+  and re-run a 120px blur on every frame.
+*/
+.bs-aurora {
+  animation: bs-aurora-spin 18s linear infinite;
+}
+
+@keyframes bs-aurora-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bs-glow-border::before,
+  .bs-aurora {
+    animation: none;
+  }
+}
+
 /*
   Two beats out and back inside the first third of the cycle, then a hold. Kept to 3px
   so it never looks like the arrow is drifting out of its button.

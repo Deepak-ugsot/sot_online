@@ -62,7 +62,11 @@ export function LearnFromPeopleSection() {
           className="mx-auto max-w-[37.5rem] text-center type-heading text-[clamp(1.75rem,4vw,3rem)] font-bold text-ink"
         >
           {learnFromPeopleHeading.lead}{" "}
-          <span className="text-brand">{learnFromPeopleHeading.accent}</span>{" "}
+          {/* Bricolage Grotesque via `font-accent`, the same treatment the red word takes
+              across the hero, curriculum, career and ecosystem headings. */}
+          <span className="font-accent font-medium text-brand">
+            {learnFromPeopleHeading.accent}
+          </span>{" "}
           {learnFromPeopleHeading.trail}
         </h2>
 

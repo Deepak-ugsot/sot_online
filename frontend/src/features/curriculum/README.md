@@ -1,6 +1,6 @@
 # Curriculum
 
-"A curriculum built around how engineers actually learn." — the four semesters as an
+"A Curriculum Built Around How Engineers Actually Learn." — the four semesters as an
 accordion on small screens and a tabbed panel from `lg` up, each showing its projects, the
 skills it builds, and every module it teaches.
 

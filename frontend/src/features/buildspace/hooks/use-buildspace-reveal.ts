@@ -6,8 +6,8 @@ import { gsap } from "@/lib/gsap";
 import { BUILDSPACE_SELECTORS } from "../constants/buildspace.constants";
 
 /**
- * The section's entrance: the heading, subtitle and CTA rise in turn, then the demo
- * window arrives under them.
+ * The section's entrance: the rainbow blooms open from the top right, the heading, subtitle
+ * and CTA rise in turn, and the demo window arrives beside them.
  *
  * **No pin and no scrub, unlike the collage this replaced.** That version scrubbed a
  * fold-into-the-laptop sequence across a viewport-and-a-half of pinned scroll, because
@@ -30,6 +30,35 @@ export function useBuildspaceReveal(scopeRef: RefObject<HTMLElement | null>) {
       const matchMedia = gsap.matchMedia();
 
       matchMedia.add("(prefers-reduced-motion: no-preference)", () => {
+        /*
+          The aurora fades up ahead of the copy, so the light is already in the room by the
+          time anything is read.
+
+          **Opacity only — deliberately no `scale`.** The blob inside carries a CSS rotation,
+          and GSAP writes its tweens as an inline `transform`, which would overwrite that
+          rotation for the life of the tween and then hand back a static element. The two
+          animations have to touch different properties to coexist: this one owns opacity,
+          the stylesheet owns transform.
+
+          **This is a GSAP tween rather than a CSS animation, and that distinction is
+          load-bearing on this page.** A CSS animation runs on the compositor thread, while
+          ScrollSmoother drives the whole page's content with a transform updated on the
+          main thread; an earlier version of this glow drifted on CSS keyframes and the two
+          threads disagreed about where the layer belonged, which tore the page apart as it
+          scrolled. GSAP writes inline styles from a rAF tick — the same thread the smoother
+          runs on — so the two can never fall out of step.
+
+          It is also one-shot, and `clearProps` hands opacity back to the stylesheet when the
+          tween lands. Do not turn this into a loop.
+        */
+        gsap.from(BUILDSPACE_SELECTORS.glow, {
+          opacity: 0,
+          duration: 1.8,
+          ease: "power2.out",
+          clearProps: "opacity",
+          scrollTrigger: { trigger: scope, start: "top 92%", once: true },
+        });
+
         gsap.from(`${BUILDSPACE_SELECTORS.heading} > *`, {
           opacity: 0,
           y: 30,
