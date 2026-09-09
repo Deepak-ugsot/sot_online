@@ -62,7 +62,7 @@ export function GlobalAmbitionSection() {
           spans whatever the current count is, so it stays the block's base line at
           every breakpoint rather than becoming a stray wide card in a 2-up grid.
         */}
-        <div className="mt-10 grid grid-cols-1 gap-4 sm:mt-12 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3 lg:mt-14">
+        <div className="mt-10 grid grid-cols-1 gap-5 sm:mt-12 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3 lg:mt-14 lg:gap-7">
           {globalAmbitionCards.map((card, index) => (
             <GlobalAmbitionCard
               key={card.id}

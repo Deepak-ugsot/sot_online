@@ -12,9 +12,24 @@ export type GlobalAmbitionCardSize = "default" | "featured" | "wide";
 export type GlobalAmbitionCard = {
   /** Stable React key — never derive keys from copy, which is editable. */
   id: string;
-  /** The small red label above the title: the kind of opportunity this is. */
-  track: string;
   title: string;
+  /**
+   * The oversized ghost word set behind the copy.
+   *
+   * Held per card rather than sliced off `title`: it is an editorial choice — "CODE"
+   * for Codeforces / CodeChef, "GOOGLE" for Google Summer of Code — and a rule about
+   * first words would spell out the wrong half of half of these titles.
+   */
+  watermark: string;
+  /**
+   * The ghost word's colour, as a CSS colour value.
+   *
+   * Carried beside `tint` for the same reason `tint` itself is data: each is one step
+   * deeper than its own card's wash, keyed to that wash, and there is no scale for
+   * them to be a rung on. A single translucent black would go muddy on the rose and
+   * invisible on the white featured card.
+   */
+  watermarkTint: string;
   description: string;
   /**
    * The card's artwork.

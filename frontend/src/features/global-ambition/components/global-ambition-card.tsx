@@ -21,7 +21,7 @@ const sizeClasses: Record<GlobalAmbitionCardData["size"], string> = {
     break, so the offset would just be a card that hangs oddly.
 
     `z-10` because it now overlaps its neighbours' margin boxes, and without it the
-    later cards in DOM order would paint their shadows over its edges.
+    later cards in DOM order would paint their own grounds over its edges.
   */
   featured: "lg:z-10 lg:-my-2.5",
   wide: "sm:col-span-2 lg:col-span-3",
@@ -50,23 +50,48 @@ export function GlobalAmbitionCard({ card, priority }: GlobalAmbitionCardProps) 
       data-global-ambition="card"
       style={{ background: card.tint }}
       className={cn(
+        // `group` still earns its place with no hover of its own: the artwork's motion
+        // below is keyed to hovering anywhere on the card, not just on the render.
         "group relative isolate flex min-h-[11.5rem] items-stretch overflow-hidden rounded-xl",
-        // The lift. `ease-cinematic` is the site's signature curve — see `globals.css`.
-        "transition-[transform,box-shadow] duration-500 ease-cinematic",
-        "hover:-translate-y-1.5 hover:shadow-[0_18px_38px_rgba(10,10,11,0.13)]",
-        // Keyboard parity: the card is not focusable itself, but when it wraps a
-        // focused control the same lift should read.
-        "focus-within:-translate-y-1.5 focus-within:shadow-[0_18px_38px_rgba(10,10,11,0.13)]",
         sizeClasses[card.size],
       )}
     >
-      {/* `min-w-0` so a long unbroken title shrinks the text rather than the art. */}
-      <div className="flex min-w-0 flex-1 flex-col justify-center p-5 sm:p-6">
-        <p className="text-[0.6875rem] font-bold tracking-[0.13em] uppercase text-brand">
-          {card.track}
-        </p>
+      {/*
+        The ghost word behind the copy — the card's own subject, set at display size in
+        one step deeper than its wash.
 
-        <h3 className="mt-2 type-heading text-[clamp(1.0625rem,1.4vw,1.3125rem)] font-bold text-ink">
+        Absolute rather than a first child of the copy column: the column is
+        `justify-center`, so in flow the mark would push the copy off centre and drag
+        the card's height with it. Here it hangs off the card's padding box instead
+        (`left-5 sm:left-6`, matching the copy's own `p-5 sm:p-6`), leaving the layout
+        exactly as it was.
+
+        `-z-10` puts it behind both the copy and the artwork — the renders are cut-outs
+        on transparency, so the mark reads through them the way the wash does. Masked to
+        fade out downward so it dies before the description rather than behind it.
+      */}
+      <span
+        aria-hidden="true"
+        style={{ color: card.watermarkTint }}
+        className={cn(
+          "type-heading pointer-events-none absolute top-2.5 left-5 -z-10 leading-[0.8] font-extrabold tracking-[-0.04em] select-none sm:top-3 sm:left-6",
+          "text-[clamp(2.75rem,5.4vw,4.75rem)]",
+          "[mask-image:linear-gradient(to_bottom,#000_55%,transparent_100%)]",
+        )}
+      >
+        {card.watermark}
+      </span>
+
+      {/* `min-w-0` so a long unbroken title shrinks the text rather than the art. */}
+      {/*
+        The top padding is set again, larger, *after* the shorthand: it is the band the
+        ghost word stands in. The copy stays vertically centred — in the room that is
+        left — so it still sits on the card's optical centre rather than being pinned
+        to the bottom, and the mark gets to be read as a word before the title crosses
+        its tail.
+      */}
+      <div className="flex min-w-0 flex-1 flex-col justify-center p-5 pt-14 sm:p-6 sm:pt-20">
+        <h3 className="type-heading text-[clamp(1.0625rem,1.4vw,1.3125rem)] font-bold text-ink">
           {card.title}
         </h3>
 
@@ -107,10 +132,10 @@ export function GlobalAmbitionCard({ card, priority }: GlobalAmbitionCardProps) 
             priority={priority}
             sizes="(min-width: 1024px) 22vw, (min-width: 640px) 30vw, 50vw"
             /*
-              The second half of the hover: the artwork pushes forward and tips
-              slightly while the card lifts. Slower than the card's own transition so
-              it reads as the card leading and the render following, rather than as
-              one rigid block.
+              The card's whole hover, now that the panel itself no longer lifts: the
+              artwork pushes forward and tips while everything around it holds still.
+              Slow (700ms) on purpose — it is the only thing moving, so a quick pop
+              would read as a glitch rather than as the render leaning out of the card.
             */
             className="h-full w-full object-contain transition-transform duration-700 ease-cinematic group-hover:scale-[1.06] group-hover:-rotate-[1.5deg]"
           />

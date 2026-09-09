@@ -2,14 +2,12 @@
 
 import { useRef } from "react";
 
-import { CtaButton } from "@/components/ui/cta-button";
 import { RailScrollArrow } from "@/components/ui/rail-scroll-arrow";
 import { cn } from "@/lib/utils";
 import {
-  readinessCta,
+  readinessClosing,
   readinessHeading,
-  readinessMetrics,
-  readinessSubtitle,
+  readinessSteps,
 } from "../constants/readiness.constants";
 import { useReadinessReveal } from "../hooks/use-readiness-reveal";
 import { useReadinessTrack } from "../hooks/use-readiness-track";
@@ -19,12 +17,18 @@ import { ReadinessCard } from "./readiness-card";
 const EAGER_CARD_COUNT = 4;
 
 /**
- * "Career Readiness Score" — a centred heading over a row of metric cards that scroll
- * sideways as the page scrolls down.
+ * "Two years. One serious transformation." — the seven steps of the programme as a
+ * row of cards that scrolls sideways as the page scrolls down.
  *
  * **The row is full-bleed on purpose.** It has no `max-width`: the point of the
  * layout is that cards run off both edges of the screen, so a centred measure would
  * defeat it. Only the track's own padding holds the first and last card off the edge.
+ *
+ * **The heading takes its inset from that padding rather than from a container.** The
+ * design sets it flush with the first card, and the only thing that knows where the
+ * first card starts is the track's `px-20` / `px-6` — so the heading repeats those
+ * exact values. A centred `max-w` wrapper would land somewhere else at every width
+ * between the two.
  *
  * From `901px` the section pins and the track is panned by `useReadinessTrack`. Below
  * that — and under reduced motion — nothing is registered, and the viewport's own
@@ -36,10 +40,9 @@ const EAGER_CARD_COUNT = 4;
  * **`min-h-screen` is what keeps the pin from showing black.** A pinned section is
  * `position: fixed` at its own natural height, and the pin-spacer standing in for it
  * is transparent — so on any viewport taller than the section, the page's dark `body`
- * showed through beneath it for the entire length of the pin. The section measured
- * 924px, which put a black band under the cards on every display taller than that.
- * Guaranteeing it is never shorter than the viewport removes the gap at its source,
- * and `justify-center` spreads the extra height instead of piling it under the row.
+ * showed through beneath it for the entire length of the pin. Guaranteeing it is never
+ * shorter than the viewport removes the gap at its source, and `justify-center`
+ * spreads the extra height instead of piling it under the row.
  */
 export function ReadinessSection() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -56,53 +59,39 @@ export function ReadinessSection() {
       className="relative bg-surface"
     >
       {/*
-        Padding trimmed from the reference's 100/120 to 80/96. A pinned section has to
-        fit the viewport it is fixed to, and the reference's spacing put an eight-card
-        row 24px over a 900px-tall window — the cards cleared the fold, the bottom
-        padding did not.
+        Padding trimmed to 64/80 at the pin threshold. A pinned section has to fit the
+        viewport it is fixed to, and this one now carries a two-line heading, a row
+        461px tall with its stagger, *and* a closing line — at the reference's 100/120
+        that runs some 80px over a 900px-tall window, which crops the closing line the
+        section is building towards.
 
         Below the threshold there is no pin to fit and no desktop measure to hold the
-        section together, so 80/96 reads as a hole above and below the row on a phone.
-        56/64 keeps the heading, the CTA and the first card in one view at 375×812.
+        section together, so those values read as a hole above and below the row on a
+        phone. 56/64 keeps the heading and the first card in one view at 375×812.
       */}
-      <div className="flex flex-col justify-center pt-14 pb-16 min-[901px]:min-h-screen min-[901px]:pt-20 min-[901px]:pb-24">
-        <div className="mx-auto mb-8 flex max-w-[84rem] flex-col items-center gap-6 px-6 text-center min-[901px]:mb-[2.375rem] min-[901px]:gap-5">
-          <div
-            data-readiness="top-item"
-            className="flex flex-col items-center gap-4 min-[901px]:gap-5"
-          >
-            <h2
-              id="readiness-heading"
-              className="type-heading text-[clamp(2rem,4vw,3.25rem)] text-ink"
-            >
-              {readinessHeading.lead}{" "}
-              <span className="font-accent font-medium text-brand">
-                {readinessHeading.accent}
-              </span>
-            </h2>
-
-            <p className="max-w-[55.75rem] text-balance font-display text-[clamp(1rem,1.8vw,1.5rem)] text-ink">
-              {readinessSubtitle}
-            </p>
-          </div>
-
-          <div data-readiness="top-item">
-            <CtaButton
-              href={readinessCta.href}
-              variant="inverse"
-              size="lg"
-              withIcon
-            >
-              {readinessCta.label}
-            </CtaButton>
-          </div>
-        </div>
+      <div className="flex flex-col justify-center pt-14 pb-16 min-[901px]:min-h-screen min-[901px]:pt-16 min-[901px]:pb-20">
+        <h2
+          id="readiness-heading"
+          data-readiness="top-item"
+          className={cn(
+            "type-heading mb-8 px-6 text-[clamp(1.75rem,3vw,2.5rem)] font-bold text-ink",
+            "min-[901px]:mb-11 min-[901px]:px-20",
+          )}
+        >
+          {readinessHeading.lead}
+          {/*
+            `block` rather than a `<br>`: the second line is a different colour, so it
+            is a `<span>` either way, and letting it own the line break keeps the two
+            lines from ever being reflowed into one at a narrow width.
+          */}
+          <span className="block text-brand">{readinessHeading.accent}</span>
+        </h2>
 
         {/*
           The wrapper is what the swipe arrow is positioned against. The section is
           already `relative`, but it is `min-h-screen` tall at the pin threshold and
-          holds the heading and CTA too — centring the arrow on *that* would put it
-          nowhere near the row.
+          holds the heading and the closing line too — centring the arrow on *that*
+          would put it nowhere near the row.
         */}
         <div className="relative">
           <div
@@ -114,7 +103,7 @@ export function ReadinessSection() {
             // the tab stop is inert — the same trade the gallery makes, kept identical
             // rather than branched on width, which no static markup can do.
             role="group"
-            aria-label="Career readiness metrics"
+            aria-label="The seven steps of the programme"
             tabIndex={0}
             className={cn(
               "overflow-hidden",
@@ -141,18 +130,18 @@ export function ReadinessSection() {
             )}
           >
             {/*
-            `w-max` is load-bearing: it lets the track be wider than the viewport,
-            which is the whole premise — both the pan distance and the hand-swipe
-            scroll range are that overflow.
-          */}
+              `w-max` is load-bearing: it lets the track be wider than the viewport,
+              which is the whole premise — both the pan distance and the hand-swipe
+              scroll range are that overflow.
+            */}
             <div
               data-readiness="track"
               className="flex w-max items-start gap-4 px-6 will-change-transform min-[901px]:gap-6 min-[901px]:px-20"
             >
-              {readinessMetrics.map((metric, index) => (
+              {readinessSteps.map((step, index) => (
                 <ReadinessCard
-                  key={metric.id}
-                  metric={metric}
+                  key={step.id}
+                  step={step}
                   index={index}
                   priority={index < EAGER_CARD_COUNT}
                 />
@@ -171,6 +160,23 @@ export function ReadinessSection() {
             className="right-4 top-1/2 -translate-y-1/2"
           />
         </div>
+
+        {/*
+          Centred against the whole screen rather than against the heading's inset: the
+          row is full-bleed, and the design closes the section on the page's own axis.
+        */}
+        <p
+          data-readiness="top-item"
+          className={cn(
+            "type-heading mx-auto mt-10 max-w-[52rem] px-6 text-center",
+            "text-[clamp(1.25rem,2.3vw,2rem)] font-bold text-balance text-ink",
+            "min-[901px]:mt-12",
+          )}
+        >
+          {readinessClosing.lead}{" "}
+          <span className="text-brand">{readinessClosing.accent}</span>{" "}
+          {readinessClosing.tail}
+        </p>
       </div>
     </section>
   );

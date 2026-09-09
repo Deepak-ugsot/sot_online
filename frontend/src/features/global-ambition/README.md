@@ -44,7 +44,7 @@ middle of the second row and the only one on a white ground. It overhangs its ro
 margins make its border box taller than the row it sits in. `lg:` only — below that
 there is no row line to break, so the offset would just read as a card hanging oddly.
 It also takes `z-10`, because it now overlaps its neighbours' margin boxes and would
-otherwise have their shadows painted over its edges.
+otherwise have their grounds painted over its edges.
 
 ## Why the card is a flex row, not an absolute media box
 
@@ -73,15 +73,18 @@ packet are cut by the right edge, the internship badge hangs past it.
 
 **On hover** (pure CSS, no client JS):
 
-| Element | Change                          | Duration |
-| ------- | ------------------------------- | -------- |
-| Card    | `-translate-y-1.5` + deeper shadow | 500ms |
-| Artwork | `scale(1.06)` + `-rotate(1.5deg)`  | 700ms |
+| Element | Change                            | Duration |
+| ------- | --------------------------------- | -------- |
+| Artwork | `scale(1.06)` + `-rotate(1.5deg)` | 700ms    |
 
-The artwork is slower than the card on purpose, so it reads as the card leading and
-the render following rather than as one rigid block. Both use `ease-cinematic`, the
-site's signature curve. The card also lifts on `focus-within`, so a keyboard user
-gets the same feedback if a control is ever added inside one.
+**The card itself does not move.** It used to lift `1.5px` into a deeper shadow, and
+the artwork's tilt was the second half of that gesture; the lift is gone and the tilt
+is now the whole of it. 700ms stays: it is the only thing moving, so a quicker pop
+would read as a glitch rather than as the render leaning out of the card. It uses
+`ease-cinematic`, the site's signature curve.
+
+The hover is keyed to the card (`group-hover`), not to the artwork, so it fires from
+anywhere on the panel.
 
 **On scroll**, `useGlobalAmbitionReveal` fades the header up, then the cards on an
 0.08s stagger in DOM order — across the first row, across the second, then the

@@ -23,7 +23,6 @@ import { OneJourneySection } from "@/features/one-journey";
 import { OneProgramSection } from "@/features/one-program";
 import { OpportunitiesSection } from "@/features/opportunities";
 import { ReadinessSection } from "@/features/readiness";
-import { TransformationSection } from "@/features/transformation";
 
 /**
  * Landing page.
@@ -52,7 +51,7 @@ export default function HomePage() {
           <GallerySection />
           <CompeteSection />
           <AiMentorSection />
-          <TransformationSection />
+          <ReadinessSection />
           <BuildspaceSection />
           <CurriculumSection />
           <EarlyStartSection />
@@ -61,7 +60,6 @@ export default function HomePage() {
           <OneProgramSection />
           <NotAnotherCourseSection />
           <CareerOsSection />
-          <ReadinessSection />
           <DashboardSection />
           <OpportunitiesSection />
           <BuiltForStudentsSection />

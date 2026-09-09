@@ -28,8 +28,10 @@ export function useReadinessReveal(scopeRef: RefObject<HTMLElement | null>) {
       const matchMedia = gsap.matchMedia();
 
       matchMedia.add("(prefers-reduced-motion: no-preference)", () => {
-        // The copy block and the CTA are separate top-level items, so staggering
-        // them here is safe — there are no internal gaps for the tween to disturb.
+        // The heading and the closing line are separate top-level items, so
+        // staggering them here is safe — there are no internal gaps for the tween to
+        // disturb. They sit at opposite ends of the section but arrive together
+        // because the section is pinned: once it is on screen, both are.
         gsap.from(READINESS_SELECTORS.topItem, {
           opacity: 0,
           y: 40,

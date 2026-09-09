@@ -38,8 +38,9 @@ const globalImage = (file: string) => `/assets/global/${file}`;
 export const globalAmbitionCards: readonly GlobalAmbitionCard[] = [
   {
     id: "icpc",
-    track: "Compete",
     title: "ICPC",
+    watermark: "ICPC",
+    watermarkTint: "#f7d2d2",
     description:
       "Train seriously to compete at the highest levels of competitive programming.",
     image: { src: globalImage("ICPC.png"), width: 334, height: 374 },
@@ -49,8 +50,9 @@ export const globalAmbitionCards: readonly GlobalAmbitionCard[] = [
   },
   {
     id: "codeforces",
-    track: "Compete",
     title: "Codeforces / CodeChef",
+    watermark: "CODE",
+    watermarkTint: "#d3e8d8",
     description:
       "Build your problem-solving skills and competitive coding profile.",
     image: { src: globalImage("CodeChef.png"), width: 468, height: 345 },
@@ -60,8 +62,9 @@ export const globalAmbitionCards: readonly GlobalAmbitionCard[] = [
   },
   {
     id: "gsoc",
-    track: "Contribute",
     title: "Google Summer of Code",
+    watermark: "GOOGLE",
+    watermarkTint: "#f6e2bb",
     description:
       "Build towards the open-source skills and contribution track needed to aim for GSoC.",
     image: {
@@ -75,8 +78,9 @@ export const globalAmbitionCards: readonly GlobalAmbitionCard[] = [
   },
   {
     id: "open-source",
-    track: "Contribute",
     title: "Open Source",
+    watermark: "OPEN",
+    watermarkTint: "#d3e9da",
     description:
       "Contribute to real codebases and build a GitHub profile that speaks for itself.",
     image: { src: globalImage("Open_Source.png"), width: 576, height: 384 },
@@ -86,8 +90,9 @@ export const globalAmbitionCards: readonly GlobalAmbitionCard[] = [
   },
   {
     id: "build",
-    track: "Build",
     title: "Build Real Products",
+    watermark: "BUILD",
+    watermarkTint: "#eceef1",
     description:
       "Ship full-stack, systems and AI products — not classroom assignments.",
     image: {
@@ -101,8 +106,9 @@ export const globalAmbitionCards: readonly GlobalAmbitionCard[] = [
   },
   {
     id: "ai",
-    track: "Build",
     title: "AI",
+    watermark: "AI",
+    watermarkTint: "#ddd3f4",
     description: "Become an AI-native software engineer.",
     image: { src: globalImage("AI.png"), width: 340, height: 270 },
     tint: "#f0ebfb",
@@ -111,8 +117,9 @@ export const globalAmbitionCards: readonly GlobalAmbitionCard[] = [
   },
   {
     id: "internships",
-    track: "Experience",
     title: "Internships",
+    watermark: "INTERNSHIPS",
+    watermarkTint: "#cfdefa",
     description:
       "Start building real-world exposure long before your final year.",
     image: { src: globalImage("Internships.png"), width: 629, height: 420 },

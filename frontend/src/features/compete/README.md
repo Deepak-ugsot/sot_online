@@ -3,7 +3,7 @@
 "Don't just learn to code. Compete." — the pitch and its CTA on the left, four
 highlights in two staggered columns to the right.
 
-Sits directly below the Transformation section.
+Sits directly below the Gallery section.
 
 ## Public API
 
