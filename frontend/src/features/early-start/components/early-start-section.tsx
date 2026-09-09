@@ -45,13 +45,15 @@ export function EarlyStartSection() {
       <div className="mx-auto max-w-[72rem] px-6 sm:px-8">
         {/*
           `56rem` is set by the heading's one line: "Your Career Doesn't Start In Final
-          Year." measures 793px at the `2.75rem` cap, so the `48rem` (768px) this
+          Year." measures 799px at the `2.75rem` cap, so the `48rem` (768px) this
           started at broke it in two and stranded "Final Year." on a line of its own.
-          The slack above 793px is deliberate — the measurement is against the fallback
+          The slack above 799px is deliberate — the measurement is against the fallback
           face, since Neue Montreal is not redistributable and 404s in this repo (see
-          `globals.css`), so measure again if that file lands. Below the cap the `3.6vw`
-          term shrinks the type faster than the block, and the line keeps fitting down
-          to where it wraps by itself.
+          `globals.css`), so measure again if that file lands. It also moves when the
+          accent's face changes: "Final Year." is set in Bricolage Grotesque, and giving
+          it that face is what took the line from 793px to 799px. Below the cap the
+          `3.6vw` term shrinks the type faster than the block, and the line keeps fitting
+          down to where it wraps by itself.
 
           The paragraph under it is one short line and needs no measure of its own.
         */}
