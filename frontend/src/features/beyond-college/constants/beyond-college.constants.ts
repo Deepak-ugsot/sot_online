@@ -39,6 +39,7 @@ export const beyondCollegePanels: readonly [
   {
     tone: "college",
     title: "YOUR COLLEGE",
+    watermark: "YOUR",
     subtitle: "Gives you the foundation",
     items: [
       {
@@ -76,6 +77,7 @@ export const beyondCollegePanels: readonly [
   {
     tone: "accelerator",
     title: "uGSOT BEYOND",
+    watermark: "uGSOT",
     subtitle: "Helps you go beyond",
     items: [
       {

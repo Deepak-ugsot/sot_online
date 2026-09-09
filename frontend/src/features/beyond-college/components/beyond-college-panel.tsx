@@ -17,6 +17,9 @@ const toneStyles = {
   college: {
     surface: "bg-white ring-1 ring-black/[0.05]",
     title: "text-ink",
+    /* Barely there on purpose. On white the ghost word has to stay under the eye's
+       threshold for "text" — read it and it competes with the title it sits behind. */
+    watermark: "text-black/[0.07]",
     /* The rule under the title is the section's red on this side and white on the
        other — it is the one mark that ties the quiet panel to the loud one. */
     rule: "bg-brand",
@@ -32,6 +35,9 @@ const toneStyles = {
     surface:
       "bg-[linear-gradient(147deg,#ee1a24_0%,#e6161f_40%,#b90c14_100%)] ring-1 ring-white/10",
     title: "text-white",
+    /* Heavier than the college side's: the same alpha over the red gradient all but
+       disappears, so the two marks are matched by how they read, not by their value. */
+    watermark: "text-white/[0.14]",
     rule: "bg-white/55",
     subtitle: "text-white/80",
     divider: "border-white/15",
@@ -66,6 +72,10 @@ export function BeyondCollegePanel({ panel }: BeyondCollegePanelProps) {
         // larger than the panel on purpose, and the panel's own rounding is what
         // crops it back into a corner mark.
         "relative isolate flex h-full flex-col overflow-hidden rounded-2xl p-5 sm:rounded-[1.75rem] sm:p-8 lg:p-9",
+        // The top padding is set again, larger, *after* the shorthand: the ghost word
+        // behind the title needs a band of its own to stand in. Cropped against the
+        // card edge it read as an accident; given the room it reads as set there.
+        "pt-14 sm:pt-20 lg:pt-24",
         "shadow-[0_18px_40px_-28px_rgba(10,10,11,0.34)] sm:shadow-[0_34px_80px_-46px_rgba(10,10,11,0.42)]",
         tone.surface,
       )}
@@ -96,9 +106,35 @@ export function BeyondCollegePanel({ panel }: BeyondCollegePanelProps) {
         would put "YOUR COLLEGE" and "uGSOT BEYOND" into the page outline between the
         section's own `h2` and nothing at all.
       */}
+      {/*
+        The ghost word behind the title. It is cropped by the panel's top edge on
+        purpose — a word that fits inside the padding reads as a second, faded heading,
+        while one the card cuts into reads as a texture and lets the real title sit on
+        top of it.
+
+        Positioned against the panel's own padding (`left-5 sm:left-8 lg:left-9`) so it
+        shares the title's left edge at every width, and masked to fade out before it
+        reaches the subtitle, which is the first line it would otherwise crowd.
+      */}
+      <span
+        aria-hidden="true"
+        className={cn(
+          "type-heading pointer-events-none absolute top-3 left-5 -z-10 leading-[0.8] font-extrabold tracking-[-0.04em] select-none sm:top-5 sm:left-8 lg:left-9",
+          // 800, the weight the approach section's oversized words use: at this size
+          // the display face's 700 goes thin and the mark stops reading as one shape.
+          "text-[clamp(4rem,8vw,7rem)]",
+          "[mask-image:linear-gradient(to_bottom,#000_55%,transparent_100%)]",
+          tone.watermark,
+        )}
+      >
+        {panel.watermark}
+      </span>
+
       <p
         className={cn(
-          "type-heading text-[clamp(1.0625rem,1.6vw,1.5rem)] font-bold",
+          // 800 rather than 700, matching the ghost word behind it — at this size the
+          // display face's bold reads a shade light against a 112px mark.
+          "type-heading text-[clamp(1.25rem,2vw,1.875rem)] font-extrabold",
           tone.title,
         )}
       >
@@ -119,7 +155,7 @@ export function BeyondCollegePanel({ panel }: BeyondCollegePanelProps) {
           <li
             key={item.id}
             className={cn(
-              "group -mx-1.5 flex items-center gap-3 rounded-xl px-1.5 py-3 sm:-mx-2 sm:gap-4 sm:rounded-2xl sm:px-2 sm:py-4",
+              "group -mx-1.5 flex items-center gap-3 rounded-xl px-1.5 py-2.5 sm:-mx-2 sm:gap-4 sm:rounded-2xl sm:px-2 sm:py-3",
               "transition-colors duration-300 ease-cinematic",
               tone.rowHover,
               // A rule *between* rows, so the list reads as one block rather than as

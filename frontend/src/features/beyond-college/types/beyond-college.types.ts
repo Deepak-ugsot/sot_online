@@ -26,6 +26,13 @@ export type BeyondCollegePanel = {
    * "uGSOT BEYOND" has to keep its lowercase `u` — `uppercase` would render "UGSOT".
    */
   title: string;
+  /**
+   * The oversized ghost word set behind the title and cropped by the panel's top
+   * edge. Held separately rather than sliced off `title` at render time: the split is
+   * an editorial choice ("YOUR", "uGSOT"), not a rule about first words, and deriving
+   * it would make the mark change shape the moment marketing reworded a title.
+   */
+  watermark: string;
   subtitle: string;
   items: readonly BeyondCollegeItem[];
 };
