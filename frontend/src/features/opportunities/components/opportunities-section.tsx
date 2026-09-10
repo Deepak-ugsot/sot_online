@@ -59,7 +59,7 @@ export function OpportunitiesSection() {
         <div className="flex flex-col items-center gap-4 px-6 text-center">
           <h2
             id="opportunities-heading"
-            className="type-heading text-[clamp(2rem,4.5vw,3.5rem)] text-ink"
+            className="type-heading font-semibold text-[clamp(2rem,4.5vw,3.5rem)] text-ink"
           >
             {opportunitiesHeading.lead}{" "}
             <span className="font-accent font-medium text-brand">

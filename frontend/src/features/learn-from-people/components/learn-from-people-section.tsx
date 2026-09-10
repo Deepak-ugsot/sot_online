@@ -59,7 +59,7 @@ export function LearnFromPeopleSection() {
         <h2
           data-learn-from-people="heading"
           id="learn-from-people-heading"
-          className="mx-auto max-w-[37.5rem] text-center type-heading text-[clamp(1.75rem,4vw,3rem)] font-bold text-ink"
+          className="mx-auto max-w-[37.5rem] text-center type-heading text-[clamp(1.75rem,4vw,3rem)] font-semibold text-ink"
         >
           {learnFromPeopleHeading.lead}{" "}
           {/* Bricolage Grotesque via `font-accent`, the same treatment the red word takes

@@ -38,7 +38,7 @@ export function CareerIntro() {
 
         <h2
           id="career-heading"
-          className="type-heading text-[clamp(1.75rem,3.2vw,2.5rem)] text-ink"
+          className="type-heading font-semibold text-[clamp(1.75rem,3.2vw,2.5rem)] text-ink"
         >
           {/* `whitespace-pre-line` renders the newline in the copy as the intended
               line break, keeping the break in the constants file with the rest of

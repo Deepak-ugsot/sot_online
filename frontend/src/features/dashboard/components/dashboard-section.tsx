@@ -46,7 +46,7 @@ export function DashboardSection() {
         >
           <h2
             id="dashboard-heading"
-            className="type-heading text-[clamp(1.875rem,3.8vw,3.25rem)] text-ink"
+            className="type-heading font-semibold text-[clamp(1.875rem,3.8vw,3.25rem)] text-ink"
           >
             {dashboardHeading.lead}{" "}
             <span className="font-accent font-medium text-brand">

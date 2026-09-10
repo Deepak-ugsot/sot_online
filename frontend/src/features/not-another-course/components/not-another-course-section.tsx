@@ -48,7 +48,7 @@ export function NotAnotherCourseSection() {
         >
           <h2
             id="notcourse-heading"
-            className="type-heading text-balance text-[clamp(1.75rem,3.4vw,3rem)] text-ink"
+            className="type-heading font-semibold text-balance text-[clamp(1.75rem,3.4vw,3rem)] text-ink"
           >
             {notAnotherCourseHeading.lead}{" "}
             <span className="font-accent font-medium text-brand">

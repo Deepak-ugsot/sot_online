@@ -63,13 +63,13 @@ export function EarlyStartSection() {
         >
           <h2
             id="early-start-heading"
-            className="type-heading text-balance text-[clamp(1.625rem,3.6vw,2.75rem)] font-bold text-ink"
+            className="type-heading text-balance text-[clamp(1.625rem,3.6vw,2.75rem)] font-semibold text-ink"
           >
             {earlyStartHeading.lead}{" "}
             {/* Bricolage Grotesque via `font-accent`, matching the red word across the
                 hero, curriculum, career and learn-from-people headings. No weight
-                override: the heading is `font-bold` and the accent inherits it, the way
-                Beyond College's two accents do — 700 is loaded for exactly this. */}
+                override: the heading is `font-semibold` and the accent inherits it —
+                600 is loaded for exactly this. */}
             <span className="font-accent text-brand">{earlyStartHeading.accent}</span>
           </h2>
 

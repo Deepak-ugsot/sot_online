@@ -44,7 +44,7 @@ export function GlobalAmbitionSection() {
         >
           <h2
             id="global-ambition-heading"
-            className="type-heading text-[clamp(1.75rem,3.4vw,2.75rem)] text-balance text-ink"
+            className="type-heading font-semibold text-[clamp(1.75rem,3.4vw,2.75rem)] text-balance text-ink"
           >
             {globalAmbitionHeading.lead}{" "}
             <span className="font-accent font-medium text-brand">

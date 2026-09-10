@@ -70,7 +70,7 @@ export function CurriculumSection() {
         >
           <h2
             id="curriculum-heading"
-            className="type-heading text-balance text-[clamp(1.625rem,3.2vw,2.5rem)] text-ink"
+            className="type-heading font-semibold text-balance text-[clamp(1.625rem,3.2vw,2.5rem)] text-ink"
           >
             {curriculumHeading.lead}{" "}
             {/* Bricolage Grotesque via `font-accent`, the same treatment the red word takes

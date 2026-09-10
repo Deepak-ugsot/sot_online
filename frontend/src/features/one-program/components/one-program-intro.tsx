@@ -28,7 +28,7 @@ export function OneProgramIntro() {
       */}
       <h2
         id="one-program-heading"
-        className="type-heading text-[clamp(2rem,4.4vw,3.25rem)] font-bold text-ink"
+        className="type-heading text-[clamp(2rem,4.4vw,3.25rem)] font-semibold text-ink"
       >
         <span className="block font-accent font-medium text-brand">
           {oneProgramHeading.accent}

@@ -45,7 +45,7 @@ export function SiteFooter() {
             className="flex max-w-[45.25rem] flex-col items-center gap-[30px]"
           >
             <div className="flex flex-col items-center gap-4 text-center">
-              <h2 className="flex flex-col items-center type-heading text-[clamp(1.75rem,3.6vw,3.25rem)] text-white">
+              <h2 className="flex flex-col items-center type-heading font-semibold text-[clamp(1.75rem,3.6vw,3.25rem)] text-white">
                 {footerCta.headingLines.map((line) => (
                   <span key={line}>{line}</span>
                 ))}

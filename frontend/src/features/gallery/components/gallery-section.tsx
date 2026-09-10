@@ -48,7 +48,7 @@ export function GallerySection() {
         <div className="shrink-0 lg:basis-[clamp(13.75rem,30vw,23.75rem)]">
           <h2
             id="gallery-heading"
-            className="type-heading text-[clamp(1.875rem,3.6vw,2.875rem)] text-ink"
+            className="type-heading font-semibold text-[clamp(1.875rem,3.6vw,2.875rem)] text-ink"
           >
             {galleryHeading.lead}
             <br />

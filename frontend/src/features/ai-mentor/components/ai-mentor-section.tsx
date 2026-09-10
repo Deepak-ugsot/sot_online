@@ -103,7 +103,7 @@ export function AiMentorSection() {
               three lines where the copy's own break says two. */}
           <h2
             id="ai-mentor-heading"
-            className="type-heading text-[clamp(1.75rem,3.4vw,2.75rem)] font-bold text-white"
+            className="type-heading text-[clamp(1.75rem,3.4vw,2.75rem)] font-semibold text-white"
           >
             {/* `whitespace-pre-line` renders the `\n` in the copy as the intended
                 break. It waits for `sm`, because on a phone the first sentence wraps

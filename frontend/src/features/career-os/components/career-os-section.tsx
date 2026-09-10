@@ -44,7 +44,7 @@ export function CareerOsSection() {
             // Two clamps rather than one: below `sm` the heading has to come down to
             // fit a 320px line, and widening the desktop clamp's foot would drag the
             // tablet size down with it.
-            className="type-heading text-[clamp(1.75rem,7vw,2rem)] text-ink sm:text-[clamp(2rem,4vw,3.25rem)]"
+            className="type-heading font-semibold text-[clamp(1.75rem,7vw,2rem)] text-ink sm:text-[clamp(2rem,4vw,3.25rem)]"
           >
             {careerOsHeading.lead}{" "}
             {/* Held together: the line breaks before "One Place.", never inside it. */}

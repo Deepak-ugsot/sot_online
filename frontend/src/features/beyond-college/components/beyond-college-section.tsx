@@ -68,7 +68,7 @@ export function BeyondCollegeSection() {
         >
           <h2
             id="beyond-college-heading"
-            className="type-heading text-[clamp(1.75rem,3.4vw,2.75rem)] font-bold text-balance text-ink"
+            className="type-heading text-[clamp(1.75rem,3.4vw,2.75rem)] font-semibold text-balance text-ink"
           >
             {beyondCollegeHeading.lead}{" "}
             <span className="font-accent text-brand">

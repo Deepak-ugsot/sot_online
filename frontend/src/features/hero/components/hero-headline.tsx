@@ -41,7 +41,7 @@ export function HeroHeadline({
       id={id}
       data-hero={dataHero}
       className={cn(
-        "type-heading text-white",
+        "type-heading font-semibold text-white",
         /*
           All three values are load-bearing.
 

@@ -64,7 +64,7 @@ export function EcosystemSection() {
         >
           <h2
             id="ecosystem-heading"
-            className="type-heading text-[clamp(1.875rem,3.8vw,2.75rem)] text-white"
+            className="type-heading font-semibold text-[clamp(1.875rem,3.8vw,2.75rem)] text-white"
           >
             {ecosystemHeading.lead}{" "}
             <span className="font-accent font-medium text-brand">

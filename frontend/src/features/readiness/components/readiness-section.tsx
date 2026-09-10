@@ -74,7 +74,7 @@ export function ReadinessSection() {
           id="readiness-heading"
           data-readiness="top-item"
           className={cn(
-            "type-heading mb-8 px-6 text-[clamp(1.75rem,3vw,2.5rem)] font-bold text-ink",
+            "type-heading mb-8 px-6 text-[clamp(1.75rem,3vw,2.5rem)] font-semibold text-ink",
             "min-[901px]:mb-11 min-[901px]:px-20",
           )}
         >

@@ -50,7 +50,7 @@ export function FaqSection() {
           <div className="flex flex-col gap-4">
             <h2
               id="faq-heading"
-              className="flex flex-col type-heading text-[clamp(1.875rem,4.7vw,4.25rem)] text-ink"
+              className="flex flex-col type-heading font-semibold text-[clamp(1.875rem,4.7vw,4.25rem)] text-ink"
             >
               {/* Each line is `nowrap` — the design sets them as two deliberate
                   lines, and letting either wrap would turn the heading into three. */}

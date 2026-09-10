@@ -45,7 +45,7 @@ export function OneJourneySection() {
       >
         <h2
           id="one-journey-heading"
-          className="type-heading shrink-0 text-center text-[clamp(1.375rem,3vw,2.5rem)] font-bold text-balance text-ink"
+          className="type-heading shrink-0 text-center text-[clamp(1.375rem,3vw,2.5rem)] font-semibold text-balance text-ink"
         >
           {/* The break lives in the copy as a `\n`; `whitespace-pre-line` renders it
               without a `<br />` here. It waits for `sm` because on a phone the first

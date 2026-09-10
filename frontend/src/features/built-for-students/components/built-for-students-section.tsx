@@ -48,7 +48,7 @@ export function BuiltForStudentsSection() {
           <div data-built-for-students="copy" className="lg:col-span-5">
             <h2
               id="built-for-students-heading"
-              className="type-heading text-[clamp(2rem,4.2vw,3.5rem)] font-bold text-ink"
+              className="type-heading text-[clamp(2rem,4.2vw,3.5rem)] font-semibold text-ink"
             >
               {builtForStudentsHeading.map((line) => (
                 /*

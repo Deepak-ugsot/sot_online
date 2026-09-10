@@ -44,7 +44,7 @@ export function CompeteSection() {
                 measures ~423px at this cap against a ~451px column. */}
             <h2
               id="compete-heading"
-              className="type-heading text-[clamp(1.5rem,2.6vw,2.25rem)] font-bold text-ink"
+              className="type-heading text-[clamp(1.5rem,2.6vw,2.25rem)] font-semibold text-ink"
             >
               {/* `whitespace-pre-line` renders the `\n` in the copy as the intended
                   break, so "Compete." lands on its own line. */}

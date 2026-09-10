@@ -44,10 +44,12 @@ export const plusJakartaSans = Plus_Jakarta_Sans({
  * stylistic flourish rather than as spelling.
  *
  * Weights: 300 for the FAQ's light italic, 500 for the `font-medium` call sites, 700
- * for the two accents in the Beyond College section, which inherit `font-bold` from
- * their headings — without it loaded the browser fakes the bold by smearing the 600.
- * 400/600 are headroom. There is no true italic in the family, so the FAQ's `italic`
- * is a synthesised oblique — which is what the previous face did there too.
+ * for the Beyond College and One Journey closing lines' accents, which inherit
+ * `font-bold` from their own paragraphs — without it loaded the browser fakes the
+ * bold by smearing the 600. 600 carries the Beyond College, Early Start and One
+ * Journey *headings'* accents the same way, inheriting `font-semibold` from those
+ * headings. 400 is headroom. There is no true italic in the family, so the FAQ's
+ * `italic` is a synthesised oblique — which is what the previous face did there too.
  */
 export const bricolageGrotesque = Bricolage_Grotesque({
   subsets: ["latin"],

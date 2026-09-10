@@ -136,7 +136,7 @@ export function BuildspaceSection() {
           <h2
             id="buildspace-heading"
             className={
-              "type-heading text-balance text-[clamp(1.875rem,4vw,3.5rem)] text-white " +
+              "type-heading font-semibold text-balance text-[clamp(1.875rem,4vw,3.5rem)] text-white " +
               "min-[1180px]:text-pretty min-[1180px]:text-[clamp(2.25rem,2.9vw,3.25rem)]"
             }
           >
