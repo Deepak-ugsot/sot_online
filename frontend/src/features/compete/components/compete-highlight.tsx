@@ -37,6 +37,7 @@ export function CompeteHighlight({
 }: CompeteHighlightProps) {
   return (
     <li
+      data-compete="item"
       className={cn(
         "flex items-start gap-4 sm:gap-5",
         // The rule and the space it needs are one decision, so they travel together.
@@ -53,7 +54,7 @@ export function CompeteHighlight({
         title names, so describing it would make a screen reader read every heading
         twice.
       */}
-      <span aria-hidden="true" className="shrink-0">
+      <span aria-hidden="true" data-compete="item-icon" className="shrink-0">
         <Image
           src={highlight.image.src}
           alt=""
@@ -64,7 +65,7 @@ export function CompeteHighlight({
         />
       </span>
 
-      <span className="min-w-0">
+      <span data-compete="item-copy" className="min-w-0">
         <span className="block type-heading text-[clamp(1.0625rem,1.5vw,1.375rem)] text-ink">
           {highlight.title}
         </span>

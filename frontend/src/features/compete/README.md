@@ -19,17 +19,37 @@ import { CompeteSection } from "@/features/compete";
 ```text
 compete/
 ├── components/
-│   ├── compete-section.tsx    # Heading, CTA, the two columns (server)
+│   ├── compete-section.tsx    # Heading, CTA, the two columns (client — hook only)
 │   └── compete-highlight.tsx  # One icon + title + line (server)
 ├── constants/
-│   └── compete.constants.ts   # Copy and artwork
+│   └── compete.constants.ts   # Copy, artwork, and the reveal's selectors
+├── hooks/
+│   └── use-compete-reveal.ts  # Scroll-triggered entrance, GSAP
 ├── types/
 │   └── compete.types.ts
 ├── index.ts
 └── README.md
 ```
 
-Nothing here has state or motion, so the whole feature is Server Components.
+`CompeteSection` is `"use client"` for the reveal hook alone — `CompeteHighlight` stays a
+Server Component, since its own hover motion is pure CSS.
+
+## The reveal
+
+The pitch (heading, description, CTA) fades and rises in first; the four highlights
+follow on a stagger, `0.15s` behind it. Fires once per page load and does not reverse.
+
+Both tweens share one `scrollTrigger`, off the section itself rather than off the
+highlights: the four items live in two separate `<ul>`s with no wrapper of their own —
+adding one would break the three-column grid — so the section is the only element that
+actually contains all four.
+
+`stagger` walks the highlights in DOM order: preparation's two items, then platforms'
+two. That reads as one cascading entrance rather than two columns animating
+independently, regardless of the `lg:pt-[15.3rem]` offset between them.
+
+Under `prefers-reduced-motion` nothing is registered, so every element renders in its
+final position with no `from` state to sit in.
 
 ## The stagger
 

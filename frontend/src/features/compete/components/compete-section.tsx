@@ -1,3 +1,7 @@
+"use client";
+
+import { useRef } from "react";
+
 import { CtaButton } from "@/components/ui/cta-button";
 import {
   competeCta,
@@ -5,6 +9,7 @@ import {
   competeHeading,
   competeHighlights,
 } from "../constants/compete.constants";
+import { useCompeteReveal } from "../hooks/use-compete-reveal";
 import { CompeteHighlight } from "./compete-highlight";
 
 /**
@@ -17,15 +22,21 @@ import { CompeteHighlight } from "./compete-highlight";
  * what stops the right-hand half reading as a plain 2×2 grid — and it is `lg:` only,
  * because below that everything is one column and there is nothing to stagger against.
  *
- * A Server Component: nothing here has state or motion.
+ * `"use client"` is for the reveal hook alone — `CompeteHighlight` stays a Server
+ * Component, since its own hover motion is pure CSS.
  */
 export function CompeteSection() {
+  const sectionRef = useRef<HTMLElement>(null);
+
+  useCompeteReveal(sectionRef);
+
   const preparation = competeHighlights.filter((h) => h.column === "preparation");
   const platforms = competeHighlights.filter((h) => h.column === "platforms");
 
   return (
     <section
       id="compete"
+      ref={sectionRef}
       aria-labelledby="compete-heading"
       className="bg-surface py-16 sm:py-20 lg:py-24"
     >
@@ -37,7 +48,7 @@ export function CompeteSection() {
             Opportunities" in the third — that last one wrapped to two lines at an even
             split, which the reference does not do. */}
         <div className="grid grid-cols-1 gap-y-0 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)_minmax(0,1.15fr)] lg:gap-x-10 lg:gap-y-12 xl:gap-x-14">
-          <div>
+          <div data-compete="intro">
             {/* The `2.25rem` cap and the column's `1.15fr` share are one decision:
                 "Don't just learn to code." has to hold a single line, or the copy's own
                 break stops meaning anything and the heading runs to three lines. It

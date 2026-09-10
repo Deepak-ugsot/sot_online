@@ -85,3 +85,20 @@ export const competeHighlights: readonly CompeteHighlight[] = [
     },
   },
 ] as const;
+
+/**
+ * Animation hooks, by `data-compete` attribute rather than class name, so restyling a
+ * component can never silently break the reveal. Mirrors `GLOBAL_AMBITION_SELECTORS`.
+ *
+ * `introItem` reaches the pitch's three parts — heading, paragraph, CTA — through the
+ * intro's own children rather than tagging each one. They are spaced by `mt-*`
+ * margins, not a flex gap, so they can travel separately without the space between
+ * them animating too.
+ */
+export const COMPETE_SELECTORS = {
+  intro: '[data-compete="intro"]',
+  introItem: '[data-compete="intro"] > *',
+  item: '[data-compete="item"]',
+  itemIcon: '[data-compete="item-icon"]',
+  itemCopy: '[data-compete="item-copy"]',
+} as const;
