@@ -83,10 +83,17 @@ export function CompeteSection() {
             left column's height above the CTA is set by two blocks of editable copy,
             so there is nothing stable to align to programmatically.
           */}
-          {/* `mt-10` below `lg` is the only gap between the CTA and the list; the grid's
+          {/* `mt-14` below `lg` is the only gap between the CTA and the list; the grid's
               row gap is zeroed there so the two lists sit flush and their rules space
-              every row identically. */}
-          <ul className="mt-10 list-none lg:mt-0 lg:pt-[15.3rem]">
+              every row identically. It matches the 56px the items keep between
+              themselves (`mt-7` + `pt-7`), so the pitch is separated from the list on
+              the same rhythm the list uses internally.
+
+              It also has to absorb the reveal: the intro's parts enter from 32px below
+              their resting place, so whatever this is set to, the gap reads 32px
+              tighter for the length of that tween. At the `mt-10` this was, the phone
+              spent the entrance with 8px between the button and the first icon. */}
+          <ul className="mt-14 list-none lg:mt-0 lg:pt-[15.3rem]">
             {preparation.map((highlight, index) => (
               <CompeteHighlight
                 key={highlight.id}

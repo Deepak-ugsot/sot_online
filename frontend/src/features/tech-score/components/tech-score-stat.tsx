@@ -45,24 +45,26 @@ export function TechScoreStat({ stat }: { stat: TechScoreStat }) {
   return (
     <article
       data-tech-score="stat"
-      className="flex h-full flex-col rounded-[1.25rem] border border-black/[0.06] bg-white p-5 shadow-[0_1px_2px_rgba(10,10,11,0.03)]"
+      className="flex h-full flex-col rounded-[1rem] border border-black/[0.06] bg-white p-4 shadow-[0_1px_2px_rgba(10,10,11,0.03)] sm:rounded-[1.25rem] sm:p-5"
     >
       <span
         aria-hidden="true"
-        className="grid h-11 w-11 shrink-0 place-items-center rounded-[0.875rem] bg-brand text-white"
+        className="grid h-9 w-9 shrink-0 place-items-center rounded-[0.75rem] bg-brand text-white sm:h-11 sm:w-11 sm:rounded-[0.875rem]"
       >
         {Icon ? (
-          <Icon className="h-5 w-5" strokeWidth={1.9} />
+          <Icon className="h-[1.125rem] w-[1.125rem] sm:h-5 sm:w-5" strokeWidth={1.9} />
         ) : (
-          <ToolMark tool="github" className="h-5 w-5" />
+          <ToolMark tool="github" className="h-[1.125rem] w-[1.125rem] sm:h-5 sm:w-5" />
         )}
       </span>
 
-      <p className="mt-5 text-[1.5rem] leading-none font-bold tracking-[-0.02em] text-ink">
+      <p className="mt-4 text-[1.25rem] leading-none font-bold tracking-[-0.02em] text-ink sm:mt-5 sm:text-[1.5rem]">
         {stat.value}
       </p>
 
-      <p className="mt-2 text-[0.8125rem] leading-snug text-ink-muted">{stat.label}</p>
+      <p className="mt-1.5 text-[0.75rem] leading-snug text-ink-muted sm:mt-2 sm:text-[0.8125rem]">
+        {stat.label}
+      </p>
 
       <TechScoreFigure id={stat.id} />
     </article>

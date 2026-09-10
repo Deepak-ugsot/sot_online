@@ -168,12 +168,21 @@ const figures: Record<TechScoreStatId, () => ReactNode> = {
  *
  * Purely decorative: each one restates the value and label directly above it, so it is
  * hidden from assistive tech rather than reading its parts out of context.
+ *
+ * **And dropped entirely below `560px`**, where the grid is two-up and a tile's content
+ * box is ~120px. A chart squeezed into that is a smear, and the Open-Source card's four
+ * brand chips need 168px — they cannot shrink to fit and stay recognisable as marks.
+ * Since the figure only ever restated the number above it, losing it there costs no
+ * information; the tile keeps the plate, the value and the label.
+ *
+ * `contents` rather than `block` at the breakpoint, so the figure stays a direct flex
+ * child of the card and its `mt-auto` still reaches the card's foot.
  */
 export function TechScoreFigure({ id }: { id: TechScoreStatId }) {
   const Figure = figures[id];
 
   return (
-    <div aria-hidden="true" className="contents select-none">
+    <div aria-hidden="true" className="hidden select-none min-[560px]:contents">
       <Figure />
     </div>
   );

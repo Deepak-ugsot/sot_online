@@ -48,8 +48,8 @@ The rule is one element that turns with the layout: a horizontal hairline across
 stack, a vertical one between the halves at `lg`. `self-stretch` is what gives it the
 column's full height there, since a 1px track has no height of its own to stretch into.
 
-Verified: three stat columns at 1440, two at 900, one at 390, with no page-level
-horizontal overflow at any of them.
+Verified: three stat columns at 1280 and 1440, two from 320 up, with no page-level
+horizontal overflow and no tile-level overflow at 320, 390, 560, 1024, 1280.
 
 ## The id is the join
 
@@ -69,6 +69,28 @@ set its own row taller and pull its neighbours' graphics out of line with the ro
 
 Each figure also occupies the same fixed band (`4.5rem`), so a chart and a row of chips
 sit on the same baseline rather than each sizing to its own content.
+
+## The tile count is set by what the figures need
+
+The stat grid is **two columns from the smallest width and three only at `xl`**, and both
+halves of that are measured rather than picked.
+
+One column on a phone gave every tile the full 300px to hold a number and a two-word
+label, which read as six slabs stacked down the screen rather than as a breakdown of a
+score — 228px per tile, 1935px of panel, 2252px of section at 390. Two columns brings a
+tile to 152×145 and the section to 1208px.
+
+Three columns needs more room than `lg` has. At 1024 they come out 140px wide, leaving a
+100px content box, and the Open-Source card's four brand chips need 168px — they are
+`shrink-0`, so they spilled straight out of the tile. `xl` is the first width where three
+columns leave enough: 226px tiles, 186px of content, 18px of slack.
+
+Below `560px` the figure is dropped entirely (`hidden min-[560px]:contents`). A tile's
+content box is ~120px there — a chart squeezed into it is a smear, and four brand marks
+cannot shrink that far and stay recognisable. It costs no information, since every figure
+only ever restated the value printed above it. `contents` rather than `block` at the
+breakpoint keeps the figure a direct flex child of the card, so its `mt-auto` still
+reaches the foot.
 
 ## The ring and the number are one tween
 

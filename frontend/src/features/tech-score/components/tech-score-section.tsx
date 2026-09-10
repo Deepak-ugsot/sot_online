@@ -64,7 +64,7 @@ export function TechScoreSection() {
         <div
           data-tech-score="card"
           className={
-            "grid gap-8 rounded-[1.75rem] border border-black/[0.04] bg-white p-6 " +
+            "grid gap-6 rounded-[1.75rem] border border-black/[0.04] bg-white p-4 " +
             "shadow-[0_1px_2px_rgba(10,10,11,0.04),0_18px_44px_-24px_rgba(10,10,11,0.18)] " +
             "sm:gap-10 sm:rounded-[2rem] sm:p-8 " +
             // `22rem` for the dial's column is set by the ring: it is drawn at a 17rem
@@ -90,8 +90,14 @@ export function TechScoreSection() {
             lines across the whole grid. Without it the "Open-Source Contributions" card,
             whose label is the only one that wraps, would set its own row taller and pull
             its neighbours' graphics out of line.
+
+            **Two columns from the smallest width, three only at `xl`.** One column on a
+            phone gave each tile the full 300px for a number and a two-word label, which
+            reads as six slabs rather than a breakdown. Three columns, meanwhile, only
+            has room from `xl`: at `lg` they come out 140px wide, and the four tool chips
+            on the Open-Source card need 168px — they spilled out of the tile.
           */}
-          <div className="grid auto-rows-fr grid-cols-1 gap-4 min-[560px]:grid-cols-2 lg:grid-cols-3 lg:gap-5">
+          <div className="grid auto-rows-fr grid-cols-2 gap-3 sm:gap-4 lg:gap-5 xl:grid-cols-3">
             {techScoreStats.map((stat) => (
               <TechScoreStat key={stat.id} stat={stat} />
             ))}
