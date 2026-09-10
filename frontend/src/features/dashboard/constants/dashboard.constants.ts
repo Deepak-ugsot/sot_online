@@ -6,11 +6,9 @@ import type { DashboardChecklistRow } from "../types/dashboard.types";
  */
 
 export const dashboardHeading = {
-  lead: "Your Career",
-  accent: "Dashboard",
+  lead: "Digital By Design. Real-World By",
+  accent: "Experience.",
 } as const;
-
-export const dashboardSubtitle = "One dashboard for your complete career journey.";
 
 /**
  * Four short labels on the first row, three long ones on the second — the split keeps
@@ -20,19 +18,15 @@ export const dashboardChecklistRows: readonly DashboardChecklistRow[] = [
   {
     id: "row-1",
     items: [
-      "Career Readiness Score",
-      "Learning Progress",
-      "Coding Streak",
-      "Upcoming Classes",
+      "uGSOT Campus Immersion",
+      "Coding Bootcamps",
+      "Hackathons",
+      "Product Showcases",
     ],
   },
   {
     id: "row-2",
-    items: [
-      "Hackathons & Internship Applications",
-      "Projects & Leaderboard",
-      "Resume Score",
-    ],
+    items: ["Startup Weekends", "Industry Sessions", "Community Meetups"],
   },
 ] as const;
 

@@ -13,36 +13,58 @@ export const opportunitiesHeading = {
 export const opportunitiesSubtitle = "Only for Future Software Engineers";
 
 /**
- * Card photography lives in `public/assets/oppertunity/`, one file per card named
- * after its title. Sources are 1000×800 — the media panel tops out at 293×262, so
- * that covers DPR 2 with room, and Next's optimizer serves the panel-sized variant.
+ * Card photography lives in `public/assets/oppertunity/`, one file per card. File
+ * names track the card's subject rather than its exact title, which is editable copy —
+ * "Hackathons" is still `National_Hackathons.jpg`. Sources are 1000×800; the media
+ * panel tops out at 293×262, so that covers DPR 2 with room, and Next's optimizer
+ * serves the panel-sized variant.
  */
 const opportunityImage = (file: string) => `/assets/oppertunity/${file}`;
 
 /**
- * Six cards. Order is the order they pass the viewer as the arc rotates, so this list
- * is also the narrative sequence.
+ * Seven cards. Order is the order they pass the viewer as the arc rotates, so this
+ * list is also the narrative sequence: compete, then build, then get placed, then the
+ * deeper industry tracks, closing on showing the work off.
+ *
+ * Nothing downstream is hard-coded to the count — the carousel derives its last index
+ * from the rendered cards — so adding or removing one is a change to this list alone.
  */
 export const opportunities: readonly Opportunity[] = [
   {
-    id: "hackathons",
-    title: "National Hackathons",
+    id: "coding-challenges",
+    title: "National Coding Challenges",
     description:
-      "Compete nationwide and put your skills to the test against thousands of engineers.",
+      "Compete nationwide and put your problem-solving skills to the test against thousands of engineers.",
+    image: opportunityImage("National_Coding_Challenges.jpg"),
+    gradient: "linear-gradient(160deg, #bcd4ee 0%, #2b5ea8 45%, #0b1a2e 100%)",
+  },
+  {
+    id: "hackathons",
+    title: "Hackathons",
+    description:
+      "Build and ship under pressure alongside teams from colleges across the country.",
     image: opportunityImage("National_Hackathons.jpg"),
     gradient: "linear-gradient(160deg, #e0c3c5 0%, #a3444b 45%, #2f1113 100%)",
   },
   {
     id: "internships",
-    title: "Exclusive Internship Opportunities",
+    title: "Internship Opportunities",
     description:
       "Get matched with internships at top companies, exclusively for upGrad SOT students.",
     image: opportunityImage("Internship.jpg"),
     gradient: "linear-gradient(160deg, #dccbe0 0%, #6b4f8f 45%, #2a1c40 100%)",
   },
   {
+    id: "open-source",
+    title: "Open Source Programs",
+    description:
+      "Contribute to real open-source codebases with mentorship from maintainers.",
+    image: opportunityImage("Open_Source_Programs.jpg"),
+    gradient: "linear-gradient(160deg, #d5d7da 0%, #6b6e73 45%, #2a2c2f 100%)",
+  },
+  {
     id: "immersion",
-    title: "Industry Immersion Program",
+    title: "Industry Immersion",
     description:
       "Spend time embedded with real product teams, shipping alongside working engineers.",
     image: opportunityImage("Industry_Immersion_Program.jpg"),
@@ -55,14 +77,6 @@ export const opportunities: readonly Opportunity[] = [
       "Pitch, build, and ship inside real startup challenges backed by founders and VCs.",
     image: opportunityImage("Startup_Challenges.jpg"),
     gradient: "linear-gradient(160deg, #e8d0b0 0%, #b3652f 45%, #4a2a12 100%)",
-  },
-  {
-    id: "open-source",
-    title: "Open Source Programs",
-    description:
-      "Contribute to real open-source codebases with mentorship from maintainers.",
-    image: opportunityImage("Open_Source_Programs.jpg"),
-    gradient: "linear-gradient(160deg, #d5d7da 0%, #6b6e73 45%, #2a2c2f 100%)",
   },
   {
     id: "showcases",

@@ -168,11 +168,10 @@
 }
 
 /* ---------------------------------------------------------------------------
-   BuildSpace: the aurora and the glowing card edge
+   BuildSpace: the glowing card edge
    ---------------------------------------------------------------------------
-   Both live here rather than in the feature because both need `@keyframes`, and
-   the border additionally needs a registered custom property — neither of which
-   a utility class can express.
+   It lives here rather than in the feature because it needs `@keyframes` and a
+   registered custom property, neither of which a utility class can express.
 --------------------------------------------------------------------------- */
 
 /*
@@ -196,7 +195,7 @@
 }
 
 /*
-  The chasing rainbow edge.
+  The chasing red edge.
 
   **The two masks are a hollowing trick, not decoration.** The pseudo-element is
   filled edge to edge with the conic gradient; the first mask covers its content
@@ -221,22 +220,25 @@
   padding: 1px;
   border-radius: inherit;
   /*
-    Muted rather than saturated, and matched to the aurora behind the card. A neon
-    conic on a 1px edge reads as a toy; these are the same tones the glow uses, so
-    the edge looks lit by it rather than drawn on top of it.
+    The same red the section's corner glow and folded beams are cut from, so the edge
+    looks lit by them rather than drawn on top of them. A single flat red would just
+    be a border; the run down to near-black between the two highlights is what makes
+    something appear to travel round the card.
+
+    First and last stop match on purpose — the cone wraps, and any difference between
+    0deg and 360deg shows up as a hard seam sweeping past once per loop.
   */
   background: conic-gradient(
     from var(--bs-angle),
-    #c47bb4,
-    #8b6ee0,
-    #6f9ede,
-    #6fc4cf,
-    #7fd2b8,
-    #e0b184,
-    #e08a90,
-    #c47bb4
+    #ff3b5c,
+    #e6161f,
+    #5a0814,
+    #2a0209,
+    #5a0814,
+    #e6161f,
+    #ff3b5c
   );
-  opacity: 0.7;
+  opacity: 0.85;
   -webkit-mask:
     linear-gradient(#000 0 0) content-box,
     linear-gradient(#000 0 0);
@@ -255,36 +257,8 @@
   }
 }
 
-/*
-  The aurora behind the card. One bounded element, slowly turning.
-
-  **Bounded, and with no blend mode or `will-change` — all three deliberate.** The
-  version of this that broke the page was two 3000px-wide full-bleed layers, one
-  of them in `mix-blend-mode: screen`, both pinned with `will-change`. A single
-  element roughly the size of the card it sits behind is a layer the compositor
-  can hold without argument, and the page's marquees prove a plain rotation is
-  fine here.
-
-  The blur is applied once and the result is what rotates, so the expensive part
-  never repeats. Animating the gradient's angle instead would look near-identical
-  and re-run a 120px blur on every frame.
-*/
-.bs-aurora {
-  animation: bs-aurora-spin 18s linear infinite;
-}
-
-@keyframes bs-aurora-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
-  .bs-glow-border::before,
-  .bs-aurora {
+  .bs-glow-border::before {
     animation: none;
   }
 }

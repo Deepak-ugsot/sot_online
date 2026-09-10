@@ -20,7 +20,7 @@ const RUNWAY = 2.2;
  * The card the arc rests on before any scrolling.
  *
  * `1`, not `0`. Centring the first card put every other card on one side of it — the
- * left half of the stage sat empty while five cards bunched into the right, which read
+ * left half of the stage sat empty while the rest bunched into the right, which read
  * as a section already scrolled rather than one waiting to be. Resting on the second
  * card opens with a balanced trio: the first to its left, the third to its right.
  *
@@ -84,7 +84,7 @@ export function useOpportunitiesCarousel(scopeRef: RefObject<HTMLElement | null>
             invalidateOnRefresh: true,
             // The arc is driven from `onUpdate` rather than from tweened properties:
             // every card's position derives from one shared scalar, and recomputing
-            // them together is both simpler and cheaper than six parallel tweens.
+            // them together is both simpler and cheaper than one tween per card.
             onUpdate: (self) => {
               const contentProgress = Math.min(1, self.progress / CONTENT_END);
               renderArc(

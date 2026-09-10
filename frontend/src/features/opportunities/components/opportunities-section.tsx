@@ -11,7 +11,7 @@ import { useOpportunitiesCarousel } from "../hooks/use-opportunities-carousel";
 import { OpportunityCard } from "./opportunity-card";
 
 /**
- * "Exclusive Opportunities" — six cards on a scroll-driven 3D cylinder.
+ * "Exclusive Opportunities" — seven cards on a scroll-driven 3D cylinder.
  *
  * Same two-element structure the other pinned sections use: the outer `<section>` is
  * the trigger and must not clip, because GSAP inserts a pin spacer inside it for the
@@ -73,8 +73,8 @@ export function OpportunitiesSection() {
         </div>
 
         {/*
-          The 3D viewport. `perspective` lives here rather than on the arc so all six
-          cards share one vanishing point and read as a single cylinder.
+          The 3D viewport. `perspective` lives here rather than on the arc so every
+          card shares one vanishing point and they read as a single cylinder.
         */}
         <div
           className={

@@ -145,8 +145,8 @@ export function BuildspaceDemo() {
       {/*
         The glass card the screen sits in.
 
-        Glassmorphism proper: `rgba(20,20,20,0.6)` over a `backdrop-blur(20px)`, with a
-        rainbow chasing round its edge. `.bs-glow-border` lives in `globals.css` — it needs a
+        Glassmorphism proper: `rgba(20,20,20,0.6)` over a `backdrop-blur(20px)`, with a red
+        highlight chasing round its edge. `.bs-glow-border` lives in `globals.css` — it needs a
         pseudo-element, a pair of composited masks and a registered custom property, none of
         which a utility class can express, and the comment there explains the hollowing trick
         that paints a gradient into a 1px border.

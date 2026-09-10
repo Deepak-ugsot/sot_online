@@ -23,6 +23,7 @@ import { OneJourneySection } from "@/features/one-journey";
 import { OneProgramSection } from "@/features/one-program";
 import { OpportunitiesSection } from "@/features/opportunities";
 import { ReadinessSection } from "@/features/readiness";
+import { TechScoreSection } from "@/features/tech-score";
 
 /**
  * Landing page.
@@ -57,6 +58,7 @@ export default function HomePage() {
           <CurriculumSection />
           <LearnFromPeopleSection />
           <EarlyStartSection />
+          <TechScoreSection />
           <EcosystemSection />
           <OneProgramSection />
           <CareerOsSection />

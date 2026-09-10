@@ -1,8 +1,8 @@
 # BuildSpace
 
 "BuildSpace — your engineering playground inside Beyond." The pitch down the left of a dark,
-rainbow-washed ground, and a window playing a self-running tour of the BuildSpace product
-down the right.
+red-lit ground, and a window playing a self-running tour of the BuildSpace product down the
+right.
 
 ## Public API
 
@@ -71,44 +71,43 @@ itself a dark, lime-accented product; on a light ground a mock of it reads as a 
 pasted onto a brochure, while on near-black the window reads as a screen that is switched
 on. The section stops describing the product and starts showing it.
 
-The ground is near-black (`#08080a`). Over it, all `pointer-events-none`:
+The ground is `ink-raised`. Over it, both `pointer-events-none`:
 
-1. **The aurora** — one bounded, heavily blurred conic blob hung off the top right, behind
-   the card, turning once every 18s.
-2. **A light scrim** — a vertical gradient settling the floor and keeping the aurora's lower
-   shoulder off the copy.
-3. **Film grain** — `bg-grain`, the hero's utility, at 3.5% and un-blended.
-4. **Lit top and bottom edges** — hairline gradients on both seams.
+1. **Two brand-red glows** — a large one bleeding in from the top-right corner, and a much
+   fainter one at the bottom-left so that corner does not go flat black.
+2. **The folded light beams** — a repeating diagonal gradient over the top-right, radially
+   masked so it dissolves before it crosses the section.
 
-This replaced a brand-red corner glow and a set of folded red light beams.
+A rotating rainbow aurora replaced this treatment for one commit and has been reverted. The
+card's chasing edge survived that revert and is now cut from the same red.
 
-### The palette is muted on purpose
+### The beams are ribbons, not hairlines
 
-Vercel's own gradients are pale — violet, rose, amber, mint. At full saturation behind a dark
-card the effect stops reading as light and starts reading as a novelty rainbow, so every stop
-here is softened and the 130px blur does the rest. The card's edge uses the same tones at 70%
-opacity, so it looks lit by the glow rather than drawn on top of it.
+The gradient *inside* each band is what makes them read as folded: each one runs from a
+bright pink-red highlight, down through brand red, into black before the next starts — the
+way a ribbon of light shades as it turns. A flat two-stop repeat at this angle reads as
+hazard stripes instead.
 
-### The aurora rotates, and getting back to a rotation took a detour
+The radial mask is what keeps them a corner treatment rather than a wash: it fades the whole
+pattern out by 78% of the way from the top-right, so the beams reach down into the section
+and dissolve.
 
-The first attempt drifted two 3000px-wide full-bleed gradients in opposite directions on CSS
-keyframes, one of them in `mix-blend-mode: screen`, both pinned with `will-change`. It tore
-the page apart — not this section, the whole page, with sections appearing to slide over one
-another as it scrolled.
+### Nothing on this ground is allowed to move
 
-What survived the post-mortem is that the *pattern* was not the problem: the page's own
-marquees are CSS transform animations inside the same ScrollSmoother content and have always
-been fine. The problem was the scale of it — two enormous layers, a blend mode forcing a
-re-blend of the whole section against a backdrop that moves on every scroll frame, and
-`will-change` holding all of it resident.
+The aurora that briefly replaced these layers began as two 3000px-wide full-bleed gradients
+drifting in opposite directions on CSS keyframes, one of them in `mix-blend-mode: screen`,
+both pinned with `will-change`. It tore the page apart — not this section, the whole page,
+with sections appearing to slide over one another as it scrolled.
 
-So the aurora is **one bounded element, no blend mode, no `will-change`**, sized to the card
-it sits behind and mostly outside the frame so the section clips it to a soft shoulder. The
-blur is rasterised once and the cached result is what turns, so the expensive pass never
-repeats.
+The *pattern* was not the problem: the page's own marquees are CSS transform animations
+inside the same ScrollSmoother content and have always been fine. The scale was — two
+enormous layers, a blend mode forcing a re-blend of the whole section against a backdrop that
+moves on every scroll frame, and `will-change` holding all of it resident.
 
-**If tearing ever returns, `.bs-aurora`'s rotation is the first thing to turn off.** The
-card's edge animation cannot cause it: see below.
+So both layers here are painted gradients that sit still, and the only thing that touches
+them is the one-shot opacity tween in the reveal hook. **Anything added to this ground should
+stay static**; the card's edge animation is the exception, and it is safe for the reason
+below.
 
 ### The card's edge animates without moving anything
 
@@ -162,7 +161,7 @@ the section never reflows on mount.
 ### The screen sits in a glass card
 
 Glassmorphism proper — `rgba(20,20,20,0.6)` over `backdrop-filter: blur(20px)` — holding the
-framed screen with padding, with the animated rainbow edge described above running round it.
+framed screen with padding, with the animated red edge described above running round it.
 
 The radii are concentric on purpose, and it is why this keeps a 32px radius rather than the
 16px a glass card usually takes: `rounded-[32px]` against `p-3.5` leaves 18px, exactly the

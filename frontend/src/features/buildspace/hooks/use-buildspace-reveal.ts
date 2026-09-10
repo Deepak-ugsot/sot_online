@@ -6,8 +6,8 @@ import { gsap } from "@/lib/gsap";
 import { BUILDSPACE_SELECTORS } from "../constants/buildspace.constants";
 
 /**
- * The section's entrance: the rainbow blooms open from the top right, the heading, subtitle
- * and CTA rise in turn, and the demo window arrives beside them.
+ * The section's entrance: the red corner glow blooms open from the top right, the heading,
+ * subtitle and CTA rise in turn, and the demo window arrives beside them.
  *
  * **No pin and no scrub, unlike the collage this replaced.** That version scrubbed a
  * fold-into-the-laptop sequence across a viewport-and-a-half of pinned scroll, because
@@ -31,14 +31,12 @@ export function useBuildspaceReveal(scopeRef: RefObject<HTMLElement | null>) {
 
       matchMedia.add("(prefers-reduced-motion: no-preference)", () => {
         /*
-          The aurora fades up ahead of the copy, so the light is already in the room by the
-          time anything is read.
+          The corner glow fades up ahead of the copy, so the light is already in the room by
+          the time anything is read.
 
-          **Opacity only — deliberately no `scale`.** The blob inside carries a CSS rotation,
-          and GSAP writes its tweens as an inline `transform`, which would overwrite that
-          rotation for the life of the tween and then hand back a static element. The two
-          animations have to touch different properties to coexist: this one owns opacity,
-          the stylesheet owns transform.
+          **Opacity only, and one-shot.** `clearProps` hands opacity back to the stylesheet
+          when the tween lands, and the layer is a painted gradient that sits still from
+          then on.
 
           **This is a GSAP tween rather than a CSS animation, and that distinction is
           load-bearing on this page.** A CSS animation runs on the compositor thread, while
@@ -48,8 +46,7 @@ export function useBuildspaceReveal(scopeRef: RefObject<HTMLElement | null>) {
           scrolled. GSAP writes inline styles from a rAF tick — the same thread the smoother
           runs on — so the two can never fall out of step.
 
-          It is also one-shot, and `clearProps` hands opacity back to the stylesheet when the
-          tween lands. Do not turn this into a loop.
+          Do not turn this into a loop.
         */
         gsap.from(BUILDSPACE_SELECTORS.glow, {
           opacity: 0,

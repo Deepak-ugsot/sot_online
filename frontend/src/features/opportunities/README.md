@@ -1,6 +1,6 @@
 # Opportunities
 
-"Exclusive Opportunities" — six cards on a scroll-driven 3D cylinder.
+"Exclusive Opportunities" — seven cards on a scroll-driven 3D cylinder.
 
 ## Public API
 
@@ -80,7 +80,7 @@ Because it is fractional rather than stepped, cards glide continuously around th
 cylinder instead of snapping between slots.
 
 **It rests on the second card, not the first.** Centring card 0 put every other card
-on one side of it — the left half of the stage sat empty while five cards bunched into
+on one side of it — the left half of the stage sat empty while the rest bunched into
 the right, which read as a section already scrolled rather than one waiting to be.
 Resting on index 1 opens with a balanced trio: measured at 1440, the centre card sits
 at x=720 (the stage's exact midline) with its neighbours at 422 and 1018, ±298px
@@ -93,8 +93,8 @@ and fully readable, which is the point of resting between cards rather than on t
 end.
 
 The arc is recomputed in ScrollTrigger's `onUpdate` rather than tweened. Every card's
-position derives from one shared scalar, so recalculating all six together is both
-simpler and cheaper than six parallel tweens. The timeline itself animates nothing —
+position derives from one shared scalar, so recalculating them all together is both
+simpler and cheaper than one tween per card. The timeline itself animates nothing —
 it exists to give `scrub` something to drive and to hold the pin open.
 
 Pin runway is `2.2 × viewport height`, with the same `CONTENT_END = 0.85` hold buffer

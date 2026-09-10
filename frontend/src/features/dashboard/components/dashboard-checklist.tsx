@@ -2,10 +2,10 @@ import { CheckIcon } from "@/components/ui/check-icon";
 import { dashboardChecklistRows } from "../constants/dashboard.constants";
 
 /**
- * The two rows of ticked dashboard capabilities — centred from `950px`, left-aligned
+ * The two rows of ticked dashboard capabilities — centred from `990px`, left-aligned
  * below it so the ticks line up in one column instead of zig-zagging.
  *
- * `950px` is where the first row stops fitting on one line (see `DashboardSection`),
+ * `990px` is where the first row stops fitting on one line (see `DashboardSection`),
  * which is a different threshold from the `700px` the labels use to stop wrapping.
  *
  * **Below it the rows are columns, not wrapped rows.** Left-aligning a wrapping row
@@ -25,17 +25,17 @@ export function DashboardChecklist() {
   return (
     <div
       data-dashboard="checklist"
-      className="flex w-full flex-col items-start gap-6 min-[950px]:items-center min-[950px]:gap-8"
+      className="flex w-full flex-col items-start gap-6 min-[990px]:items-center min-[990px]:gap-8"
     >
       {dashboardChecklistRows.map((row) => (
-        // The column gap is fluid, not the reference's flat 70px. At 70px the first
-        // row needs 998px against the 946px available and drops "Upcoming Classes"
-        // onto a line of its own — the fallback face sets wider than Neue Montreal,
-        // and the container is capped so it cannot absorb the difference. The clamp
-        // keeps the rows airy while guaranteeing they stay on one line.
+        // The column gap is fluid, not a flat value. A flat 70px would need 1029px for
+        // the first row's four items against the 1040px available at most, leaving no
+        // margin before a narrower viewport drops "Product Showcases" onto a line of
+        // its own — the container is capped so it cannot absorb the difference. The
+        // clamp keeps the rows airy while guaranteeing they stay on one line.
         <ul
           key={row.id}
-          className="flex w-full list-none flex-col items-start gap-y-6 min-[950px]:flex-row min-[950px]:flex-wrap min-[950px]:items-center min-[950px]:justify-center min-[950px]:gap-x-[clamp(1.5rem,4vw,3rem)]"
+          className="flex w-full list-none flex-col items-start gap-y-6 min-[990px]:flex-row min-[990px]:flex-wrap min-[990px]:items-center min-[990px]:justify-center min-[990px]:gap-x-[clamp(1.5rem,4vw,3rem)]"
         >
           {row.items.map((item) => (
             <li

@@ -15,7 +15,7 @@ type OpportunityCardProps = {
  * would overwrite it. Margins stay out of that fight entirely.
  *
  * Under reduced motion the card returns to normal flow (`static`, no negative margin)
- * so the CSS fallback can lay all six out as a plain scrollable row.
+ * so the CSS fallback can lay them all out as a plain scrollable row.
  */
 export function OpportunityCard({ opportunity }: OpportunityCardProps) {
   return (
@@ -62,7 +62,7 @@ export function OpportunityCard({ opportunity }: OpportunityCardProps) {
 
         Flexbox only shrinks it when the two would otherwise exceed the card, which on
         any normal window they do not: every card's copy sits under 42%, so the panel
-        holds exactly 58% and the six read as one set. It only varies in the regime
+        holds exactly 58% and the set reads as one. It only varies in the regime
         where the alternative was losing a line of text.
       */}
       <div
