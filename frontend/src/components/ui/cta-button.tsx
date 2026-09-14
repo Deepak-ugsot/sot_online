@@ -1,3 +1,4 @@
+import Link from "next/link";
 import type { AnchorHTMLAttributes } from "react";
 
 import { ArrowIcon } from "@/components/ui/arrow-icon";
@@ -96,6 +97,13 @@ const iconGlyphClasses: Record<CtaButtonSize, string> = {
  * trigger an action instead, add a sibling `CtaAction` button rather than
  * overloading this with a polymorphic `as` prop.
  *
+ * A route `href` (one starting `/`) goes through `next/link`, so it prefetches and
+ * transitions on the client instead of tearing the page down and rebuilding it — the
+ * landing page reinitialises GSAP, ScrollSmoother and a video on every load, and a
+ * plain anchor pays all of that to move one route. An in-page `#hash` stays a plain
+ * anchor: the browser's own handling of those is exactly what is wanted, and routing
+ * a hash through the router would put it in front of ScrollSmoother.
+ *
  * Not every variant defines every size — only the combinations the design actually
  * uses are built, so an unused pairing renders unstyled rather than silently
  * inventing a treatment that was never designed.
@@ -106,15 +114,14 @@ export function CtaButton({
   withIcon = false,
   className,
   children,
+  href,
   ...props
 }: CtaButtonProps) {
   const showIcon = withIcon && variant !== "secondary";
+  const classes = cn(baseClasses, variantClasses[variant][size], className);
 
-  return (
-    <a
-      className={cn(baseClasses, variantClasses[variant][size], className)}
-      {...props}
-    >
+  const content = (
+    <>
       {children}
       {showIcon && (
         <span
@@ -127,6 +134,20 @@ export function CtaButton({
           <ArrowIcon className={iconGlyphClasses[size]} />
         </span>
       )}
+    </>
+  );
+
+  if (href?.startsWith("/")) {
+    return (
+      <Link href={href} className={classes} {...props}>
+        {content}
+      </Link>
+    );
+  }
+
+  return (
+    <a href={href} className={classes} {...props}>
+      {content}
     </a>
   );
 }

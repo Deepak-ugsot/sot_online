@@ -1,4 +1,4 @@
-import type { HeaderCta } from "../types/header.types";
+import type { HeaderCta, NavLink } from "../types/header.types";
 
 /**
  * Header copy and the one selector the header reaches for outside itself.
@@ -9,15 +9,13 @@ import type { HeaderCta } from "../types/header.types";
  */
 
 /**
- * Matches the hero's primary CTA word for word, so the two read as the same button
- * following you down the page rather than as two different offers.
- *
- * Uppercase is set in the string rather than with `text-transform`, because the
- * brand's lowercase `u` has to survive — `uppercase` would render it "UGSOT".
+ * `/login` rather than the `#apply` anchor the page's other CTAs still carry: this is
+ * the one that now has a route behind it. Phone-number login is the front door to the
+ * application, so "Apply Now" starts there.
  */
 export const headerCta: HeaderCta = {
-  label: "APPLY TO uGSOT CATALYST",
-  href: "#apply",
+  label: "Apply Now",
+  href: "/login",
   variant: "primary",
 };
 
@@ -27,3 +25,25 @@ export const headerCta: HeaderCta = {
  * `useHeaderBackdrop`.
  */
 export const HERO_SELECTOR = "#home";
+
+/**
+ * Navigation for the signed-in header.
+ *
+ * Separate from `navLinks` in `site.config.ts`, and not because the labels differ by
+ * accident — these are **absolute** hrefs. The landing page's list is in-page hashes,
+ * which from `/profile` scroll to nothing at all; every entry here goes to the landing
+ * page and then to the section.
+ *
+ * Two of the targets also differ from the marketing nav's, because the marketing nav's
+ * do not exist: `#about` and `#student-journey` match no element on the page. The
+ * design's signed-in header replaces the first with **BuildSpace**, which is a real
+ * section; `#one-journey` is the real id behind "Student Journey". Worth fixing in
+ * `navLinks` too, which is a change to the landing page and so left alone here.
+ */
+export const appNavLinks: readonly NavLink[] = [
+  { label: "Home", href: "/" },
+  { label: "Curriculum", href: "/#curriculum" },
+  { label: "Student Journey", href: "/#one-journey" },
+  { label: "BuildSpace", href: "/#buildspace" },
+  { label: "FAQs", href: "/#faqs" },
+] as const;
