@@ -32,6 +32,7 @@ frontend/
 ├── public/                        # Served verbatim at the site root
 │   ├── assets/
 │   │   ├── fonts/                 # Licensed .otf files — not in this repo (see "Fonts")
+│   │   ├── login/stage.png        # /login backdrop — 1440×911, composed full-viewport
 │   │   ├── Hero_BG_Video.mp4      # Hero background video
 │   │   └── uGSOT_white_logo.png   # Brand mark
 │   ├── companyLogo/               # 29 partner logos, all 177px tall (mentors marquee)
@@ -41,6 +42,8 @@ frontend/
 │   ├── app/                       # App Router — routing and page composition only
 │   │   ├── globals.css            # Tailwind entry, design tokens, base layer
 │   │   ├── layout.tsx             # Root layout: fonts, metadata, <html>/<body>
+│   │   ├── login/page.tsx         # /login — phone-number login (noindex)
+│   │   ├── profile/               # /profile/* — four sections in a shared layout (noindex)
 │   │   └── page.tsx               # Landing page — composes feature sections
 │   │
 │   ├── components/                # Shared, feature-agnostic UI
@@ -55,6 +58,24 @@ frontend/
 │   │
 │   ├── features/                  # One folder per business capability
 │   │   ├── README.md              # Feature conventions — read before adding one
+│   │   ├── auth/                  # /login — phone + OTP, callback request, session
+│   │   │   ├── components/
+│   │   │   ├── constants/
+│   │   │   ├── hooks/             # OTP field, resend countdown, session
+│   │   │   ├── services/          # STUBBED network calls — see the feature README
+│   │   │   ├── types/
+│   │   │   ├── utils/             # Phone and email normalisation
+│   │   │   ├── index.ts
+│   │   │   └── README.md
+│   │   ├── profile/               # /profile/* — the signed-in student's account
+│   │   │   ├── components/
+│   │   │   ├── constants/         # Every profile field; FIXTURE payment data
+│   │   │   ├── hooks/             # Saved record, per-section edit cycle
+│   │   │   ├── services/          # localStorage store — see the feature README
+│   │   │   ├── types/
+│   │   │   ├── utils/
+│   │   │   ├── index.ts
+│   │   │   └── README.md
 │   │   ├── hero/                  # Landing page hero section
 │   │   │   ├── components/
 │   │   │   ├── constants/
@@ -389,6 +410,20 @@ a scroll container.
 15. **Footer** — card with wordmark watermark and a rotating tagline.
 
 All landing-page sections from the reference design are now built.
+
+**Routes beyond the landing page**
+
+- **`/login`** — phone-number login: number, four-digit OTP, and a "Request a
+  Callback" form, over the design's full-bleed stage artwork. Reached from the
+  header's "Apply Now". A verified code starts the session and goes to `/profile`. The
+  network calls are **stubs** — see
+  [`src/features/auth/README.md`](src/features/auth/README.md) for what to change when
+  the backend lands.
+- **`/profile`, `/profile/academic`, `/profile/payments`, `/profile/professional`** —
+  the signed-in student's account: a persistent left rail, per-section edit/save, and a
+  read-only payments screen. Gated on the session. Everything is saved to
+  `localStorage` and the payment figures are fixtures — see
+  [`src/features/profile/README.md`](src/features/profile/README.md).
 
 ### Third-party embeds
 

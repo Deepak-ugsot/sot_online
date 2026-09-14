@@ -27,7 +27,24 @@ export const navLinks: readonly NavLink[] = [
 /** Static assets served from `public/`. Centralised so paths are never string-literal'd in JSX. */
 export const assets = {
   logoWhite: "/assets/uGSOT_white_logo.png",
+  /**
+   * The brand mark on its own, in red — for light chrome, where the white lockup
+   * above is invisible.
+   *
+   * The signed-in header in the design pairs this mark with a red "upGrad" wordmark.
+   * That horizontal lockup is not in this repo (the only wordmark here is the white
+   * one, and `assets/upgradSOT.png` is an outlined treatment that does not read at
+   * nav size), so the header carries the mark alone. Drop the red lockup into
+   * `public/assets/` and point this at it — nothing else changes.
+   */
+  logoMark: "/ugsot_logo.svg",
   heroVideo: "/assets/Hero_BG_Video.mp4",
   /** Outlined "uGSOT Catalyst" wordmark used as the footer watermark. 3851×459, RGBA. */
   footerWatermark: "/assets/uGSOT-Catayst.png",
+  /**
+   * The login screen's backdrop: a student on a lit plinth, with the right of the
+   * frame left dark for the form. 1440×911 — composed for the whole viewport, not
+   * for a column, so `LoginStage` lays it out full-bleed rather than in a half.
+   */
+  loginStage: "/assets/login/stage.png",
 } as const;
