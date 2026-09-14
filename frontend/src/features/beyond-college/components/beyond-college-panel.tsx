@@ -103,7 +103,7 @@ export function BeyondCollegePanel({ panel }: BeyondCollegePanelProps) {
       {/*
         `<p>` rather than a heading element. These two label the columns of a
         comparison; they are not sections of the document, and promoting them to `h3`
-        would put "YOUR COLLEGE" and "uGSOT BEYOND" into the page outline between the
+        would put "YOUR COLLEGE" and "uGSOT CATALYST" into the page outline between the
         section's own `h2` and nothing at all.
       */}
       {/*

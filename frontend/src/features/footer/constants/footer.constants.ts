@@ -9,8 +9,8 @@ export const footerCta = {
   /** Two deliberate lines; each is rendered as its own block. */
   headingLines: ["Now choose how", "far you want to go."],
   paragraph:
-    "From ICPC and competitive programming to open source, GSoC, AI, internships, and great engineering careers — build the skills and experience that set you apart.",
-  link: { label: "Apply to uGSOT Beyond", href: "#apply" },
+    "uGSOT Catalyst is a technology accelerator by upGrad School of Technology. It runs alongside your existing college degree and does not replace uGSOT Campus, the full-time higher-education experience offered by upGrad School of Technology.",
+  link: { label: "Apply to uGSOT Catalyst", href: "#apply" },
   /**
    * Eligibility line under the button. Split into three parts because the middle one
    * is set in brand red — the alternative is markup inside a copy string.
@@ -18,13 +18,13 @@ export const footerCta = {
   note: {
     before: "For ambitious ",
     highlight: "Year 1 & Year 2",
-    after: " students across India",
+    after: " students across India.",
   },
 } as const;
 
 export const footerTagline = {
   /** Wraps on its own — no hard break, so the line count follows the viewport. */
-  lead: "Your college gives you a degree. uGSOT Beyond helps you go beyond it.",
+  lead: "Your college gives you a degree. uGSOT Catalyst helps you catalyze it.",
 } as const;
 
 /**
@@ -73,11 +73,11 @@ export const footerSocialLinks: readonly SocialLink[] = [
 
 /**
  * The bottom bar. This is a positioning disclaimer rather than a copyright line: it
- * is what keeps "Beyond" from reading as a replacement for the full-time campus
+ * is what keeps "Catalyst" from reading as a replacement for the full-time campus
  * programme, so it should not be shortened without asking.
  */
 export const footerDisclaimer =
-  "uGSOT Beyond is a technology accelerator by upGrad School of Technology. It runs alongside your existing college degree and does not replace uGSOT Campus, the full-time higher-education experience offered by upGrad School of Technology.";
+  "uGSOT Catalyst is a technology accelerator by upGrad School of Technology. It runs alongside your existing college degree and does not replace uGSOT Campus, the full-time higher-education experience offered by upGrad School of Technology.";
 
 /**
  * Animation hooks, by `data-footer` attribute rather than class name, so restyling a

@@ -33,12 +33,20 @@ const baseClasses =
   "focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand";
 
 const variantClasses: Record<CtaButtonVariant, Partial<Record<CtaButtonSize, string>>> = {
+  /*
+    Every size is a white pill that flips to brand red on hover — the lift and the
+    colour change together, so the same gesture reads the same way in the header, the
+    hero and the footer.
+
+    The icon box is deliberately left on `bg-ink` through the flip: it is a cut-out,
+    and a cut-out that changed colour with its button would read as a second button
+    inside the first.
+  */
   primary: {
-    sm: "bg-white text-ink text-[13px] font-medium gap-[11px] py-1.5 pl-[19px] pr-1.5 shadow-[0_12px_30px_rgba(0,0,0,0.35)] hover:-translate-y-px",
-    md: "bg-white text-ink text-[13px] font-semibold gap-3 py-2.5 pl-6 pr-4 shadow-[0_14px_34px_rgba(0,0,0,0.4)] hover:-translate-y-0.5",
-    // The footer's CTA: white pill that flips to brand red on hover. Unlike the
-    // smaller primaries it carries no shadow — it sits on a flat black card where a
-    // drop shadow would be invisible.
+    sm: "bg-white text-ink text-[13px] font-medium gap-[11px] py-1.5 pl-[19px] pr-1.5 shadow-[0_12px_30px_rgba(0,0,0,0.35)] hover:bg-brand hover:text-white hover:-translate-y-px",
+    md: "bg-white text-ink text-[13px] font-semibold gap-3 py-2.5 pl-6 pr-4 shadow-[0_14px_34px_rgba(0,0,0,0.4)] hover:bg-brand hover:text-white hover:-translate-y-0.5",
+    // The footer's CTA. Unlike the smaller primaries it carries no shadow — it sits on
+    // a flat black card where a drop shadow would be invisible.
     lg: "bg-white text-ink text-base font-medium gap-4 py-2 pl-[26px] pr-2 hover:bg-brand hover:text-white hover:-translate-y-px",
   },
   /*

@@ -125,11 +125,6 @@ export function BuildspaceDemo() {
       data-buildspace="demo"
       ref={mountRef}
       className="relative z-[1] w-full"
-      // Hovering holds the tour where it is, so a viewer can stop to read a panel
-      // without the screen changing under them. Pointer events rather than mouse events:
-      // this also covers a stylus, and a touch that lands on the window.
-      onPointerEnter={tour.hold}
-      onPointerLeave={tour.release}
     >
       {/*
         The product's lime accent blooming out from under the window, as if the screen were
@@ -286,7 +281,7 @@ export function BuildspaceDemo() {
 
         {/*
           Only shown while a countdown is actually running — a viewer who jumped chapters.
-          A plain hover hold needs no control: moving the pointer away resumes it.
+          The tour is never held by the pointer, so this is the only pause there is.
 
           **Out of flow, because it is invisible most of the time.** Left in the column it
           reserved its own height whether or not it was showing, and the section centres the

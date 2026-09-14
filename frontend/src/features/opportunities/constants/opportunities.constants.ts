@@ -5,12 +5,26 @@ import type { Opportunity } from "../types/opportunities.types";
  * a component — see `features/hero/constants` for the same pattern.
  */
 
+/**
+ * The accent opens the sentence rather than closing it — the one heading on the page
+ * built this way. "Opportunities" is the noun the whole section is about, and the rest
+ * of the line is the qualifier on it, so the red lands first and the qualifier follows.
+ */
 export const opportunitiesHeading = {
-  lead: "Exclusive",
   accent: "Opportunities",
+  trail: "You Can't Get From Watching Videos",
 } as const;
 
-export const opportunitiesSubtitle = "Only for Future Software Engineers";
+/**
+ * The line under the arc — the section's actual argument, where the heading is only its
+ * setup. Split in three because the accent sits mid-sentence: the claim, the word it
+ * turns on, then the two words that land it.
+ */
+export const opportunitiesClosing = {
+  lead: "Content is everywhere.",
+  accent: "Ecosystem",
+  trail: "isn't.",
+} as const;
 
 /**
  * Card photography lives in `public/assets/oppertunity/`, one file per card. File

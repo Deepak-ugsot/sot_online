@@ -52,7 +52,7 @@ export function HeroHeadline({
           viewport narrows. At the previous `7.5vw` the headline hit its 72px cap at
           1280 while the column was only 1216 wide — the sentence wrapped, the block
           grew to three lines, and at 1280×720 it overflowed its padded area and left
-          the eyebrow 13px under the site header. `5vw` holds the two-line set from
+          the headline 13px under the site header. `5vw` holds the two-line set from
           roughly 768px up, and still reaches the full 72px at 1440 and above.
         */
         "text-[clamp(1.625rem,5vw,4.5rem)]",

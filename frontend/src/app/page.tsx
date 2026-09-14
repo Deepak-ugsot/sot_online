@@ -58,12 +58,12 @@ export default function HomePage() {
           <CurriculumSection />
           <LearnFromPeopleSection />
           <EarlyStartSection />
+          <DashboardSection />
+          <OpportunitiesSection />
+          <CareerOsSection />
           <TechScoreSection />
           <EcosystemSection />
           <OneProgramSection />
-          <CareerOsSection />
-          <DashboardSection />
-          <OpportunitiesSection />
           <BuiltForStudentsSection />
           <FaqSection />
         </main>

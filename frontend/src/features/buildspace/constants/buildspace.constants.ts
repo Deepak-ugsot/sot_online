@@ -12,7 +12,7 @@ import type {
 
 export const buildspaceHeading: BuildspaceHeadingCopy = {
   accent: "BuildSpace",
-  trail: "- your engineering playground inside Beyond",
+  trail: "- your engineering playground inside Catalyst",
 };
 
 /**
@@ -53,15 +53,19 @@ export const BUILDSPACE_CANVAS_HEIGHT = 880;
  * slows its contents down rather than adding dead time at the end. The chapters that
  * type or reveal in sequence therefore need noticeably more room than the ones that are
  * simply read.
+ *
+ * Every value is 80% of what it was, applied evenly: the relative weighting between
+ * chapters is the part that was tuned, so speeding the tour up means scaling the whole
+ * set rather than trimming the ones that feel longest. Full run: ~33s, from ~41s.
  */
 export const buildspaceChapters: BuildspaceChapter[] = [
-  { id: "project", chapter: "Project", title: "Pick a real project", duration: 4200 },
-  { id: "plan", chapter: "Plan", title: "Plan it before you build", duration: 7200 },
-  { id: "review", chapter: "AI Review", title: "AI reviews your thinking", duration: 7000 },
-  { id: "build", chapter: "Build", title: "Build it for real", duration: 6000 },
-  { id: "github", chapter: "GitHub", title: "Your GitHub activity counts", duration: 5400 },
-  { id: "ship", chapter: "Ship", title: "Ship it", duration: 6400 },
-  { id: "outro", chapter: "Ship", title: "From learning to shipping", duration: 4600 },
+  { id: "project", chapter: "Project", title: "Pick a real project", duration: 3400 },
+  { id: "plan", chapter: "Plan", title: "Plan it before you build", duration: 5800 },
+  { id: "review", chapter: "AI Review", title: "AI reviews your thinking", duration: 5600 },
+  { id: "build", chapter: "Build", title: "Build it for real", duration: 4800 },
+  { id: "github", chapter: "GitHub", title: "Your GitHub activity counts", duration: 4300 },
+  { id: "ship", chapter: "Ship", title: "Ship it", duration: 5100 },
+  { id: "outro", chapter: "Ship", title: "From learning to shipping", duration: 3700 },
 ];
 
 /**

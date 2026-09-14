@@ -35,7 +35,7 @@ export type DemoTourState = {
   index: number;
   /** 0–1 through the current chapter. */
   progress: number;
-  /** True while the tour is held — hover, or a jump the viewer made. */
+  /** True while the tour is held — reduced motion, or a jump the viewer made. */
   paused: boolean;
   /** 0–1 countdown to auto-resume; 0 unless a countdown is actually running. */
   resumeProgress: number;
@@ -46,10 +46,6 @@ export type DemoTourState = {
 export type DemoTourControls = {
   /** Jump to a chapter and hold there for a moment. */
   goTo: (index: number) => void;
-  /** Hold the tour with no countdown — used while the pointer is over the window. */
-  hold: () => void;
-  /** Release a hold. */
-  release: () => void;
   /** Drop any countdown and run now. */
   resume: () => void;
 };
@@ -84,7 +80,7 @@ export function useDemoTour(
   const clock = useRef({
     index: 0,
     elapsed: 0,
-    /** Set while held by hover. */
+    /** Set while reduced motion pins the tour to a single frame. */
     held: false,
     /** Timestamp the countdown ends at, or 0 when none is running. */
     resumeAt: 0,
@@ -153,8 +149,8 @@ export function useDemoTour(
       // looks: the section is off screen for most of a long page, and `publish` builds a
       // fresh state object every time, so React cannot bail out on an equal value — a
       // throttled publish here would re-render the whole canvas every 62ms for the entire
-      // time nobody is looking at it. `hold`, `release` and `goTo` each force a publish of
-      // their own, so no transition into a paused state is missed.
+      // time nobody is looking at it. `goTo` and `resume` each force a publish of their
+      // own, so no transition into a paused state is missed.
 
       frame = requestAnimationFrame(tick);
     };
@@ -212,18 +208,6 @@ export function useDemoTour(
     [publish],
   );
 
-  const hold = useCallback(() => {
-    if (clock.current.isStatic) return;
-    clock.current.held = true;
-    publish(performance.now(), true);
-  }, [publish]);
-
-  const release = useCallback(() => {
-    if (clock.current.isStatic) return;
-    clock.current.held = false;
-    publish(performance.now(), true);
-  }, [publish]);
-
   const resume = useCallback(() => {
     if (clock.current.isStatic) return;
     clock.current.held = false;
@@ -231,5 +215,5 @@ export function useDemoTour(
     publish(performance.now(), true);
   }, [publish]);
 
-  return { ...state, goTo, hold, release, resume };
+  return { ...state, goTo, resume };
 }

@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useRef } from "react";
 
 import {
@@ -73,8 +74,39 @@ export function EarlyStartSection() {
             <span className="font-accent text-brand">{earlyStartHeading.accent}</span>
           </h2>
 
-          <p className="font-display text-pretty text-[clamp(0.9375rem,1.3vw,1.0625rem)] text-ink-muted">
-            {earlyStartSubtitle}
+          {/*
+            The brand's wordmark set inline, in place of its name — see the constant for
+            why. A flex row rather than an `<img>` floated in running text: the mark has
+            to sit on the same optical line as the words either side of it at every
+            width, and `align-baseline` cannot do that for a logo whose baseline is not
+            the box's bottom edge.
+
+            `flex-wrap` is the narrow-screen case: below roughly 360px the three parts
+            no longer fit on one line, and wrapping is better than letting the logo
+            shrink to where its own type stops being legible.
+
+            **The logo is sized in `em`, not pixels**, so it tracks the line it sits in
+            as the clamp scales it. `2.2em` is the ceiling, not a preference: at the
+            line's widest type that works out to ~122px, which is the PNG's own width —
+            past it the mark would be upscaled. See the `unoptimized` note below.
+          */}
+          <p className="flex flex-wrap items-center justify-center gap-x-2 gap-y-1 font-display text-pretty text-[clamp(0.9375rem,1.3vw,1.0625rem)] text-ink-muted">
+            {earlyStartSubtitle.lead}
+            <Image
+              src={earlyStartSubtitle.logo.src}
+              alt={earlyStartSubtitle.logo.alt}
+              width={earlyStartSubtitle.logo.width}
+              height={earlyStartSubtitle.logo.height}
+              // `unoptimized` because the source is already a 121px-wide transparent
+              // PNG. Left to the optimizer, Next picked a 60px variant off its
+              // responsive ladder and upscaled it into the box — visibly soft, and
+              // softer still on a 2x display. Serving the file as-is means the mark is
+              // never scaled past its own pixels. There is nothing to gain either way:
+              // the whole PNG is a couple of kilobytes.
+              unoptimized
+              className="h-[2.2em] w-auto"
+            />
+            {earlyStartSubtitle.trail}
           </p>
         </div>
 

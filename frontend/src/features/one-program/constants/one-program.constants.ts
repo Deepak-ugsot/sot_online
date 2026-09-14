@@ -35,7 +35,7 @@ export const oneProgramPricing: OneProgramPricing = {
  * exists — see `features/early-start/constants`.
  */
 export const oneProgramCta: OneProgramCta = {
-  label: "Apply to uGSOT Beyond",
+  label: "Apply to uGSOT Catalyst",
   href: "#apply",
 };
 

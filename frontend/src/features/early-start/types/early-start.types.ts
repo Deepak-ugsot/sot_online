@@ -7,6 +7,26 @@ export type EarlyStartHeadingCopy = {
   accent: string;
 };
 
+/**
+ * The attribution line under the heading, split around the Internshala wordmark so the
+ * logo can be set inline where the brand's name would otherwise be typed out.
+ *
+ * `logo.alt` is the brand name, not a description of the mark: the image stands in for
+ * a word in the middle of a sentence, so a screen reader has to read it as that word
+ * for the line to make sense.
+ */
+export type EarlyStartSubtitleCopy = {
+  lead: string;
+  logo: {
+    src: string;
+    alt: string;
+    /** The file's own pixels, so Next reserves the right box before the PNG lands. */
+    width: number;
+    height: number;
+  };
+  trail: string;
+};
+
 /** One stop on the timeline: a stage of the career the section says starts early. */
 export type EarlyStartStep = {
   /** Stable React key — never derive keys from copy, which is editable. */

@@ -23,7 +23,7 @@ export const ecosystemHeading: EcosystemHeadingCopy = {
 };
 
 export const ecosystemSubtitle =
-  "uGSOT Campus is building a full-time campus technology education experience. uGSOT Beyond takes a focused technology-acceleration layer to ambitious students who are already pursuing degrees elsewhere.";
+  "uGSOT Campus is building a full-time campus technology education experience. uGSOT Catalyst takes a focused technology-acceleration layer to ambitious students who are already pursuing degrees elsewhere.";
 
 /** The line under the stats, naming the brand once more before the section ends. */
 export const ecosystemClosing: EcosystemClosingCopy = {

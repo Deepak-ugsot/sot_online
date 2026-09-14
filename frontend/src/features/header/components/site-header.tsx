@@ -14,7 +14,7 @@ const menuBarClasses =
   "block h-[1.5px] w-6 bg-current transition-all duration-300 ease-cinematic";
 
 /**
- * Site header: brand mark, primary navigation, and the "Apply Now" CTA.
+ * Site header: brand mark, primary navigation, and the apply CTA.
  *
  * Fixed to the top of the viewport for the whole page. It floats with no background
  * of its own over the hero, then fades a dark backdrop in once it has scrolled past

@@ -93,8 +93,8 @@ export function SiteFooter() {
               alt=""
               // The file's true pixel dimensions; anything else sets the wrong
               // intrinsic ratio and the reserved box jumps on load.
-              width={3840}
-              height={491}
+              width={3851}
+              height={459}
               className="h-auto w-full"
             />
           </div>

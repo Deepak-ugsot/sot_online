@@ -61,8 +61,8 @@ const PLAYBACK_MAX_WIDTH = 1024;
 const SEEK_EPSILON = 1 / 60;
 
 /**
- * Pins the hero and fades the eyebrow, headline, subtext, CTAs, footnote and scrim
- * out on staggered offsets — driving the background video's playhead from scroll on desktop, and
+ * Pins the hero and fades the headline, subtext, CTAs, footnote and scrim out on
+ * staggered offsets — driving the background video's playhead from scroll on desktop, and
  * letting it loop under its own power at `PLAYBACK_MAX_WIDTH` and below.
  *
  * @param scopeRef - The section wrapping the hero. All selectors are scoped to it,
@@ -197,17 +197,12 @@ export function useHeroScrollAnimation(scopeRef: RefObject<HTMLElement | null>) 
           // site header is deliberately not among them: it is fixed page chrome that
           // stays visible for the whole page.
           timeline
-            // Leads the headline out by the same margin it leads it in by on the
-            // page: it is the top line of the block, so it should be the first to go.
-            .to(
-              HERO_SELECTORS.eyebrow,
-              { autoAlpha: 0, y: -52, duration: p(0.28), ease: "power2.in" },
-              0,
-            )
+            // First in the block, first to go — it leads the dissolve the way it
+            // leads the reading order.
             .to(
               HERO_SELECTORS.headline,
               { autoAlpha: 0, y: -46, duration: p(0.3), ease: "power2.in" },
-              p(0.02),
+              0,
             )
             // The scrim only exists to make the copy readable, so it dissolves in step
             // with it — linearly, and running a touch past the last line of copy so
@@ -225,7 +220,7 @@ export function useHeroScrollAnimation(scopeRef: RefObject<HTMLElement | null>) 
               p(0.04),
             )
             // Last in, last out — the CTAs are the bottom of the block, so they are
-            // the last thing standing, the way the eyebrow is the first to go.
+            // the last thing standing, the way the headline is the first to go.
             .to(
               HERO_SELECTORS.cta,
               {

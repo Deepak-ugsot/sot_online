@@ -133,10 +133,18 @@ export function BuildspaceSection() {
             {buildspaceEyebrow}
           </span>
 
+          {/*
+            `leading-[1.18]` overrides the 1.3312 `type-heading` sets for the page's
+            headings generally. This one runs to three or four lines at most widths —
+            it is the longest heading on the site — and at the shared leading the lines
+            drifted far enough apart to read as separate statements rather than as one
+            sentence. Scoped here rather than changed in the utility, which every other
+            heading depends on.
+          */}
           <h2
             id="buildspace-heading"
             className={
-              "type-heading font-semibold text-balance text-[clamp(1.875rem,4vw,3.5rem)] text-white " +
+              "type-heading font-semibold text-balance leading-[1.18] text-[clamp(1.875rem,4vw,3.5rem)] text-white " +
               "min-[1180px]:text-pretty min-[1180px]:text-[clamp(2.25rem,2.9vw,3.25rem)]"
             }
           >

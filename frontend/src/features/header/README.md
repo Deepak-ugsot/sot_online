@@ -1,6 +1,6 @@
 # Header
 
-Site chrome: brand mark, primary navigation, and the "Apply Now" CTA, **fixed to the
+Site chrome: brand mark, primary navigation, and the apply CTA, **fixed to the
 top of the viewport for the whole page**.
 
 It floats with no background of its own over the hero — the design's intent, and the

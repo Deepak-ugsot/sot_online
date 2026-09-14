@@ -21,7 +21,7 @@ export const competeDescription =
 
 /** `#apply` is the page-wide admissions anchor every primary CTA points at. */
 export const competeCta = {
-  label: "Apply to uGSOT Beyond",
+  label: "Apply to uGSOT Catalyst",
   href: "#apply",
 } as const;
 

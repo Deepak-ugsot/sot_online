@@ -3,12 +3,12 @@
 The landing page's opening section: a pinned, scroll-scrubbed video stage with the
 centred headline block and the scroll cue.
 
-The copy block is five elements top to bottom: eyebrow, headline, subtext, footnote,
-CTA row. The footnote sits *above* the buttons so it answers the "do I have to leave
-my degree?" objection before the reader reaches them.
+The copy block is four elements top to bottom: headline, subtext, footnote, CTA row.
+The footnote sits *above* the buttons so the reader learns who the programme is for
+before they reach them.
 
 Scrolling pins the section and drives the background video's playhead directly —
-the video does not play on its own. While it scrubs, all five fade out on staggered
+the video does not play on its own. While it scrubs, all four fade out on staggered
 offsets, then the pin releases.
 
 The header is **not** part of this feature. It is fixed site chrome that stays visible
@@ -59,13 +59,12 @@ stretches the timeline's own duration back to a true 1.0, so `scrub` doesn't app
 that same compression twice.
 
 **Fade-out offsets** (as a fraction of the content window). The block leaves roughly
-top-down: the eyebrow goes first and the CTA row last, so it dissolves in reading
+top-down: the headline goes first and the CTA row last, so it dissolves in reading
 order rather than all at once.
 
 | Element  | Starts | Duration | Motion              |
 | -------- | ------ | -------- | ------------------- |
-| Eyebrow  | 0.00   | 0.28     | fade + `y: -52`     |
-| Headline | 0.02   | 0.30     | fade + `y: -46`     |
+| Headline | 0.00   | 0.30     | fade + `y: -46`     |
 | Footnote | 0.04   | 0.30     | fade + `y: -14`     |
 | Subtext  | 0.05   | 0.32     | fade + `y: -22`     |
 | CTAs     | 0.07   | 0.28     | fade + `scale 0.92` |
@@ -101,14 +100,13 @@ rather than overflowing.
 **The content column is `84rem`,** matching the career, mentors and AI-mentor sections
 so the page keeps one measure down its length. The headline is also the only thing that
 uses the full width: at `76rem` the second sentence was 94px too wide to hold one line
-at 72px. The eyebrow (`34rem`), subtext (`47rem`) and footnote (`42rem`) set their own
-narrower caps.
+at 72px. The subtext (`62rem`) and footnote (`52rem`) set their own narrower caps.
 
 **The headline's `clamp` slope is `5vw`, not `7.5vw`,** and that is what keeps the
 second sentence on one line as the viewport narrows. At `7.5vw` the headline reached
 its 72px cap by 1280 while the column was only 1216 wide: the sentence wrapped, the
 block grew to three lines, and at 1280×720 it overflowed its padded area and left the
-eyebrow 13px under the site header.
+headline 13px under the site header.
 
 Measured across the range — two lines everywhere from 768 up, and the slack is the
 stage's, so a positive number means nothing clips:
@@ -181,8 +179,8 @@ Every value below is a floor rather than a preference:
   at 26px.
 - **The subtext floor** is `0.875rem`, and it sets `leading-normal` below `sm` — six
   lines of `leading-relaxed` is the tallest single thing in the block on a phone.
-- **Gaps tighten below `sm`**: `mb-3` under the eyebrow, `mt-3.5` above the subtext,
-  `mt-3` above the footnote, `mt-5` above the CTA row.
+- **Gaps tighten below `sm`**: `mt-3.5` above the subtext, `mt-5` above the footnote,
+  `mt-5` above the CTA row.
 
 Measured after, with the block at 514px: 320×700 leaves **66px of slack**, clearing the
 header by 41px and the stage's bottom edge by 73px. 390×844 leaves 247px. Nothing clips

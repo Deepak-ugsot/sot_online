@@ -15,7 +15,7 @@ import type {
  */
 export const oneJourneyHeading: OneJourneyHeadingCopy = {
   lead: "Why buy 10 different courses\nOne",
-  accent: "uGSOT Beyond",
+  accent: "uGSOT Catalyst",
   tail: "journey.",
 };
 

@@ -5,7 +5,6 @@ import { useRef } from "react";
 import { CtaButton } from "@/components/ui/cta-button";
 import {
   heroCtas,
-  heroEyebrow,
   heroFootnote,
   heroHeadline,
   heroSubtext,
@@ -51,7 +50,7 @@ export function HeroSection() {
           the column outgrows is simply lost.
 
           `pt-20` is the floor, not a preference: it is 80px against a 72px header,
-          so the eyebrow still clears the nav by 8px. See the README for the
+          so the headline still clears the nav by 8px. See the README for the
           measurements this block is tuned against.
         */}
         <div className="relative z-10 flex h-full w-full flex-col items-center justify-center px-6 pt-20 pb-10 text-center sm:px-8 sm:pt-28 sm:pb-24 lg:pt-32">
@@ -59,26 +58,10 @@ export function HeroSection() {
             `84rem`, matching the career, mentors and AI-mentor sections, so the page
             keeps one measure down its length. It is also what the headline needs: at
             `76rem` the second sentence was 94px too wide to hold one line at 72px and
-            broke mid-phrase. The subtext, eyebrow and footnote set their own narrower
-            caps, so only the headline actually uses the extra width.
+            broke mid-phrase. The subtext and footnote set their own narrower caps,
+            so only the headline actually uses the extra width.
           */}
           <div className="flex w-full max-w-[84rem] flex-col items-center">
-            {/*
-              White, not the brand red the page's other eyebrows use. This one sits on
-              the hero's near-white footage, where a saturated red tops out at about
-              1.5:1 — and no red can pass there, since `#E6161F` only reaches 4.5:1
-              against pure black. White carries the line without a shadow behind it.
-
-              `max-w` keeps it to two lines at the narrowest widths — the stage has no
-              height to spare there (see the README's phone measurements).
-            */}
-            <p
-              data-hero="eyebrow"
-              className="mb-3 max-w-[34rem] text-[clamp(0.8125rem,1.15vw,1.0625rem)] font-semibold text-white sm:mb-4"
-            >
-              {heroEyebrow}
-            </p>
-
             <HeroHeadline
               id="hero-heading"
               data-hero="headline"
@@ -87,31 +70,46 @@ export function HeroSection() {
               tail={heroHeadline.tail}
             />
 
-            <p
+            {/*
+              One `data-hero` element wrapping both sentences, not one per line: the
+              scroll timeline fades `subtext` as a single unit, and two targets would
+              have it dissolve in two pieces.
+
+              Each sentence is its own block so the break lands on the full stop
+              between them rather than wherever the measure runs out — the same
+              reasoning the headline uses for its two lines.
+            */}
+            <div
               data-hero="subtext"
               className="mt-3.5 max-w-[62rem] text-[clamp(0.875rem,1.5vw,1.1875rem)] leading-normal text-white/90 sm:mt-5 sm:leading-relaxed [text-shadow:0_1px_2px_rgba(0,0,0,0.5),0_4px_20px_rgba(0,0,0,0.5)]"
             >
-              {heroSubtext}
-            </p>
+              {heroSubtext.map((line) => (
+                <p key={line} className="text-balance">
+                  {line}
+                </p>
+              ))}
+            </div>
 
             {/*
-              Sits between the subtext and the CTAs: it answers the "do I have to
-              leave my degree?" objection *before* the reader reaches the buttons,
-              rather than after they have already decided.
+              Sits between the subtext and the CTAs, so the reader learns who the
+              programme is for *before* they reach the buttons rather than after they
+              have already decided to apply.
 
-              Still the quietest thing in the block — `white/70` and the smallest
-              size — so it reads as a qualifier on the pitch above it, not as a third
-              piece of the pitch competing with the buttons below.
+              Muted white rather than the brand red the design shows: red at this size
+              disappeared into the footage — `#E6161F` measures about 1.5:1 against the
+              hero's pale frames, where 70% white holds its edge.
+
+              Deliberately unshadowed, so the copy scrim behind the column (see
+              `HeroBackground`) is what carries it. Quieter than the subtext above it
+              on purpose: it qualifies the pitch, it is not a third piece of it.
 
               `52rem` is sized to hold it on one line at every desktop width, with
-              room to spare. `42rem` did not: the line is 650px at 1280 against a
-              672px cap, and the type grows with the viewport, so it wrapped to two
-              from 1440 up — the cap has to clear the 762px the line measures once
-              the font hits its own 15px ceiling.
+              room to spare — the current line is shorter than the one this cap was
+              measured against, so it has room in hand.
             */}
             <p
               data-hero="footnote"
-              className="mt-3 max-w-[52rem] text-[clamp(0.75rem,1vw,0.9375rem)] leading-snug sm:leading-relaxed text-white/70 sm:mt-4 [text-shadow:0_1px_2px_rgba(0,0,0,0.5),0_4px_20px_rgba(0,0,0,0.5)]"
+              className="mt-5 max-w-[52rem] text-[clamp(0.8125rem,1.1vw,1.0625rem)] font-medium leading-snug sm:leading-relaxed text-white/70 sm:mt-7"
             >
               {heroFootnote}
             </p>

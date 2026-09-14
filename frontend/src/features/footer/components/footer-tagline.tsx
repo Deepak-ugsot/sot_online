@@ -13,7 +13,7 @@ import {
 const EXIT_DURATION_S = 0.3;
 
 /**
- * "Your college gives you a degree. uGSOT Beyond helps you go beyond it." with a
+ * "Your college gives you a degree. uGSOT Catalyst helps you catalyze it." with a
  * rotating word in the red box beneath it.
  *
  * The word in the red box cycles on a timer. The swap is split across two effects on
@@ -85,7 +85,7 @@ export function FooterTagline() {
     >
       {/* The lead is a full sentence now, so it wraps rather than being pinned to one
           line — this `max-w` is what decides where. It is tuned to break after
-          "uGSOT" at the design's width; narrowing it spills the sentence onto a
+          "degree." at the design's width; narrowing it spills the sentence onto a
           third line. */}
       <p className="max-w-[56rem] font-display text-[clamp(1.625rem,3.6vw,3.25rem)] leading-[1.2] font-medium tracking-[-0.01em] text-white">
         {taglineCopy.lead}

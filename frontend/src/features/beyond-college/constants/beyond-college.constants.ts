@@ -14,15 +14,15 @@ export const beyondCollegeHeading: BeyondCollegeHeadingCopy = {
 };
 
 export const beyondCollegeSubtitle =
-  "Your college handles your degree, professors, exams, campus, and university experience. uGSOT Beyond adds the technology accelerator you need to build your career alongside it.";
+  "Your college handles your degree, professors, exams, campus, and university experience. uGSOT Catalyst adds the technology accelerator you need to build your career alongside it.";
 
 /**
  * The line under the panels. It is the section's actual argument — the two panels are
  * the evidence — so it is set at heading weight rather than as a caption.
  */
 export const beyondCollegeClosing: BeyondCollegeHeadingCopy = {
-  lead: "Don't replace your college.",
-  accent: "Go beyond it.",
+  lead: "Don't replace your degree.",
+  accent: "Catalyze it.",
 };
 
 /**
@@ -76,9 +76,9 @@ export const beyondCollegePanels: readonly [
   },
   {
     tone: "accelerator",
-    title: "uGSOT BEYOND",
+    title: "uGSOT CATALYST",
     watermark: "uGSOT",
-    subtitle: "Helps you go beyond",
+    subtitle: "Helps you go further",
     items: [
       {
         id: "accelerator",

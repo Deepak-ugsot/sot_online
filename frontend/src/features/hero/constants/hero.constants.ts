@@ -7,45 +7,48 @@ import type { HeroCta, HeroHeadlineCopy } from "../types/hero.types";
  */
 
 /**
- * Positions the programme before the headline makes its claim: without it, "uGSOT
- * Beyond" arrives as a name nobody has been introduced to yet.
- *
- * Sentence case, not the uppercase micro-label used elsewhere on the page. This one
- * is a readable phrase rather than a section tag, and at `0.2em` uppercase tracking
- * it would run wider than the subtext it sits above.
- */
-export const heroEyebrow = "Technology Accelerator, by upGrad School of Technology";
-
-/**
  * `accent` is the product name, so it stays whole — the split is placed around it
  * rather than at the sentence boundary. `tail` is a block, so the second sentence
  * always starts its own line.
  */
 export const heroHeadline: HeroHeadlineCopy = {
   lead: "Your college gives you a degree.",
-  accent: "uGSOT Beyond",
-  tail: "helps you go beyond it.",
+  accent: "uGSOT Catalyst",
+  tail: "helps you catalyze it.",
 };
 
-export const heroSubtext =
-  "A 2-year technology accelerator you pursue alongside your existing college. Code. Build. Compete. Contribute to open source. Become AI-native. Build a serious technology profile before you graduate.";
+/**
+ * Two sentences, two array entries — rendered as separate blocks so the break always
+ * lands between them rather than wherever the measure happens to run out. The first
+ * line carries the degree list and is the longer of the two; leaving both in one
+ * paragraph let "We become your parallel technology ecosystem." start mid-line.
+ *
+ * Each entry still wraps freely within itself, so narrow viewports reflow onto more
+ * lines rather than overflowing the stage.
+ */
+export const heroSubtext: readonly string[] = [
+  "A 2-year technology accelerator you pursue alongside your existing B.Tech / B.E. / BCA / B.Sc. program.",
+  "We become your parallel technology ecosystem.",
+] as const;
 
 /**
  * Set uppercase in the string rather than with `text-transform`, because the brand's
  * lowercase `u` has to survive — `uppercase` would render it "UGSOT".
  */
 export const heroCtas: readonly HeroCta[] = [
-  { label: "APPLY TO uGSOT BEYOND", href: "#apply", variant: "primary" },
+  { label: "APPLY TO uGSOT CATALYST", href: "#apply", variant: "primary" },
   { label: "SEE WHAT YOU'LL BECOME", href: "#curriculum", variant: "secondary" },
 ] as const;
 
 /**
- * Answers the objection the headline provokes — "do I have to leave my degree?" —
- * while the CTAs are still on screen. Deliberately quieter than the subtext: it is
- * reassurance, not a selling line.
+ * Names the audience while the CTAs are still on screen, so a third-year reader can
+ * self-select out before applying — and a first-year reader can recognise themselves.
+ *
+ * Set in brand red rather than the muted white the rest of the block uses: it is a
+ * qualifier the reader is meant to stop on, not a footnote to skim.
  */
 export const heroFootnote =
-  "You stay in your current B.Tech / B.E. / BCA / B.Sc. program. We become your parallel technology ecosystem.";
+  "Designed primarily for ambitious Year 1 & Year 2 students.";
 
 /**
  * Hooks into the hero's scroll animation by `data-hero` attribute rather than by
@@ -57,7 +60,6 @@ export const heroFootnote =
 export const HERO_SELECTORS = {
   stage: '[data-hero="stage"]',
   video: '[data-hero="video"]',
-  eyebrow: '[data-hero="eyebrow"]',
   headline: '[data-hero="headline"]',
   copyScrim: '[data-hero="copy-scrim"]',
   subtext: '[data-hero="subtext"]',

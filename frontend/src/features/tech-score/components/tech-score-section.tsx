@@ -12,7 +12,7 @@ import { TechScoreRing } from "./tech-score-ring";
 import { TechScoreStat } from "./tech-score-stat";
 
 /**
- * "The uGSOT Beyond Tech Score." — one white panel holding the score itself on the
+ * "The uGSOT Catalyst Tech Score." — one white panel holding the score itself on the
  * left and the six measurements it is made of on the right.
  *
  * **One card, not eight.** The dial and the stats are the same claim at two

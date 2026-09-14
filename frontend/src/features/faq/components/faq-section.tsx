@@ -5,7 +5,6 @@ import { useRef, useState } from "react";
 import {
   faqEntries,
   faqHeading,
-  faqParagraph,
 } from "../constants/faq.constants";
 import { useFaqReveal } from "../hooks/use-faq-reveal";
 import { FaqItem } from "./faq-item";
@@ -47,23 +46,17 @@ export function FaqSection() {
           data-faq="intro"
           className="flex w-full flex-col justify-between gap-14 min-[1000px]:shrink min-[1000px]:basis-[32.75rem] min-[1000px]:self-stretch"
         >
-          <div className="flex flex-col gap-4">
-            <h2
-              id="faq-heading"
-              className="flex flex-col type-heading font-semibold text-[clamp(1.875rem,4.7vw,4.25rem)] text-ink"
-            >
-              {/* Each line is `nowrap` — the design sets them as two deliberate
-                  lines, and letting either wrap would turn the heading into three. */}
-              <span className="whitespace-nowrap">{faqHeading.lead}</span>
-              <span className="font-accent font-light whitespace-nowrap text-brand italic">
-                {faqHeading.accent}
-              </span>
-            </h2>
-
-            <p className="max-w-[32.75rem] font-display text-[19px] leading-[1.45] text-black/90">
-              {faqParagraph}
-            </p>
-          </div>
+          <h2
+            id="faq-heading"
+            className="flex flex-col type-heading font-semibold text-[clamp(1.875rem,4.7vw,4.25rem)] text-ink"
+          >
+            {/* Each line is `nowrap` — the design sets them as two deliberate
+                lines, and letting either wrap would turn the heading into three. */}
+            <span className="whitespace-nowrap">{faqHeading.lead}</span>
+            <span className="font-accent font-light whitespace-nowrap text-brand">
+              {faqHeading.accent}
+            </span>
+          </h2>
 
           <FaqPromo />
         </div>

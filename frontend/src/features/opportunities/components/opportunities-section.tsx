@@ -4,8 +4,8 @@ import { useRef } from "react";
 
 import {
   opportunities,
+  opportunitiesClosing,
   opportunitiesHeading,
-  opportunitiesSubtitle,
 } from "../constants/opportunities.constants";
 import { useOpportunitiesCarousel } from "../hooks/use-opportunities-carousel";
 import { OpportunityCard } from "./opportunity-card";
@@ -48,28 +48,36 @@ export function OpportunitiesSection() {
           // guaranteed floor (112px − 79px = 33px of clearance no matter what), and
           // the arc and gaps below are sized so the content actually fits.
           //
-          // The budget: 0.50H (arc) + 127px (heading) + 0.045H (one gap) + 112px
-          // (padding) ≤ H, which holds from about 525px of viewport height. At `55vh`
-          // arc and `6vh` gaps it needed 748px, which is where the collision was
-          // coming from; dropping the scroll hint took another ~60px out of it.
-          "relative flex h-[100vh] h-[100svh] w-full flex-col items-center justify-center gap-[4.5vh] overflow-hidden pt-24 min-[768px]:pt-28 " +
+          // The budget: 0.50H (arc) + 149px (a two-line heading) + 37px (the closing
+          // line) + two gaps + 112px (padding) ≤ H. At a flat `4.5vh` gap that comes to
+          // 723px against a 720px stage — the closing line sat exactly on the clipped
+          // edge at 1280×720, which is an ordinary laptop window.
+          //
+          // So the gap tightens on short viewports rather than the art shrinking: the
+          // arc and the type are the design, the air between them is the part that can
+          // give. `1.5vh` below 820px buys back ~43px of the two gaps, which leaves the
+          // closing line about 16px clear of the clipped edge at 1280×720 and holds the
+          // whole block down to roughly 690px of viewport height.
+          "relative flex h-[100vh] h-[100svh] w-full flex-col items-center justify-center gap-[4.5vh] [@media(max-height:820px)]:gap-[1.5vh] overflow-hidden pt-24 min-[768px]:pt-28 " +
           "motion-reduce:h-auto motion-reduce:gap-12 motion-reduce:overflow-visible motion-reduce:px-6 motion-reduce:py-25"
         }
       >
-        <div className="flex flex-col items-center gap-4 px-6 text-center">
+        <div className="flex flex-col items-center px-6 text-center">
+          {/*
+            `text-balance` rather than a stated break: the line runs to two at most
+            desktop widths and the balancer puts the break after "Get", which is the
+            phrase boundary. A `\n` here would hold that break at widths where the whole
+            line fits on one.
+          */}
           <h2
             id="opportunities-heading"
-            className="type-heading font-semibold text-[clamp(2rem,4.5vw,3.5rem)] text-ink"
+            className="type-heading max-w-[24ch] text-balance font-semibold text-[clamp(2rem,4.5vw,3.5rem)] text-ink"
           >
-            {opportunitiesHeading.lead}{" "}
             <span className="font-accent font-medium text-brand">
               {opportunitiesHeading.accent}
-            </span>
+            </span>{" "}
+            {opportunitiesHeading.trail}
           </h2>
-
-          <p className="font-display text-[clamp(1rem,1.8vw,1.5rem)] text-ink">
-            {opportunitiesSubtitle}
-          </p>
         </div>
 
         {/*
@@ -103,6 +111,18 @@ export function OpportunitiesSection() {
           </div>
         </div>
 
+        {/*
+          The closing line, under the arc. It reads as the section's conclusion — the
+          cards are the evidence — so it is set at heading weight rather than as a
+          caption, and it is the last thing in the stage's centred column.
+        */}
+        <p className="px-6 text-center type-heading font-semibold text-[clamp(1.125rem,2.2vw,1.75rem)] text-ink">
+          {opportunitiesClosing.lead}{" "}
+          <span className="font-accent font-medium text-brand">
+            {opportunitiesClosing.accent}
+          </span>{" "}
+          {opportunitiesClosing.trail}
+        </p>
       </div>
     </section>
   );

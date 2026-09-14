@@ -10,9 +10,6 @@ export const faqHeading = {
   accent: "We've Got Answers",
 } as const;
 
-export const faqParagraph =
-  "Everything you need to know about the program, admissions, Career OS, projects, placements, and student life.";
-
 export const faqPromo = {
   title: "Start Your Journey",
   description:
@@ -20,54 +17,110 @@ export const faqPromo = {
   cta: { label: "Start Your Journey", href: "#apply" },
 } as const;
 
+/**
+ * The accordion, in the order the design sets them.
+ *
+ * **Only the first answer is the client's own copy.** The rest were drafted here from
+ * what the page already claims elsewhere — the hero's "you stay in your current
+ * program", the compete and global-ambition sections' "aim for" framing around ICPC and
+ * GSoC, the Internshala attribution on the early-start timeline, and the capability
+ * rails in `features/one-program`. Four of them (`hours`, `live-or-recorded`,
+ * `after-two-years`, `campus-immersion`) state facts that exist nowhere else on the
+ * site and are marked at their entry; treat those as placeholders until marketing
+ * confirms them.
+ *
+ * The guarantee answers all open with a plain "No." on purpose. Every one of them is a
+ * claim a student could hold the programme to, so hedging the refusal would be worse
+ * than making it — the useful part is what follows it.
+ */
 export const faqEntries: readonly FaqEntry[] = [
   {
-    id: "who-can-join",
-    question: "Who can join?",
+    id: "online-version",
+    question: "Is uGSOT Catalyst the online version of upGrad School of Technology?",
     answer:
-      "Any student pursuing engineering or a related technology degree — from 1st year to final year — can join Career OS.",
+      "No. uGSOT Catalyst is a separate 2-year technology accelerator for students who are already enrolled in a college or university. uGSOT Campus is a full time higher education experience combining the university degree, physical campus, academic environment, faculty, student life and the broader uGSOT ecosystem. Catalyst complements your existing college education it does not replace it.",
   },
   {
-    id: "coding-experience",
-    question: "Is coding experience required?",
+    id: "leave-college",
+    question: "Do I leave my current college?",
     answer:
-      "No prior coding experience is required — Career OS starts from the fundamentals and builds up from there.",
+      "No. Catalyst runs alongside your existing B.Tech / B.E. / BCA / B.Sc. program. You stay enrolled where you are and keep attending your own classes and exams — Catalyst is a parallel technology ecosystem, not a transfer.",
   },
   {
-    id: "live-classes",
-    question: "How many live classes are conducted?",
+    id: "is-a-degree",
+    question: "Is Catalyst a degree?",
     answer:
-      "Live classes run multiple times a week, alongside recorded lectures and self-paced modules you can revisit anytime.",
+      "No. Catalyst is a 2-year technology accelerator, not a degree programme. Your degree comes from your college; Catalyst builds the technical profile that sits alongside it.",
   },
   {
-    id: "what-makes-different",
-    question: "What makes Career OS different?",
+    id: "issues-degree",
+    question: "Will uGSOT issue my B.Tech / BCA?",
     answer:
-      "Career OS personalizes your entire journey — learning, projects, mentorship, and placement support — around your year and branch, not a one-size-fits-all curriculum.",
+      "No. Your B.Tech or BCA is awarded by the college or university you are enrolled in. uGSOT does not issue the degree and does not affect how your college awards it.",
   },
   {
-    id: "internships",
-    question: "Will I get internships?",
+    // PLACEHOLDER — the weekly commitment is stated nowhere else on the site.
+    id: "hours-per-week",
+    question: "How many hours a week does Catalyst need?",
     answer:
-      "Yes — Career OS connects you with internship and hackathon opportunities as part of your career readiness track.",
+      "Plan for roughly 8 to 10 hours a week. Catalyst is built to run on top of a full college timetable, so the work is spread across the week rather than concentrated into fixed daily hours.",
   },
   {
-    id: "placement-support",
-    question: "Is placement support included?",
+    // PLACEHOLDER — the live/recorded mix is stated nowhere else on the site.
+    id: "live-or-recorded",
+    question: "Is it live or recorded?",
     answer:
-      "Yes — placement support including mock interviews, resume building, and career coaching is included for every student.",
+      "Both. Live sessions and mentor time are scheduled through the week, and the learning material and project work in BuildSpace stay available on demand so you can fit them around your college schedule.",
   },
   {
-    id: "access-duration",
-    question: "How long do I have access?",
+    id: "icpc-guarantee",
+    question: "Is ICPC selection guaranteed?",
     answer:
-      "You have access to Career OS for the full duration of your 2-year program, including all future content updates.",
+      "No. ICPC selection is decided by the contest, not by us. What Catalyst provides is the preparation — structured practice, regular contests, peer leaderboards and team formation — so that you compete as a serious contender rather than an applicant.",
   },
   {
-    id: "certificates",
-    question: "Will I receive certificates?",
+    id: "gsoc-guarantee",
+    question: "Is GSoC selection guaranteed?",
     answer:
-      "Yes — you'll receive a certificate upon completing each phase of your Career OS journey.",
+      "No. GSoC selection rests with the open-source organisations and their mentors. Catalyst builds the contribution history and developer discipline the application is judged on: reading large codebases, finding issues, landing pull requests and working with maintainers.",
+  },
+  {
+    id: "internship-guarantee",
+    question: "Is an internship guaranteed?",
+    answer:
+      "No. Catalyst gives you access to the internship ecosystem and the preparation to compete in it — a real portfolio, a public contribution record and interview readiness — but every internship is still earned through the company's own selection process.",
+  },
+  {
+    id: "placement-guarantee",
+    question: "Is placement guaranteed?",
+    answer:
+      "No. Catalyst is not a placement programme and does not promise a job. It exists to make you the kind of engineer who gets hired: real shipped projects, a credible GitHub profile, competitive programming depth and career preparation.",
+  },
+  {
+    id: "third-fourth-year",
+    question: "Can 3rd or 4th year students join?",
+    answer:
+      "Yes, but Catalyst is designed primarily for Year 1 and Year 2 students, because the two-year arc is what lets skills, projects and a public profile compound before you graduate. Joining later leaves less runway for that to build.",
+  },
+  {
+    // PLACEHOLDER — what follows the programme is stated nowhere else on the site.
+    id: "after-two-years",
+    question: "What happens after two years?",
+    answer:
+      "You finish with a technology profile built in public — shipped projects, an open-source contribution record, competitive programming ratings and internship experience — and you carry all of it with you. Your college degree continues on its own timeline.",
+  },
+  {
+    // PLACEHOLDER — how immersions are allocated is stated nowhere else on the site.
+    id: "campus-immersion",
+    question: "Are campus immersion experiences guaranteed?",
+    answer:
+      "No. Campus immersions are selective and depend on your progress through the programme. They are an opportunity Catalyst opens up, not an entitlement that comes with enrolment.",
+  },
+  {
+    id: "whats-included",
+    question: "What's included in \u20B950,000/year?",
+    answer:
+      "The whole programme, not a module of it: programming and maths, DSA, competitive programming and ICPC preparation, full stack development, systems and cloud, AI and GenAI, open source and GSoC guidance, real projects, free access to BuildSpace, the AI Mentor, industry mentorship, competitions, Career OS and the internship ecosystem. The total programme fee is \u20B91,00,000 across two years.",
   },
 ] as const;
 

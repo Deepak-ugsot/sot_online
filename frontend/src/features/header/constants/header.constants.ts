@@ -8,8 +8,15 @@ import type { HeaderCta } from "../types/header.types";
  * not belong to this feature.
  */
 
+/**
+ * Matches the hero's primary CTA word for word, so the two read as the same button
+ * following you down the page rather than as two different offers.
+ *
+ * Uppercase is set in the string rather than with `text-transform`, because the
+ * brand's lowercase `u` has to survive — `uppercase` would render it "UGSOT".
+ */
 export const headerCta: HeaderCta = {
-  label: "Apply Now",
+  label: "APPLY TO uGSOT CATALYST",
   href: "#apply",
   variant: "primary",
 };

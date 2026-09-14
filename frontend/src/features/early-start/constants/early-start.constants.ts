@@ -2,6 +2,7 @@ import type {
   EarlyStartCalloutCopy,
   EarlyStartHeadingCopy,
   EarlyStartStep,
+  EarlyStartSubtitleCopy,
 } from "../types/early-start.types";
 
 /**
@@ -16,12 +17,26 @@ export const earlyStartHeading: EarlyStartHeadingCopy = {
 } as const;
 
 /**
- * The attribution under the heading. "INTERNSHALA" is upper-cased in the copy rather
- * than by a `uppercase` utility: it is how the brand sets its own name, so it should
- * survive being copied out of the page.
+ * The attribution under the heading: "Powered by the [Internshala] ecosystem", with the
+ * brand's own wordmark set inline where its name would otherwise be typed out.
+ *
+ * The mark rather than the word because this line's whole job is to lend the section
+ * someone else's credibility, and a logo is recognised before it is read — set as text
+ * among muted grey copy, the name was the quietest thing in the block.
+ *
+ * **The same file the ecosystem collage uses**, deliberately: one logo, one source. If
+ * the brand ever ships a new mark, both places change together.
  */
-export const earlyStartSubtitle =
-  "Powered by the INTERNSHALA ecosystem";
+export const earlyStartSubtitle: EarlyStartSubtitleCopy = {
+  lead: "Powered by the",
+  logo: {
+    src: "/assets/ecosystem/internshala.png",
+    alt: "Internshala",
+    width: 121,
+    height: 37,
+  },
+  trail: "ecosystem",
+} as const;
 
 /**
  * The six stages, in the order they happen.
@@ -74,7 +89,7 @@ export const earlyStartSteps: readonly EarlyStartStep[] = [
 export const earlyStartCallout: EarlyStartCalloutCopy = {
   claim: "Start building experience while others are still building resumes.",
   cta: {
-    label: "Apply to uGSOT Beyond",
+    label: "Apply to uGSOT Catalyst",
     href: "#apply",
   },
 } as const;

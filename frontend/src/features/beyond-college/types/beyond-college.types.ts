@@ -23,7 +23,7 @@ export type BeyondCollegePanel = {
   tone: BeyondCollegePanelTone;
   /**
    * Set in caps in the string rather than with `text-transform`, because
-   * "uGSOT BEYOND" has to keep its lowercase `u` — `uppercase` would render "UGSOT".
+   * "uGSOT CATALYST" has to keep its lowercase `u` — `uppercase` would render "UGSOT".
    */
   title: string;
   /**

@@ -7,7 +7,7 @@ import type { TechScoreDial, TechScoreStat } from "../types/tech-score.types";
 
 export const techScoreHeading = {
   lead: "The",
-  accent: "uGSOT Beyond",
+  accent: "uGSOT Catalyst",
   tail: "Tech Score.",
 } as const;
 

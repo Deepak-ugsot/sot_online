@@ -41,7 +41,7 @@ ending rather than as a card sitting on the page.
 
 ## The rotating tagline
 
-The lead — "Your college gives you a degree. uGSOT Beyond helps you go beyond it." — is
+The lead — "Your college gives you a degree. uGSOT Catalyst helps you catalyze it." — is
 a full sentence that **wraps**; the `max-w` on it is what picks the break, rather than
 a hard newline in the copy. The highlight box sits on its own line beneath it.
 
@@ -83,7 +83,7 @@ own element's position and drift apart.
 
 ## The watermark
 
-`public/assets/upgrad_beyond.png` — **3840×491 RGBA**. The intrinsic size passed to
+`public/assets/uGSOT-Catayst.png` — **3851×459 RGBA**. The intrinsic size passed to
 `next/image` must be the file's true pixel size, or the reserved box has the wrong
 ratio and the layout jumps once the image loads.
 
