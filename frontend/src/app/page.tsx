@@ -8,7 +8,6 @@ import { CareerSection } from "@/features/career";
 import { CareerOsSection } from "@/features/career-os";
 import { CompeteSection } from "@/features/compete";
 import { CurriculumSection } from "@/features/curriculum";
-import { DashboardSection } from "@/features/dashboard";
 import { EarlyStartSection } from "@/features/early-start";
 import { EcosystemSection } from "@/features/ecosystem";
 import { FaqSection } from "@/features/faq";
@@ -23,6 +22,7 @@ import { OneJourneySection } from "@/features/one-journey";
 import { OneProgramSection } from "@/features/one-program";
 import { OpportunitiesSection } from "@/features/opportunities";
 import { ReadinessSection } from "@/features/readiness";
+import { RealWorldSection } from "@/features/real-world";
 import { TechScoreSection } from "@/features/tech-score";
 
 /**
@@ -58,7 +58,7 @@ export default function HomePage() {
           <CurriculumSection />
           <LearnFromPeopleSection />
           <EarlyStartSection />
-          <DashboardSection />
+          <RealWorldSection />
           <OpportunitiesSection />
           <CareerOsSection />
           <TechScoreSection />
