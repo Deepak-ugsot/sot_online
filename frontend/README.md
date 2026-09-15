@@ -47,6 +47,8 @@ frontend/
 │   │   └── page.tsx               # Landing page — composes feature sections
 │   │
 │   ├── components/                # Shared, feature-agnostic UI
+│   │   ├── anchor-scroll.tsx      # Makes in-page #hash links work under the smoother
+│   │   ├── smooth-scroll.tsx      # GSAP ScrollSmoother wrapper for the landing page
 │   │   └── ui/
 │   │       ├── arrow-icon.tsx     # Inline SVG arrow (diagonal / right)
 │   │       ├── check-icon.tsx     # Inline SVG filled checkmark

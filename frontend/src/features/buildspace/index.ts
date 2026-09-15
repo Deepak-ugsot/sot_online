@@ -7,7 +7,6 @@ export { BuildspaceSection } from "./components/buildspace-section";
 export type {
   BuildspaceChapter,
   BuildspaceChapterId,
-  BuildspaceCtaCopy,
   BuildspaceCursorBeat,
   BuildspaceHeadingCopy,
 } from "./types/buildspace.types";

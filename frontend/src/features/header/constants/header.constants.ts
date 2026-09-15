@@ -34,16 +34,14 @@ export const HERO_SELECTOR = "#home";
  * which from `/profile` scroll to nothing at all; every entry here goes to the landing
  * page and then to the section.
  *
- * Two of the targets also differ from the marketing nav's, because the marketing nav's
- * do not exist: `#about` and `#student-journey` match no element on the page. The
- * design's signed-in header replaces the first with **BuildSpace**, which is a real
- * section; `#one-journey` is the real id behind "Student Journey". Worth fixing in
- * `navLinks` too, which is a change to the landing page and so left alone here.
+ * The labels and targets match `navLinks` entry for entry, `#readiness` for "Student
+ * Journey" included. They are one nav in the design, and a section that is "Student
+ * Journey" signed out and something else signed in would be a bug either way round —
+ * so an entry added to one list belongs in the other.
  */
 export const appNavLinks: readonly NavLink[] = [
   { label: "Home", href: "/" },
   { label: "Curriculum", href: "/#curriculum" },
-  { label: "Student Journey", href: "/#one-journey" },
-  { label: "BuildSpace", href: "/#buildspace" },
+  { label: "Student Journey", href: "/#readiness" },
   { label: "FAQs", href: "/#faqs" },
 ] as const;

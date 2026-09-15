@@ -1,7 +1,8 @@
 # One Journey
 
-"Why buy 10 different courses. One uGSOT Beyond journey." — the section pins and deals
-four cards up into a scatter, one at a time, as the reader scrolls.
+"Why buy 10 different courses when you can have one uGSOT Catalyst journey?" — the
+section pins and deals four cards up into a scatter, one at a time, as the reader
+scrolls.
 
 Sits directly below the Approach section.
 

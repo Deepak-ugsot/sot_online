@@ -1,4 +1,4 @@
-import type { FooterLinkColumn, SocialLink } from "../types/footer.types";
+import type { SocialLink } from "../types/footer.types";
 
 /**
  * Copy for the footer. Kept out of JSX so marketing changes never touch a component —
@@ -42,27 +42,6 @@ export const footerRotatingWords: readonly string[] = [
 ] as const;
 
 export const FOOTER_WORD_INTERVAL_MS = 1500;
-
-export const footerLinkColumns: readonly FooterLinkColumn[] = [
-  {
-    id: "quick-links",
-    heading: "Quick Links",
-    links: [
-      { label: "Why Catalyst", href: "#why-beyond" },
-      { label: "Journey", href: "#journey" },
-      { label: "Pricing", href: "#pricing" },
-    ],
-  },
-  {
-    id: "about",
-    heading: "About",
-    links: [
-      { label: "FAQs", href: "#faqs" },
-      { label: "Privacy Policy", href: "#privacy" },
-      { label: "Terms & Conditions", href: "#terms" },
-    ],
-  },
-] as const;
 
 export const footerSocialLinks: readonly SocialLink[] = [
   { platform: "facebook", label: "Facebook", href: "#" },

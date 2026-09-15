@@ -37,7 +37,14 @@ export const heroSubtext: readonly string[] = [
  */
 export const heroCtas: readonly HeroCta[] = [
   { label: "APPLY TO uGSOT CATALYST", href: "#apply", variant: "primary" },
-  { label: "SEE WHAT YOU'LL BECOME", href: "#curriculum", variant: "secondary" },
+  {
+    label: "DOWNLOAD BROCHURE",
+    // Still the curriculum anchor: there is no brochure PDF to fetch yet, and this is
+    // where the label used to send the reader. Point it at the file once it lands.
+    href: "#curriculum",
+    variant: "secondary",
+    icon: "download",
+  },
 ] as const;
 
 /**

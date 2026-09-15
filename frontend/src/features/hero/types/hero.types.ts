@@ -3,6 +3,11 @@ export type HeroCta = {
   label: string;
   href: string;
   variant: "primary" | "secondary";
+  /**
+   * Leading glyph, set here rather than inferred from the variant: "secondary" is a
+   * treatment, not a meaning, and the next secondary CTA added need not be a download.
+   */
+  icon?: "download";
 };
 
 /**

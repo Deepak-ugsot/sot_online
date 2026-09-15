@@ -87,7 +87,7 @@ export const readinessSteps: readonly ReadinessStep[] = [
   },
   {
     id: "break-through",
-    title: "Break Through",
+    title: "Breakthrough",
     description:
       "Build industry exposure through internships, interviews, and career prep.",
     image: stepImage("Interviews.jpg"),

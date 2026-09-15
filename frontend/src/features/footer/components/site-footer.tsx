@@ -8,7 +8,6 @@ import { assets, siteConfig } from "@/config/site.config";
 import {
   footerCta,
   footerDisclaimer,
-  footerLinkColumns,
   footerSocialLinks,
 } from "../constants/footer.constants";
 import { useFooterReveal } from "../hooks/use-footer-reveal";
@@ -101,66 +100,38 @@ export function SiteFooter() {
 
           <FooterTagline />
 
-          <div className="flex w-full flex-wrap items-start justify-center gap-12 min-[900px]:justify-between">
-            <div
-              data-footer="column"
-              className="flex flex-col items-center gap-7 min-[900px]:items-start"
-            >
-              <Image
-                src={assets.logoWhite}
-                alt={siteConfig.name}
-                width={150}
-                height={46}
-                className="h-[46px] w-auto"
-              />
+          {/*
+            Brand mark and social accounts, centred.
 
-              <ul className="flex list-none items-center gap-6">
-                {footerSocialLinks.map((social) => (
-                  <li key={social.platform}>
-                    <a
-                      href={social.href}
-                      // The link carries the accessible name; the glyph is decorative.
-                      aria-label={social.label}
-                      className="block text-white/90 transition-colors duration-300 ease-cinematic hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand"
-                    >
-                      <SocialIcon platform={social.platform} />
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
+            This used to be a `justify-between` row with the mark on the left and two
+            columns of links opposite. The columns are gone — every one of them pointed
+            at a section that does not exist — and with them the only reason the mark
+            sat off to one side. Centred, it lines up with the CTA, the watermark, the
+            tagline and the disclaimer, which is how the rest of the card reads.
+          */}
+          <div data-footer="column" className="flex flex-col items-center gap-7">
+            <Image
+              src={assets.logoWhite}
+              alt={siteConfig.name}
+              width={150}
+              height={46}
+              className="h-[46px] w-auto"
+            />
 
-            {/* `25` (100px) between the two link columns read as a hole in the row. */}
-            <div className="flex gap-12 min-[900px]:gap-16">
-              {footerLinkColumns.map((column) => (
-                <nav
-                  key={column.id}
-                  data-footer="column"
-                  aria-labelledby={`footer-${column.id}`}
-                  className="text-left"
-                >
-                  <h3
-                    id={`footer-${column.id}`}
-                    className="mb-7 font-display text-xl font-medium uppercase text-white"
+            <ul className="flex list-none items-center gap-6">
+              {footerSocialLinks.map((social) => (
+                <li key={social.platform}>
+                  <a
+                    href={social.href}
+                    // The link carries the accessible name; the glyph is decorative.
+                    aria-label={social.label}
+                    className="block text-white/90 transition-colors duration-300 ease-cinematic hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand"
                   >
-                    {column.heading}
-                  </h3>
-
-                  <ul className="flex list-none flex-col gap-[18px]">
-                    {column.links.map((link) => (
-                      <li key={link.href}>
-                        <a
-                          href={link.href}
-                          className="font-display text-base text-white/60 transition-colors duration-300 ease-cinematic hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand"
-                        >
-                          {link.label}
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
-                </nav>
+                    <SocialIcon platform={social.platform} />
+                  </a>
+                </li>
               ))}
-            </div>
+            </ul>
           </div>
 
           <div

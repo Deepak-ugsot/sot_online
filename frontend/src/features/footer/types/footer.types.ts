@@ -1,10 +1,3 @@
-/** A labelled group of footer links. */
-export type FooterLinkColumn = {
-  id: string;
-  heading: string;
-  links: readonly { label: string; href: string }[];
-};
-
 /** Social platforms with a glyph in `SocialIcon`. */
 export type SocialPlatform = "facebook" | "instagram" | "x" | "youtube";
 
