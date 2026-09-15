@@ -1,6 +1,5 @@
 import type {
   BuildspaceChapter,
-  BuildspaceCtaCopy,
   BuildspaceCursorBeat,
   BuildspaceHeadingCopy,
 } from "../types/buildspace.types";
@@ -32,12 +31,7 @@ export const buildspaceEyebrow = "Inside BuildSpace";
  * the sentence up.
  */
 export const buildspaceSubtitle =
-  "As an SOT online student, get FREE ACCESS to BuildSpace to build real projects and in-demand skills.";
-
-export const buildspaceCta: BuildspaceCtaCopy = {
-  label: "Explore BuildSpace",
-  href: "#apply",
-};
+  "As an uGSOT Catalyst learner, get FREE ACCESS to BuildSpace to build real projects and in-demand skills.";
 
 /** The demo canvas's intrinsic size. Every coordinate below is in these pixels. */
 export const BUILDSPACE_CANVAS_WIDTH = 1280;

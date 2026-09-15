@@ -7,8 +7,8 @@ right.
 ## Public API
 
 - `BuildspaceSection` — the whole section. The only export routes should use.
-- `BuildspaceChapter`, `BuildspaceChapterId`, `BuildspaceCtaCopy`,
-  `BuildspaceCursorBeat`, `BuildspaceHeadingCopy` — shared types.
+- `BuildspaceChapter`, `BuildspaceChapterId`, `BuildspaceCursorBeat`,
+  `BuildspaceHeadingCopy` — shared types.
 
 ```tsx
 import { BuildspaceSection } from "@/features/buildspace";
@@ -19,7 +19,7 @@ import { BuildspaceSection } from "@/features/buildspace";
 ```text
 buildspace/
 ├── components/
-│   ├── buildspace-section.tsx    # Ground, glows, beams, copy, CTA  ("use client")
+│   ├── buildspace-section.tsx    # Ground, glows, beams, copy  ("use client")
 │   ├── buildspace-demo.tsx       # The scaled canvas + tour wiring  ("use client")
 │   └── demo/
 │       ├── demo-icon.tsx         # The product mock's icon set
@@ -44,8 +44,8 @@ buildspace/
 
 ## Two columns above 1180px, stacked below it
 
-The copy and the CTA hold the left column; the window — and the narration and chips that
-belong to it — hold the right.
+The copy holds the left column; the window — and the narration and chips that belong to
+it — hold the right.
 
 **1180 is set by the window, not by the copy.** The canvas scales to whatever width its
 column gives it, so a split only pays for itself once the right column is still wide enough

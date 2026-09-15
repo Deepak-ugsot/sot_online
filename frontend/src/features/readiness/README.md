@@ -159,7 +159,7 @@ that fills the card while the photo loads and if it fails.
 | Compete | `Hackathons.jpg` |
 | Contribute | `Communication.jpg` |
 | AI-Native | `DSA.jpg` |
-| Break Through | `Interviews.jpg` |
+| Breakthrough | `Interviews.jpg` |
 
 There are six usable photographs for seven steps, so **Learn and Contribute share
 `Communication.jpg`**. They are four apart and the row never shows more than four cards

@@ -9,14 +9,14 @@ import type {
  */
 
 /**
- * Two lines: the question, then the answer. The `\n` in `lead` is the break between
- * them, rendered with `whitespace-pre-line` so it stays here with the rest of the copy
- * rather than being a `<br />` in the component.
+ * One question across two lines, not a question answered by a statement. The `\n` in
+ * `lead` is the break between them, rendered with `whitespace-pre-line` so it stays
+ * here with the rest of the copy rather than being a `<br />` in the component.
  */
 export const oneJourneyHeading: OneJourneyHeadingCopy = {
-  lead: "Why buy 10 different courses\nOne",
+  lead: "Why buy 10 different courses\nwhen you can have one",
   accent: "uGSOT Catalyst",
-  tail: "journey.",
+  tail: "journey?",
 };
 
 /**

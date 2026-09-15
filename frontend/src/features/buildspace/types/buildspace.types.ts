@@ -13,12 +13,6 @@ export type BuildspaceHeadingCopy = {
   trail: string;
 };
 
-/** The white pill under the subtitle. */
-export type BuildspaceCtaCopy = {
-  label: string;
-  href: string;
-};
-
 /** One chapter of the product tour. */
 export type BuildspaceChapterId =
   | "project"

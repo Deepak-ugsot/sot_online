@@ -121,7 +121,7 @@ export function BuiltForStudentsSection() {
             far from the list and still read as belonging to the same section.
           */}
           <div data-built-for-students="closing" className="lg:col-span-3 lg:self-end">
-            <p className="type-heading text-[clamp(1.125rem,1.9vw,1.5rem)] font-bold text-ink">
+            <p className="type-heading text-[clamp(1.125rem,1.9vw,1.5rem)] font-bold text-brand">
               {builtForStudentsClosing.title}
             </p>
             <p className="mt-3 max-w-[24rem] text-[clamp(0.9375rem,1.15vw,1.0625rem)] leading-[1.55] text-ink-muted">

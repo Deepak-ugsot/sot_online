@@ -12,8 +12,9 @@ import { useOneJourneyReveal } from "../hooks/use-one-journey-reveal";
 import { OneJourneyCard } from "./one-journey-card";
 
 /**
- * "Why buy 10 different courses. One uGSOT Beyond journey." — the section pins and
- * deals four cards up into a scatter, one at a time, as the reader scrolls.
+ * "Why buy 10 different courses when you can have one uGSOT Catalyst journey?" — the
+ * section pins and deals four cards up into a scatter, one at a time, as the reader
+ * scrolls.
  *
  * Same two-element structure the hero and the approach section use, and required for
  * the same reason: the outer `<section>` is the trigger and must not clip, because
@@ -48,8 +49,9 @@ export function OneJourneySection() {
           className="type-heading shrink-0 text-center text-[clamp(1.375rem,3vw,2.5rem)] font-semibold text-balance text-ink"
         >
           {/* The break lives in the copy as a `\n`; `whitespace-pre-line` renders it
-              without a `<br />` here. It waits for `sm` because on a phone the first
-              line wraps anyway, and a forced break there strands "One" alone. */}
+              without a `<br />` here. It waits for `sm` because on a phone both halves
+              wrap on their own, and holding the break there only adds a third short
+              line to a heading that already reads as one sentence. */}
           <span className="whitespace-normal sm:whitespace-pre-line">
             {oneJourneyHeading.lead}
           </span>{" "}

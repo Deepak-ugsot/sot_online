@@ -1,4 +1,4 @@
-import { ArrowIcon } from "@/components/ui/arrow-icon";
+import { CtaButton } from "@/components/ui/cta-button";
 import {
   oneProgramCta,
   oneProgramHeading,
@@ -56,20 +56,24 @@ export function OneProgramIntro() {
         {oneProgramPricing.footnote}
       </p>
 
-      {/* The site's standard CTA: dark bar, label, white arrow tile. Same markup as the
-          early-start callout, so the two cannot drift apart visually. */}
-      <a
+      {/* The site's standard CTA: dark pill, label, white arrow tile, flipping to brand
+          red on hover.
+
+          Shared `CtaButton` rather than the hand-rolled copy this used to carry. That
+          copy predated the component and had drifted into the one `inverse` CTA on the
+          page with no hover colour at all, while career, compete and the FAQ promo — the
+          same pill on the same light ground — all resolved theirs to brand red. The
+          early-start callout still hand-rolls its own and documents why: it sits on a
+          brand-red card, which is the one place the red hover cannot go. */}
+      <CtaButton
         href={oneProgramCta.href}
-        className="group mt-8 inline-flex items-center gap-4 bg-ink p-2 pl-[1.625rem] font-display text-base font-medium text-white transition-transform duration-300 ease-cinematic hover:-translate-y-px focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ink"
+        variant="inverse"
+        size="lg"
+        withIcon
+        className="mt-8"
       >
-        <span>{oneProgramCta.label}</span>
-        <span
-          aria-hidden="true"
-          className="flex h-10 w-10 shrink-0 items-center justify-center bg-white text-ink"
-        >
-          <ArrowIcon direction="diagonal" className="h-[18px] w-[18px]" />
-        </span>
-      </a>
+        {oneProgramCta.label}
+      </CtaButton>
     </div>
   );
 }

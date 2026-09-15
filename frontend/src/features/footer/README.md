@@ -1,12 +1,13 @@
 # Footer
 
 The site footer: a black card with rounded top corners, carrying a closing CTA, the
-outlined wordmark, a rotating tagline, link columns and the disclaimer bar.
+outlined wordmark, a rotating tagline, the brand mark with its social accounts, and the
+disclaimer bar.
 
 ## Public API
 
 - `SiteFooter` — the whole footer. The only export routes should use.
-- `FooterLinkColumn`, `SocialLink`, `SocialPlatform` — shared types.
+- `SocialLink`, `SocialPlatform` — shared types.
 
 ```tsx
 import { SiteFooter } from "@/features/footer";
@@ -74,7 +75,7 @@ One timeline, five beats, each starting **before** the last finishes:
 | 1    | CTA block     | fade + `y: 60 → 0`            | —       |
 | 2    | Watermark     | fade + `scale: 0.85 → 1`      | `-=0.3` |
 | 3    | Tagline       | fade + `y: 45 → 0`            | `-=0.4` |
-| 4    | Columns       | fade + `y: 45`, 0.12 stagger  | `-=0.3` |
+| 4    | Brand + social| fade + `y: 45`, 0.12 stagger  | `-=0.3` |
 | 5    | Disclaimer    | fade + `y: 20 → 0`            | `-=0.2` |
 
 A single timeline rather than five triggers: the overlap is the choreography, and only
@@ -94,18 +95,31 @@ wordmark too.
 Hidden below `900px`, where it would shrink to an illegible smear, and `aria-hidden`
 throughout — the brand is already named by the logo beneath it.
 
+## The link columns, and why they are gone
+
+The card used to carry two columns of links — **Quick Links** (Why Catalyst, Journey,
+Pricing) and **About** (FAQs, Privacy Policy, Terms & Conditions) — in a
+`justify-between` row opposite the brand mark.
+
+Five of those six hrefs (`#why-beyond`, `#journey`, `#pricing`, `#privacy`, `#terms`)
+named no element on the page, so the columns were mostly links that went nowhere. They
+were removed rather than repointed: there are no pricing, privacy or terms sections to
+repoint them at, and FAQs is already one click away in the header.
+
+With them gone the brand mark has no reason to sit off to one side, so it is centred
+like every other block on the card. Restoring a column here means restoring the row's
+`justify-between` too — the block is centred by its own `items-center`, not by the row.
+
 ## Accessibility
 
-- Each link column is a `<nav>` labelled by its own heading, so the two groups are
-  distinguishable rather than one undifferentiated list of links.
 - Social links carry the accessible name; the glyphs are `aria-hidden`, so a screen
   reader announces each platform once rather than twice.
 - Every link has a visible `focus-visible` ring.
 
 ## Verified
 
-Four social links, two labelled nav columns, and the tagline confirmed cycling through
-all five words. No page-level horizontal overflow.
+Four social links and the tagline confirmed cycling through all five words. No
+page-level horizontal overflow.
 
 The bottom bar carries a **positioning disclaimer**, not a copyright line: it is what
 keeps "Beyond" from reading as a replacement for uGSOT Campus, so it should not be

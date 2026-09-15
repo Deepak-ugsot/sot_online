@@ -15,12 +15,19 @@ export const siteConfig = {
   url: "https://sot-online-rho.vercel.app",
 } as const;
 
-/** Primary navigation. `href` values are in-page anchors until those routes exist. */
+/**
+ * Primary navigation. Every `href` is an in-page anchor, scrolled to by
+ * `AnchorScroll` — so each one has to name a section that exists on the page.
+ *
+ * Two of them did not. `#student-journey` matched no element; the journey is laid out
+ * by the readiness section ("Two years. One serious transformation."), which is what
+ * it points at now. `#about` matched nothing either and there is no About section to
+ * point it at, so the entry is gone rather than left as a link that does nothing.
+ */
 export const navLinks: readonly NavLink[] = [
   { label: "Home", href: "#home" },
   { label: "Curriculum", href: "#curriculum" },
-  { label: "Student Journey", href: "#student-journey" },
-  { label: "About Us", href: "#about" },
+  { label: "Student Journey", href: "#readiness" },
   { label: "FAQs", href: "#faqs" },
 ] as const;
 

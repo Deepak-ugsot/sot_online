@@ -3,6 +3,7 @@
 import { useRef } from "react";
 
 import { CtaButton } from "@/components/ui/cta-button";
+import { DownloadIcon } from "@/components/ui/download-icon";
 import {
   heroCtas,
   heroFootnote,
@@ -136,8 +137,14 @@ export function HeroSection() {
                   variant={cta.variant}
                   size="md"
                   withIcon={cta.variant === "primary"}
-                  className="w-full sm:w-auto"
+                  /* `gap-2` only alongside a glyph: `cn` is a plain join, so adding it
+                     unconditionally would race the primary's own `gap-3`. */
+                  className={cta.icon ? "w-full gap-2 sm:w-auto" : "w-full sm:w-auto"}
                 >
+                  {/* A child rather than `withIcon`: that prop renders the boxed arrow
+                      cut-out, which the glass secondary drops on purpose — a second
+                      boxed icon beside the primary's competes with it. */}
+                  {cta.icon === "download" && <DownloadIcon />}
                   {cta.label}
                 </CtaButton>
               ))}

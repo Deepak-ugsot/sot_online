@@ -2,9 +2,7 @@
 
 import { useRef } from "react";
 
-import { ArrowIcon } from "@/components/ui/arrow-icon";
 import {
-  buildspaceCta,
   buildspaceEyebrow,
   buildspaceHeading,
   buildspaceSubtitle,
@@ -162,25 +160,6 @@ export function BuildspaceSection() {
           >
             {buildspaceSubtitle}
           </p>
-
-          {/*
-            The arrow sits in its own dark square inset in the white pill — the same
-            two-tone CTA the header and hero use, inverted for a dark ground. Asymmetric
-            padding (`pl-[1.625rem] p-2`) is what centres the label against that square
-            rather than against the pill.
-          */}
-          <a
-            href={buildspaceCta.href}
-            className="group mt-1 inline-flex items-center gap-4 bg-white p-2 pl-[1.625rem] font-display text-base font-medium text-ink transition-transform duration-300 ease-cinematic hover:-translate-y-px"
-          >
-            <span>{buildspaceCta.label}</span>
-            <span
-              aria-hidden="true"
-              className="flex h-10 w-10 items-center justify-center bg-ink text-white"
-            >
-              <ArrowIcon direction="diagonal" className="h-[18px] w-[18px]" />
-            </span>
-          </a>
         </div>
 
         <div className="w-full max-w-[53.75rem] min-[1180px]:max-w-none">

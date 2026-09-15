@@ -19,7 +19,7 @@ import type {
  */
 export const notAnotherCourseHeading: NotAnotherCourseHeadingCopy = {
   lead: "Your college determines your campus. It shouldn't determine",
-  accent: "Your peer group.",
+  accent: "your peer group.",
 };
 
 export const notAnotherCourseSubtitle =
