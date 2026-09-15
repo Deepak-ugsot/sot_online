@@ -38,7 +38,7 @@ export const assets = {
    * `public/assets/` and point this at it — nothing else changes.
    */
   logoMark: "/ugsot_logo.svg",
-  heroVideo: "/assets/Hero_BG_Video.mp4",
+  heroVideo: "/assets/backround_update_BG.mp4",
   /** Outlined "uGSOT Catalyst" wordmark used as the footer watermark. 3851×459, RGBA. */
   footerWatermark: "/assets/uGSOT-Catayst.png",
   /**

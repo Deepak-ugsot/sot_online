@@ -42,9 +42,9 @@ const RUNWAY_COMPACT = 0.6;
  * Widest viewport that plays the video instead of scrubbing it.
  *
  * Scrubbing means seeking, and seeking is only cheap when the target frame is a
- * keyframe. `Hero_BG_Video.mp4` carries **two** keyframes across its 240 frames, so
- * an arbitrary seek makes the decoder replay everything since the last one — up to
- * 146 frames of 720p to put a single frame on screen.
+ * keyframe. The hero video carries only a handful of keyframes across its whole
+ * length, so an arbitrary seek makes the decoder replay every frame since the last
+ * one — potentially a hundred-plus frames to put a single frame on screen.
  *
  * Desktop CPUs absorb that. Mobile decoders do not: they re-prime on every seek and
  * service them one at a time, so a scroll-driven seek stream queues up faster than it
