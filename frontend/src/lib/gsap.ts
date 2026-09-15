@@ -35,3 +35,39 @@ if (typeof window !== "undefined") {
 }
 
 export { gsap, ScrollTrigger, ScrollSmoother };
+
+/**
+ * Unwraps a `.pin-spacer` left wrapping `pin` by a previous, already-torn-down
+ * ScrollTrigger.
+ *
+ * ScrollTrigger pins by wrapping the element in a spacer div, and removes that spacer
+ * when the trigger is killed — but only while its cache still says the element is
+ * "swapped in". Tearing a pin down can clear that flag *before* the spacer comes out
+ * (`disable()` marks the pin's gsap cache `uncache`, which throws the cached spacer
+ * away), and then nothing is left that knows to remove it. The next pin on the same
+ * element therefore builds its own spacer *inside* the abandoned one:
+ *
+ *     .pin-spacer (stale, height: 100vh, no padding)
+ *       └ .pin-spacer (live, height + padding for the real scroll runway)
+ *           └ the pinned element
+ *
+ * The stale wrapper is a fixed viewport height with no pin padding, so it swallows the
+ * runway the live spacer reserves — on this page that collapsed the document from
+ * ~40,000px to ~23,800px and put every ScrollTrigger below it on the wrong geometry.
+ *
+ * In production a component mounts once and this never fires. In development React's
+ * StrictMode deliberately mounts, unmounts and remounts every effect, so the second
+ * mount hits it on the very first page load — which is why the scroll choreography
+ * looks broken under `next dev` and correct in a production build.
+ *
+ * Call this immediately before creating a pin. Any spacer still around the element at
+ * that point belongs to an instance that is already gone: the live one has yet to be
+ * created, and React always runs the previous cleanup first.
+ */
+export function unwrapStalePinSpacer(pin: HTMLElement) {
+  const spacer = pin.parentElement;
+  if (!spacer?.classList.contains("pin-spacer")) return;
+
+  spacer.parentElement?.insertBefore(pin, spacer);
+  spacer.remove();
+}

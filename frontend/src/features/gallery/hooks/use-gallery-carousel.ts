@@ -2,7 +2,7 @@
 
 import { useLayoutEffect, type RefObject } from "react";
 
-import { gsap } from "@/lib/gsap";
+import { gsap, unwrapStalePinSpacer } from "@/lib/gsap";
 import {
   GALLERY_PIN_BREAKPOINT,
   GALLERY_SELECTORS,
@@ -52,6 +52,8 @@ export function useGalleryCarousel(scopeRef: RefObject<HTMLElement | null>) {
       matchMedia.add(
         `(min-width: ${GALLERY_PIN_BREAKPOINT}px) and (prefers-reduced-motion: no-preference)`,
         () => {
+          unwrapStalePinSpacer(stage);
+
           const timeline = gsap.timeline({
             scrollTrigger: {
               trigger: scope,

@@ -11,15 +11,17 @@ import type {
  */
 
 /**
- * `tail` carries the line break as a `\n`, rendered with `whitespace-pre-line` in the
- * component so the break stays here with the rest of the copy rather than becoming a
- * `<br />` in JSX. "Designed" closes line one; "To Reach Beyond The Campus." is line
- * two on its own.
+ * `tail` opens with the line break as a `\n`, rendered with `whitespace-pre-line` in
+ * the component so the break stays here with the rest of the copy rather than
+ * becoming a `<br />` in JSX. The brand name closes line one; "Designed To Reach
+ * Beyond The Campus." is line two on its own. The leading `\n` also stands in for the
+ * space after the accent, so the component sets no separator of its own — below the
+ * breakpoint `whitespace-normal` collapses it back to that single space.
  */
 export const ecosystemHeading: EcosystemHeadingCopy = {
   lead: "Built by",
   accent: "upGrad School of Technology.",
-  tail: "Designed\nTo Reach Beyond The Campus.",
+  tail: "\nDesigned To Reach Beyond The Campus.",
 };
 
 export const ecosystemSubtitle =

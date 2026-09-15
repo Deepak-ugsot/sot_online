@@ -48,13 +48,14 @@ export function EcosystemSection() {
           it.
 
           **Both the block and the heading's cap are set by line one.** "Built by
-          upGrad School of Technology. Designed" measures 988px at a `2.75rem` cap —
-          against 1008px of block, 20px of slack. At the previous `3.25rem` (52px) the
-          same line wanted 1168px and broke into three lines instead of the two the
-          copy's own `\n` asks for.
+          upGrad School of Technology." measures well inside 1008px at a `2.75rem`
+          cap, and line two — "Designed To Reach Beyond The Campus." — is the shorter
+          of the pair. The cap stays at `2.75rem` rather than the `3.25rem` it started
+          at: there the longer line wanted 1168px and broke into three lines instead
+          of the two the copy's own `\n` asks for.
 
           Below the cap the `3.8vw` term shrinks the type faster than the block, so the
-          line keeps fitting all the way down; below `sm` the forced break is off and
+          lines keep fitting all the way down; below `sm` the forced break is off and
           the heading wraps naturally. The width is tied to the accent typeface, as in
           the showcase section: measure again if it changes.
         */}
@@ -69,12 +70,14 @@ export function EcosystemSection() {
             {ecosystemHeading.lead}{" "}
             <span className="font-accent font-medium text-brand">
               {ecosystemHeading.accent}
-            </span>{" "}
-            {/* `tail` carries the line break as a `\n`; `whitespace-pre-line` renders
-                it as the intended break rather than a literal backslash-n. It waits
-                for `sm` because on a phone the line wraps naturally well before this
-                forced break would land, and the forced break would then strand a
-                fragment of the sentence on its own line. */}
+            </span>
+            {/* `tail` opens with the line break as a `\n`; `whitespace-pre-line`
+                renders it as the intended break rather than a literal backslash-n. It
+                waits for `sm` because on a phone the line wraps naturally well before
+                this forced break would land, and the forced break would then strand a
+                fragment of the sentence on its own line. No `{" "}` separator here:
+                that same leading `\n` is the space between the accent and the tail
+                once `whitespace-normal` collapses it. */}
             <span className="whitespace-normal sm:whitespace-pre-line">
               {ecosystemHeading.tail}
             </span>

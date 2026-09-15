@@ -5,8 +5,17 @@ import type { DashboardChecklistRow } from "../types/dashboard.types";
  * component — see `features/hero/constants` for the same pattern.
  */
 
+/**
+ * `tail` opens with the line break as a `\n`, rendered with `whitespace-pre-line` in
+ * the component so the break stays here with the rest of the copy rather than
+ * becoming a `<br />` in JSX. "Digital By Design." is line one; "Real-World By
+ * Experience." is line two, its last word carrying the accent. The leading `\n` also
+ * stands in for the space after the lead, so the component sets no separator of its
+ * own — below the breakpoint `whitespace-normal` collapses it back to that space.
+ */
 export const dashboardHeading = {
-  lead: "Digital By Design. Real-World By",
+  lead: "Digital By Design.",
+  tail: "\nReal-World By",
   accent: "Experience.",
 } as const;
 

@@ -2,7 +2,7 @@
 
 import { useLayoutEffect, type RefObject } from "react";
 
-import { gsap } from "@/lib/gsap";
+import { gsap, unwrapStalePinSpacer } from "@/lib/gsap";
 import { APPROACH_SELECTORS } from "../constants/approach.constants";
 
 /**
@@ -63,6 +63,8 @@ export function useApproachReveal(scopeRef: RefObject<HTMLElement | null>) {
         // content window — i.e. precisely at CONTENT_END once scaled. Adding or
         // removing a word re-spaces the whole sequence automatically.
         const rowSpacing = (1 - ROW_DURATION) / Math.max(rows.length - 1, 1);
+
+        unwrapStalePinSpacer(stage);
 
         const timeline = gsap.timeline({
           scrollTrigger: {

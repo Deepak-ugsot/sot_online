@@ -2,7 +2,7 @@
 
 import { useLayoutEffect, type RefObject } from "react";
 
-import { gsap, ScrollTrigger } from "@/lib/gsap";
+import { gsap, ScrollTrigger, unwrapStalePinSpacer } from "@/lib/gsap";
 import { HERO_SELECTORS } from "../constants/hero.constants";
 
 /**
@@ -153,6 +153,8 @@ export function useHeroScrollAnimation(scopeRef: RefObject<HTMLElement | null>) 
           }
 
           // --- Timeline --------------------------------------------------------
+          unwrapStalePinSpacer(stage);
+
           const timeline = gsap.timeline({
             defaults: { ease: "none" },
             scrollTrigger: {

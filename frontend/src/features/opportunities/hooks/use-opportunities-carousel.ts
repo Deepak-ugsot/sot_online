@@ -2,7 +2,7 @@
 
 import { useLayoutEffect, type RefObject } from "react";
 
-import { gsap } from "@/lib/gsap";
+import { gsap, unwrapStalePinSpacer } from "@/lib/gsap";
 import { OPPORTUNITIES_SELECTORS } from "../constants/opportunities.constants";
 import { getArcTransform } from "../utils/arc-layout";
 
@@ -71,6 +71,8 @@ export function useOpportunitiesCarousel(scopeRef: RefObject<HTMLElement | null>
 
         // Lay the arc out immediately so the section is correct before any scrolling.
         renderArc(START_CENTER_INDEX);
+
+        unwrapStalePinSpacer(stage);
 
         const timeline = gsap.timeline({
           scrollTrigger: {

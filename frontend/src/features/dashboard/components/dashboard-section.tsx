@@ -48,7 +48,16 @@ export function DashboardSection() {
             id="dashboard-heading"
             className="type-heading font-semibold text-[clamp(1.875rem,3.8vw,3.25rem)] text-ink"
           >
-            {dashboardHeading.lead}{" "}
+            {dashboardHeading.lead}
+            {/* `tail` opens with the line break as a `\n`; `whitespace-pre-line`
+                renders it as the intended break rather than a literal backslash-n. It
+                waits for `sm` because on a phone the line wraps naturally well before
+                this forced break would land. No `{" "}` separator before it: that
+                leading `\n` is the space after the lead once `whitespace-normal`
+                collapses it. */}
+            <span className="whitespace-normal sm:whitespace-pre-line">
+              {dashboardHeading.tail}
+            </span>{" "}
             <span className="font-accent font-medium text-brand">
               {dashboardHeading.accent}
             </span>

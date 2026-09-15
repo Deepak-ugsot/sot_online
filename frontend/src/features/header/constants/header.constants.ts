@@ -11,10 +11,10 @@ import type { HeaderCta, NavLink } from "../types/header.types";
 /**
  * `/login` rather than the `#apply` anchor the page's other CTAs still carry: this is
  * the one that now has a route behind it. Phone-number login is the front door to the
- * application, so "Apply Now" starts there.
+ * application, so "Apply to uGSOT Catalyst" starts there.
  */
 export const headerCta: HeaderCta = {
-  label: "Apply Now",
+  label: "Apply to uGSOT Catalyst",
   href: "/login",
   variant: "primary",
 };

@@ -2,7 +2,7 @@
 
 import { useLayoutEffect, type RefObject } from "react";
 
-import { gsap, ScrollTrigger } from "@/lib/gsap";
+import { gsap, ScrollTrigger, unwrapStalePinSpacer } from "@/lib/gsap";
 import {
   ONE_JOURNEY_SELECTORS,
   oneJourneyCards,
@@ -105,6 +105,8 @@ export function useOneJourneyReveal(scopeRef: RefObject<HTMLElement | null>) {
           }
 
           // --- Pinned: the scroll-linked deal -----------------------------------
+          unwrapStalePinSpacer(stage);
+
           const timeline = gsap.timeline({
             scrollTrigger: {
               trigger: scope,

@@ -2,7 +2,7 @@
 
 import { useLayoutEffect, type RefObject } from "react";
 
-import { gsap } from "@/lib/gsap";
+import { gsap, unwrapStalePinSpacer } from "@/lib/gsap";
 import {
   READINESS_PIN_MIN_WIDTH,
   READINESS_SELECTORS,
@@ -45,6 +45,8 @@ export function useReadinessTrack(scopeRef: RefObject<HTMLElement | null>) {
 
           const distance = () =>
             Math.max(0, track.scrollWidth - viewport.clientWidth);
+
+          unwrapStalePinSpacer(scope);
 
           const tween = gsap.to(track, {
             x: () => -distance(),

@@ -48,7 +48,7 @@ export const footerLinkColumns: readonly FooterLinkColumn[] = [
     id: "quick-links",
     heading: "Quick Links",
     links: [
-      { label: "Why Beyond", href: "#why-beyond" },
+      { label: "Why Catalyst", href: "#why-beyond" },
       { label: "Journey", href: "#journey" },
       { label: "Pricing", href: "#pricing" },
     ],
