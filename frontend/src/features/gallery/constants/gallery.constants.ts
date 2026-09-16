@@ -18,19 +18,22 @@ export const gallerySubtitle =
   "Not someone who only knows DSA. Not someone who only knows React. Not someone who completed an AI certificate.";
 
 /**
- * **Filename and folder capitalisation is load-bearing.** These paths are passed
- * through verbatim, because macOS resolves `journey/become_industry.jpg` just fine
- * while the Linux deploy target does not — a wrong case here would pass every local
- * check and 404 only in production. Note `oppertunity/` is spelled that way on disk.
+ * Two helpers because the art sits in two folders. Four cards still reuse photographs
+ * from the previous journey set, matched to their nearest new meaning. *The
+ * Contributor* and *The Future-Tech Explorer* no longer do: they were this section's
+ * two placeholders — one merely on topic, one unrelated to its copy, both borrowed
+ * from `assets/oppertunity/` — and they now have artwork cut for them, in the
+ * section's own `assets/gallery/`. That is where the other four belong too, as and
+ * when their own art is drawn.
  *
- * Four of the six cards reuse the artwork from the previous journey set, matched to
- * their nearest new meaning. **Two are placeholders** and marked as such on the card:
- * "The Contributor" borrows the open-source photo, which is at least on topic, and
- * "The Future-Tech Explorer" borrows the startup-challenges one, which is not — swap
- * both when the real artwork exists.
+ * **`Journey` names are passed through verbatim, capitalisation and all**, because
+ * macOS resolves `journey/become_industry.jpg` just fine while the Linux deploy target
+ * does not — a wrong case here would pass every local check and 404 only in
+ * production. Names under `gallery/` are lower-case throughout: it is the folder with
+ * no legacy capitalisation to preserve, so nothing added to it can spring that trap.
  */
 const journeyImage = (file: string) => `/assets/Journey/${file}`;
-const opportunityImage = (file: string) => `/assets/oppertunity/${file}`;
+const galleryImage = (file: string) => `/assets/gallery/${file}`;
 
 /**
  * The six facets of a "complete techie", in order.
@@ -73,13 +76,12 @@ export const galleryCards: readonly GalleryCard[] = [
   },
   {
     id: "contributor",
-    // PLACEHOLDER — on topic, but not shot for this card.
-    image: opportunityImage("Open_Source_Programs.jpg"),
+    image: galleryImage("contributor.jpg"),
     overlay: "The\nContributor",
     title: "The Contributor",
     description:
       "Build your developer profile through GitHub, open source, GSoC preparation, and active developer communities.",
-    gradient: "linear-gradient(160deg, #d5cfe6 0%, #6f5fa6 45%, #241c3d 100%)",
+    gradient: "linear-gradient(160deg, #246ec0 0%, #172d46 45%, #152e48 100%)",
   },
   {
     id: "professional",
@@ -92,13 +94,12 @@ export const galleryCards: readonly GalleryCard[] = [
   },
   {
     id: "future-tech",
-    // PLACEHOLDER — stand-in only, unrelated to the copy.
-    image: opportunityImage("Startup_Challenges.jpg"),
+    image: galleryImage("future-tech-explorer.jpg"),
     overlay: "The Future-Tech\nExplorer",
     title: "The Future-Tech Explorer",
     description:
       "Explore emerging technologies like quantum computing, cybersecurity, and robotics to understand and build for the future.",
-    gradient: "linear-gradient(160deg, #c8d3ea 0%, #4a63a0 45%, #16203c 100%)",
+    gradient: "linear-gradient(160deg, #2eb4bf 0%, #68a3b1 45%, #409fd6 100%)",
   },
 ] as const;
 

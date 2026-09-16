@@ -138,8 +138,9 @@ strength (10% → 90%) the pair reached 98% black at the foot and hovering a car
 turned the photograph off. Transparent through the top third and topping out at 38%,
 the pair lands near 91% under the type and barely touches the middle of the image.
 
-The resting scrim is not optional. These images run from a bright office to a near-black
-screen and the copy is white on all of them.
+The resting scrim is not optional. The renders are dark, but they are dark in their own
+way — a lit product mock here, a gold trophy there, a face in the lower half of another —
+and the copy is white on all of them.
 
 The title's growth is `font-size`, not a transform: it sits in normal flow with the
 description beneath it, and scaling would slide it off its own baseline instead of
@@ -147,34 +148,39 @@ pushing the copy down with it.
 
 ## Images
 
-**These are placeholders.** The section borrows programme photography from
-`public/assets/Career/` until its own artwork is cut, each behind a per-card gradient
-that fills the card while the photo loads and if it fails.
+Seven purpose-cut renders in `public/assets/readiness/`, one per step, each behind a
+per-card gradient that fills the card while the render loads and if it fails.
 
-| Step | Stand-in |
+| Step | Art |
 | --- | --- |
-| Learn | `Communication.jpg` |
-| Code | `Coding.jpg` |
-| Build | `Projects.jpg` |
-| Compete | `Hackathons.jpg` |
-| Contribute | `Communication.jpg` |
-| AI-Native | `DSA.jpg` |
-| Breakthrough | `Interviews.jpg` |
+| Learn | `learn.jpg` |
+| Code | `code.jpg` |
+| Build | `build.jpg` |
+| Compete | `compete.jpg` |
+| Contribute | `contribute.jpg` |
+| AI-Native | `ai-native.jpg` |
+| Breakthrough | `breakthrough.jpg` |
 
-There are six usable photographs for seven steps, so **Learn and Contribute share
-`Communication.jpg`**. They are four apart and the row never shows more than four cards
-at once, so the two are never on screen together — which is the only reason a repeat is
-tolerable here. It stops being safe the moment a step is added or reordered.
+**Every step owns its image.** The placeholder set this replaces had six photographs for
+seven steps, and leaned on Learn and Contribute sitting four apart — never on screen
+together in a row that shows four cards at most — to hide the repeat. That held only
+while the order held; it would have broken the moment a step was added or moved.
 
-The art is square at 1080², against 327×391 cards, so it clears DPR 2 with room to
-spare and is cropped to portrait by `object-cover`.
+The art is 999×1206 against 327×391 cards, so it clears DPR 2 with room to spare, and at
+0.828 against the card's 0.836 `object-cover` all but leaves it alone — each render is
+seen as it was composed rather than trimmed to fit.
 
-**The filename's capitalisation is load-bearing.** `stepImage()` passes it through
-verbatim, because macOS resolves `career/coding.jpg` perfectly well while the Linux
-deploy target does not — a wrong case would pass every local check and 404 only in
-production.
+**The gradient under each card is sampled from its own render** — the top band, the
+midpoint and the foot — so the swap-in when the image lands is a settle rather than a
+jump, and a failed load leaves a card that still belongs in the row.
 
-`alt=""` — the title names the step and the description restates it, so the photos are
+**Filenames are lower-case throughout.** The Career placeholders were mixed-case and had
+to be echoed verbatim by `stepImage()`, because macOS resolves `career/coding.jpg`
+perfectly well while the Linux deploy target does not — a wrong case passed every local
+check and 404'd only in production. One case for every file retires that trap instead of
+documenting it.
+
+`alt=""` — the title names the step and the description restates it, so the art is
 decorative.
 
 ## The reveal

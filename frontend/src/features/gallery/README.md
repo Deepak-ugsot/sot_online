@@ -66,23 +66,36 @@ end = (totalSteps × viewportWidth × 1.6) / 0.85
 
 ## Images
 
-**Two of the six cards carry placeholder artwork,** and they are marked as such in the
-constants. Four reuse the previous journey photos, matched to their nearest new
-meaning; "The Contributor" borrows `oppertunity/Open_Source_Programs.jpg`, which is at
-least on topic, and "The Future-Tech Explorer" borrows
-`oppertunity/Startup_Challenges.jpg`, which is not. Swap both when real artwork exists.
+**The art is split across three folders, one per era.** Four cards still reuse the
+previous journey photos from `public/assets/Journey/`, matched to their nearest new
+meaning. "The Contributor" and "The Future-Tech Explorer" were the section's two
+placeholders — one borrowed from `oppertunity/` and merely on topic, the other borrowed
+and unrelated to its copy — and both now carry artwork cut for them, in this section's
+own `public/assets/gallery/`.
+
+| Card | Art |
+| --- | --- |
+| The Problem Solver | `Journey/Build_Strong(1).jpg` |
+| The Builder | `Journey/Master_Software(1).jpg` |
+| The AI-Native Engineer | `Journey/Build_AI_Powered(1).jpg` |
+| The Contributor | `gallery/contributor.jpg` |
+| The Professional | `Journey/Become_Industry(1).jpg` |
+| The Future-Tech Explorer | `gallery/future-tech-explorer.jpg` |
+
+`public/assets/gallery/` is where the other four belong too, as and when their own art
+is drawn.
 
 `card.image` is optional: a card without one renders on its `gradient` alone, which is a
 finished-looking panel rather than a broken one.
 
-Journey artwork goes in `public/assets/Journey/`, at **1366×844** each. The media panel is
-~55vw, which is 792px at a 1440 viewport, so the art covers it at 1× with room to
-spare, but falls well short of DPR 2.
+All six images are **1366×844**. The media panel is ~55vw, which is 792px at a 1440
+viewport, so the art covers it at 1× with room to spare, but falls well short of DPR 2.
 
-**The folder's and filenames' capitalisation is load-bearing.** `galleryImage()` passes
-it through verbatim, because macOS resolves `journey/become_industry_ready.jpg` just
-fine while the Linux deploy target does not — a wrong case would pass every local check
-and 404 only in production.
+**Capitalisation is load-bearing in `Journey/`.** `journeyImage()` passes names through
+verbatim, because macOS resolves `journey/become_industry_ready.jpg` just fine while the
+Linux deploy target does not — a wrong case would pass every local check and 404 only in
+production. Names under `gallery/` are lower-case throughout: it is the folder with no
+legacy capitalisation to preserve, so nothing added there can spring that trap.
 
 `alt=""` — each card states its stage three times over, in the display text above and
 the heading and description beneath, so alt text would only repeat what a screen reader
