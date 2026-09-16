@@ -37,8 +37,9 @@ type ReadinessCardProps = {
  * across the photograph. Fading in earlier and more gradually puts the weight under
  * the type without the card looking like it has a bar across it.
  *
- * Neither scrim is optional. These images run from a light product mock to a near
- * black screen and the copy is white on all of them.
+ * Neither scrim is optional. The renders are all dark, but each is dark in its own way
+ * — a lit product mock here, a gold trophy there, a face in the lower half of another —
+ * and the copy is white on all of them.
  */
 export function ReadinessCard({ step, index, priority = false }: ReadinessCardProps) {
   return (

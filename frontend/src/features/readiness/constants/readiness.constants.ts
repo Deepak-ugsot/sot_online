@@ -19,23 +19,24 @@ export const readinessHeading: ReadinessHeadingCopy = {
 };
 
 /**
- * Placeholder photography, borrowed from `public/assets/Career/` until the section's
- * own artwork is cut.
+ * The section's own artwork: seven purpose-cut renders, one per step, replacing the
+ * programme photography this row borrowed from `public/assets/Career/` while it waited.
  *
- * **These are stand-ins, chosen for subject rather than for the crop.** They are
- * square (1080²) against cards of 327×391, so they clear DPR 2 with room to spare and
- * are cropped to portrait by `object-cover`.
+ * They are 999×1206 against cards of 327×391 — DPR 2 with room to spare — and at 0.828
+ * against the card's 0.836 they are all but uncropped by `object-cover`, so each render
+ * arrives composed as it was drawn rather than trimmed to fit.
  *
- * There are six usable photographs for seven steps, so *Learn* and *Contribute* share
- * `Communication.jpg`. They are four apart, and the row never shows more than four
- * cards at once, so the two are never on screen together — which is the only reason a
- * repeat is tolerable here. It stops being safe the moment a step is added or reordered.
+ * Every step now owns its image. The old set had six photographs for seven steps and
+ * leaned on *Learn* and *Contribute* never sharing the screen to hide the repeat — a
+ * constraint that would have broken the moment a step was added or reordered, and one
+ * this set removes outright.
  *
- * **The filename's capitalisation is load-bearing.** It is passed through verbatim
- * because macOS resolves `career/coding.jpg` just fine while the Linux deploy target
- * does not — a wrong case here would pass every local check and 404 in production.
+ * Filenames are lower-case throughout. The Career placeholders were mixed-case and had
+ * to be echoed verbatim, because macOS resolves `career/coding.jpg` perfectly well while
+ * the Linux deploy target does not — a wrong case passed every local check and 404'd only
+ * in production. One case for every file retires that trap rather than documenting it.
  */
-const stepImage = (file: string) => `/assets/Career/${file}`;
+const stepImage = (file: string) => `/assets/readiness/${file}`;
 
 /**
  * The seven steps, in the order they are scrolled through. Order is also what sets the
@@ -47,51 +48,51 @@ export const readinessSteps: readonly ReadinessStep[] = [
     id: "learn",
     title: "Learn",
     description: "Build foundations in programming, maths, CS, Git, and Linux.",
-    image: stepImage("Communication.jpg"),
-    gradient: "linear-gradient(160deg, #cdd3e0 0%, #5f6f8f 45%, #232c3d 100%)",
+    image: stepImage("learn.jpg"),
+    gradient: "linear-gradient(160deg, #020b3b 0%, #161d32 45%, #03060d 100%)",
   },
   {
     id: "code",
     title: "Code",
     description: "Master DSA, problem-solving, and competitive programming.",
-    image: stepImage("Coding.jpg"),
-    gradient: "linear-gradient(160deg, #cfd6d8 0%, #8fa3ab 45%, #3d4b52 100%)",
+    image: stepImage("code.jpg"),
+    gradient: "linear-gradient(160deg, #011b24 0%, #111e25 45%, #080c0d 100%)",
   },
   {
     id: "build",
     title: "Build",
     description: "Build real products with full-stack, cloud, and systems skills.",
-    image: stepImage("Projects.jpg"),
-    gradient: "linear-gradient(160deg, #c7d9db 0%, #4f8a90 45%, #1b3437 100%)",
+    image: stepImage("build.jpg"),
+    gradient: "linear-gradient(160deg, #020b3b 0%, #464b52 45%, #090a0d 100%)",
   },
   {
     id: "compete",
     title: "Compete",
     description: "Prepare for ICPC, improve your ratings, and enter hackathons.",
-    image: stepImage("Hackathons.jpg"),
-    gradient: "linear-gradient(160deg, #dccbe0 0%, #8a638f 45%, #3a2640 100%)",
+    image: stepImage("compete.jpg"),
+    gradient: "linear-gradient(160deg, #011e2b 0%, #54482b 45%, #010202 100%)",
   },
   {
     id: "contribute",
     title: "Contribute",
     description: "Grow through GitHub, open source, and GSoC preparation.",
-    image: stepImage("Communication.jpg"),
-    gradient: "linear-gradient(160deg, #cdd3e0 0%, #5f6f8f 45%, #232c3d 100%)",
+    image: stepImage("contribute.jpg"),
+    gradient: "linear-gradient(160deg, #040927 0%, #2b3157 45%, #010103 100%)",
   },
   {
     id: "ai-native",
     title: "AI-Native",
     description: "Learn GenAI, AI agents, and AI engineering.",
-    image: stepImage("DSA.jpg"),
-    gradient: "linear-gradient(160deg, #e0c9b0 0%, #b5793f 45%, #4a2e18 100%)",
+    image: stepImage("ai-native.jpg"),
+    gradient: "linear-gradient(160deg, #01160e 0%, #355244 45%, #010201 100%)",
   },
   {
     id: "break-through",
     title: "Breakthrough",
     description:
       "Build industry exposure through internships, interviews, and career prep.",
-    image: stepImage("Interviews.jpg"),
-    gradient: "linear-gradient(160deg, #e0c3c5 0%, #a3444b 45%, #2f1113 100%)",
+    image: stepImage("breakthrough.jpg"),
+    gradient: "linear-gradient(160deg, #260144 0%, #423553 45%, #030205 100%)",
   },
 ] as const;
 
