@@ -18,6 +18,7 @@ import { GlobalAmbitionSection } from "@/features/global-ambition";
 import { SiteHeader } from "@/features/header";
 import { HeroSection } from "@/features/hero";
 import { LearnFromPeopleSection } from "@/features/learn-from-people";
+import { NextOpportunitySection } from "@/features/next-opportunity";
 import { NotAnotherCourseSection } from "@/features/not-another-course";
 import { OneJourneySection } from "@/features/one-journey";
 import { OneProgramSection } from "@/features/one-program";
@@ -25,6 +26,7 @@ import { OpportunitiesSection } from "@/features/opportunities";
 import { ReadinessSection } from "@/features/readiness";
 import { RealWorldSection } from "@/features/real-world";
 import { TechScoreSection } from "@/features/tech-score";
+import { WhatIsCatalystSection } from "@/features/what-is-catalyst";
 
 /**
  * Landing page.
@@ -49,6 +51,7 @@ export default function HomePage() {
       <SmoothScroll>
         <main>
           <HeroSection />
+          <WhatIsCatalystSection />
           <BeyondCollegeSection />
           <GlobalAmbitionSection />
           <CareerSection />
@@ -60,6 +63,7 @@ export default function HomePage() {
           <ReadinessSection />
           <BuildspaceSection />
           <NotAnotherCourseSection />
+          <NextOpportunitySection />
           <CurriculumSection />
           <LearnFromPeopleSection />
           <EarlyStartSection />
