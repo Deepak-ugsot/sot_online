@@ -27,11 +27,12 @@ export const opportunitiesClosing = {
 } as const;
 
 /**
- * Card photography lives in `public/assets/oppertunity/`, one file per card. File
+ * Card artwork lives in `public/assets/oppertunity/`, one file per card. File
  * names track the card's subject rather than its exact title, which is editable copy —
- * "Hackathons" is still `National_Hackathons.jpg`. Sources are 1000×800; the media
- * panel tops out at 293×262, so that covers DPR 2 with room, and Next's optimizer
- * serves the panel-sized variant.
+ * "Hackathons" is still `National_Hackathons.jpg`. Sources are 1001×825 or 1068×880 —
+ * both 1.21:1, which is the media panel's own ratio at full size (293×241), so the
+ * panel's `object-cover` crops next to nothing. A thousand-odd pixels wide covers that
+ * panel at DPR 2 with room, and Next's optimizer serves the panel-sized variant.
  */
 const opportunityImage = (file: string) => `/assets/oppertunity/${file}`;
 
@@ -50,7 +51,7 @@ export const opportunities: readonly Opportunity[] = [
     description:
       "Compete nationwide and put your problem-solving skills to the test against thousands of engineers.",
     image: opportunityImage("National_Coding_Challenges.jpg"),
-    gradient: "linear-gradient(160deg, #bcd4ee 0%, #2b5ea8 45%, #0b1a2e 100%)",
+    gradient: "linear-gradient(160deg, #c9c9de 0%, #515091 45%, #161528 100%)",
   },
   {
     id: "hackathons",
@@ -58,7 +59,7 @@ export const opportunities: readonly Opportunity[] = [
     description:
       "Build and ship under pressure alongside teams from colleges across the country.",
     image: opportunityImage("National_Hackathons.jpg"),
-    gradient: "linear-gradient(160deg, #e0c3c5 0%, #a3444b 45%, #2f1113 100%)",
+    gradient: "linear-gradient(160deg, #e2c5d2 0%, #9d436b 45%, #2b121d 100%)",
   },
   {
     id: "internships",
@@ -66,7 +67,7 @@ export const opportunities: readonly Opportunity[] = [
     description:
       "Get matched with internships at top companies, exclusively for upGrad SOT students.",
     image: opportunityImage("Internship.jpg"),
-    gradient: "linear-gradient(160deg, #dccbe0 0%, #6b4f8f 45%, #2a1c40 100%)",
+    gradient: "linear-gradient(160deg, #c1d0e6 0%, #3864a9 45%, #0e1b2f 100%)",
   },
   {
     id: "open-source",
@@ -74,7 +75,7 @@ export const opportunities: readonly Opportunity[] = [
     description:
       "Contribute to real open-source codebases with mentorship from maintainers.",
     image: opportunityImage("Open_Source_Programs.jpg"),
-    gradient: "linear-gradient(160deg, #d5d7da 0%, #6b6e73 45%, #2a2c2f 100%)",
+    gradient: "linear-gradient(160deg, #c2c3e5 0%, #3a3fa6 45%, #0f112e 100%)",
   },
   {
     id: "immersion",
@@ -82,7 +83,7 @@ export const opportunities: readonly Opportunity[] = [
     description:
       "Spend time embedded with real product teams, shipping alongside working engineers.",
     image: opportunityImage("Industry_Immersion_Program.jpg"),
-    gradient: "linear-gradient(160deg, #c7d9db 0%, #2f7f83 45%, #0e2f31 100%)",
+    gradient: "linear-gradient(160deg, #e8bfc4 0%, #ae3241 45%, #300d11 100%)",
   },
   {
     id: "startup-challenges",
@@ -90,7 +91,7 @@ export const opportunities: readonly Opportunity[] = [
     description:
       "Pitch, build, and ship inside real startup challenges backed by founders and VCs.",
     image: opportunityImage("Startup_Challenges.jpg"),
-    gradient: "linear-gradient(160deg, #e8d0b0 0%, #b3652f 45%, #4a2a12 100%)",
+    gradient: "linear-gradient(160deg, #c5d4e3 0%, #43729e 45%, #121f2c 100%)",
   },
   {
     id: "showcases",
@@ -98,7 +99,7 @@ export const opportunities: readonly Opportunity[] = [
     description:
       "Demo what you've built to recruiters, mentors, and the wider tech community.",
     image: opportunityImage("Product_Showcases.jpg"),
-    gradient: "linear-gradient(160deg, #cdd3e0 0%, #4f5f8f 45%, #1d2438 100%)",
+    gradient: "linear-gradient(160deg, #c8dfdf 0%, #4d9194 45%, #142829 100%)",
   },
 ] as const;
 
