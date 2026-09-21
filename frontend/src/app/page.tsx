@@ -16,15 +16,18 @@ import { FaqSection } from "@/features/faq";
 import { SiteFooter } from "@/features/footer";
 import { GallerySection } from "@/features/gallery";
 import { GlobalAmbitionSection } from "@/features/global-ambition";
+import { HackathonsSection } from "@/features/hackathons";
 import { SiteHeader } from "@/features/header";
 import { HeroSection } from "@/features/hero";
 import { LeadersSection } from "@/features/leaders";
 import { LearnFromPeopleSection } from "@/features/learn-from-people";
+import { LearningRoutineSection } from "@/features/learning-routine";
 import { NextOpportunitySection } from "@/features/next-opportunity";
 import { NotAnotherCourseSection } from "@/features/not-another-course";
 import { OneJourneySection } from "@/features/one-journey";
 import { OneProgramSection } from "@/features/one-program";
 import { OpportunitiesSection } from "@/features/opportunities";
+import { PortfolioSection } from "@/features/portfolio";
 import { ReadinessSection } from "@/features/readiness";
 import { RealWorldSection } from "@/features/real-world";
 import { TechScoreSection } from "@/features/tech-score";
@@ -66,8 +69,11 @@ export default function HomePage() {
           <BuildspaceSection />
           <NotAnotherCourseSection />
           <NextOpportunitySection />
+          <HackathonsSection />
           <CurriculumSection />
+          <LearningRoutineSection />
           <LearnFromPeopleSection />
+          <PortfolioSection />
           <EarlyStartSection />
           <RealWorldSection />
           <OpportunitiesSection />

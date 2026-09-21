@@ -54,15 +54,12 @@ export function useNextOpportunityReveal(scopeRef: RefObject<HTMLElement | null>
         });
 
         /*
-          The render rises rather than sliding in from the right. The figure is
-          already in the air over a globe, and a horizontal entrance reads as the
-          whole plate being dragged on; lifting it slightly is the one move that
-          agrees with what the picture is of.
+          The render rises rather than sliding in from the right: it is a scene set on
+          a plinth, and a horizontal entrance reads as the whole panel being dragged
+          on. Lifting it slightly is the one move that agrees with what it is.
 
-          No `scale`: the file's ground is an opaque `#f3f4f6` plate that matches the
-          section exactly, and scaling it about its centre would walk its edges over
-          the copy beside it before settling — visible as a moving rectangle on a
-          background that is otherwise seamless.
+          No `scale`: the red panel is a hard-edged rectangle, and growing it about its
+          centre walks that edge toward the copy beside it before it settles.
         */
         gsap.from(NEXT_OPPORTUNITY_SELECTORS.artwork, {
           opacity: 0,

@@ -2,6 +2,7 @@ import type {
   NextOpportunityArtwork,
   NextOpportunityBenefit,
   NextOpportunityHeadingCopy,
+  NextOpportunityLogo,
 } from "../types/next-opportunity.types";
 
 /**
@@ -16,11 +17,37 @@ export const nextOpportunityHeading: NextOpportunityHeadingCopy = {
 } as const;
 
 export const nextOpportunityDescription =
-  "Get access to internship opportunities across the world through Internshala. Explore roles that match your skills, interests, and career goals and gain real-world experience while you're still in college.";
+  "Get access to the Internshala ecosystem through SOT Catalyst. Explore internships and career opportunities across industries, discover roles that match your skills and interests, and gain real world experience while you're still in college.";
 
 /** Artwork lives in `public/assets/next_opportunity/`. */
 const opportunityImage = (file: string) =>
   `/assets/next_opportunity/${file}.png`;
+
+/**
+ * The partnership lockup over the heading: our mark, a multiplication sign, theirs.
+ *
+ * Both files are the design's own exports at 1× (49px tall), which is the height the
+ * lockup is set at — they are soft on a high-density screen, and a vector of either
+ * mark is the fix if that ever matters. The sign between them is Lucide's `X` rather
+ * than the PNG the design shipped it as, so it stays sharp at any density.
+ */
+export const nextOpportunityPartners: {
+  ours: NextOpportunityLogo;
+  theirs: NextOpportunityLogo;
+} = {
+  ours: {
+    src: opportunityImage("upgrad_school_of_technology"),
+    alt: "upGrad School of Technology",
+    width: 151,
+    height: 49,
+  },
+  theirs: {
+    src: opportunityImage("internshala_logo"),
+    alt: "Internshala",
+    width: 159,
+    height: 49,
+  },
+} as const;
 
 /**
  * The four benefits, in the order the design reads them: across the top row, then
@@ -67,18 +94,15 @@ export const nextOpportunityBenefits: readonly NextOpportunityBenefit[] = [
 ] as const;
 
 /**
- * The section's render.
- *
- * The Internshala board is part of the file, so the brand is credited by the artwork
- * rather than by a logo of our own. It is the same claim `features/early-start` makes
- * with the wordmark set inline in its subtitle — if the brand ever ships a new mark,
- * that one changes here and this one changes with the render.
+ * The section's render — the Internshala search on a laptop, with the kinds of
+ * opportunity it finds floating round it. 536×520, a cut-out on transparency; see the
+ * type for why it needs no plate.
  */
 export const nextOpportunityArtwork: NextOpportunityArtwork = {
-  src: opportunityImage("internshala_astronaut"),
-  alt: "An astronaut above the globe holding up an Internshala board, with location pins marking internships around the world.",
-  width: 597,
-  height: 543,
+  src: opportunityImage("internshala_ecosystem"),
+  alt: "A laptop showing an Internshala internship search, surrounded by cards for internships, top companies, remote and on-site roles, applying, a globe, and opportunities beyond borders — with a checklist reading learn, apply, grow.",
+  width: 536,
+  height: 520,
 } as const;
 
 /**

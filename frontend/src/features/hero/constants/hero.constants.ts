@@ -27,7 +27,7 @@ export const heroHeadline: HeroHeadlineCopy = {
  * lines rather than overflowing the stage.
  */
 export const heroSubtext: readonly string[] = [
-  "A 2-year technology accelerator you pursue alongside your existing B.Tech / B.E. / BCA / B.Sc. program.",
+  "An online 2-year technology accelerator you pursue alongside your existing B.Tech / B.E. / BCA / B.Sc. program.",
   "We become your parallel technology ecosystem.",
 ] as const;
 
@@ -52,7 +52,8 @@ export const heroCtas: readonly HeroCta[] = [
  * self-select out before applying — and a first-year reader can recognise themselves.
  *
  * Set in brand red rather than the muted white the rest of the block uses: it is a
- * qualifier the reader is meant to stop on, not a footnote to skim.
+ * qualifier the reader is meant to stop on, not a footnote to skim. See the component
+ * for what keeps it legible over the footage.
  */
 export const heroFootnote =
   "Designed primarily for ambitious Year 1 & Year 2 students.";

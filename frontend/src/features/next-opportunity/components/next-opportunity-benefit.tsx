@@ -30,20 +30,20 @@ export function NextOpportunityBenefit({ benefit }: NextOpportunityBenefitProps)
         aria-hidden="true"
         width={benefit.icon.width}
         height={benefit.icon.height}
-        // The files are 66–69px, so `h-10` (40px) never upscales them — and 40px is
-        // the design's own size, two and a half times the title beside it. `shrink-0`
-        // because the copy is what should give way at a narrow width.
-        className="h-10 w-10 shrink-0 object-contain"
+        // The files are 66–69px, so `h-14` (56px) never upscales them — and 56px is
+        // the design's own size, a little under three times the title beside it.
+        // `shrink-0` because the copy is what should give way at a narrow width.
+        className="h-12 w-12 shrink-0 object-contain sm:h-14 sm:w-14"
       />
 
       {/* `min-w-0` so a long title wraps instead of forcing the row wider than its
           grid track — "Apply & Gain Experience" is one word from doing exactly that. */}
       <div className="min-w-0">
-        <h3 className="font-display text-[clamp(0.9375rem,1.15vw,1.0625rem)] font-semibold text-ink">
+        <h3 className="font-display text-[clamp(1.0625rem,1.4vw,1.25rem)] leading-snug font-medium text-ink/90">
           {benefit.title}
         </h3>
 
-        <p className="mt-1.5 text-pretty text-[clamp(0.8125rem,0.98vw,0.875rem)] leading-relaxed text-ink-muted">
+        <p className="mt-1.5 text-pretty text-[clamp(0.875rem,1.05vw,0.9375rem)] leading-[1.3] text-ink-muted">
           {benefit.description}
         </p>
       </div>

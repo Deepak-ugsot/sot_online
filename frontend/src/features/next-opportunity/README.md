@@ -1,19 +1,20 @@
 # Next Opportunity
 
-"Your Next Opportunity Could Be Anywhere." — what the Internshala ecosystem opens up, in
-four points, beside an astronaut holding the brand's board over the globe.
+"Your Next Opportunity Could Be Anywhere." — what the Internshala ecosystem opens up,
+under the upGrad School of Technology × Internshala lockup, in four points beside an
+isometric scene of the Internshala search on a laptop.
 
 ## Public API
 
 - `NextOpportunitySection` — the whole section. The only export routes should use.
-- `NextOpportunityArtwork`, `NextOpportunityBenefit`, `NextOpportunityHeadingCopy` —
-  shared types.
+- `NextOpportunityArtwork`, `NextOpportunityBenefit`, `NextOpportunityHeadingCopy`,
+  `NextOpportunityLogo` — shared types.
 
 ```tsx
 import { NextOpportunitySection } from "@/features/next-opportunity";
 ```
 
-Rendered on the landing page between `NotAnotherCourseSection` and `CurriculumSection`,
+Rendered on the landing page between `NotAnotherCourseSection` and `HackathonsSection`,
 and in isolation at `/dev/next-opportunity`.
 
 ## Structure
@@ -36,26 +37,38 @@ next-opportunity/
 ## Where it sits, and why
 
 The page has just finished saying what the programme is *not*. This is the first thing it
-offers before the syllabus itself, and the curriculum follows directly. All three share
-the light `surface` ground, so they read as one band the curriculum closes.
+offers; the hackathons and then the curriculum follow. All share the light `surface`
+ground.
 
-## The section's background is load-bearing
+## The lockup
 
-`internshala_astronaut.png` **is not a cut-out**. Its ground is a flat plate whose
-dominant pixel is `#f3f4f6` — exactly `--color-surface` — with a couple of values of
-noise either side. That is what lets the render sit on the page with no plate, no
-rounding and no shadow of its own, and it is why:
+Above the heading: our mark, a multiplication sign, theirs. Both marks are the design's
+own 1× exports (`upgrad_school_of_technology.png`, `internshala_logo.png`, 49px tall) set
+at that height — soft on a high-density screen; vectors are the fix if that matters. The
+sign is Lucide's `X` rather than the PNG the design shipped it as, so it stays sharp.
 
-- the section must stay `bg-surface`. Any other background and the render becomes a
-  visible rectangle;
-- the reveal lifts it but never **scales** it. Scaling about its centre walks the plate's
-  edges over the copy beside it before settling — invisible on a transparent render, a
-  moving rectangle on this one.
+Internshala is lifted 8px off the shared centre, as in the design: its mark is one line
+where ours carries "School of Technology" under the wordmark, so centring the boxes sits
+it level with that subline. Lifted, the two wordmarks share a line. It is a translate, so
+the row's height is unaffected. A screen reader hears "upGrad School of Technology in
+partnership with Internshala" — the cross is decoration, so the relationship is in words.
 
-The gutter between the two columns is narrow (`lg:gap-8`) for the same reason: the
-astronaut sits well inside its own plate, so the picture already carries its margin. A
-full-size gutter on top of that reads as a hole, and takes width out of the copy column,
-which is the one that needs it.
+## The render
+
+`internshala_ecosystem.png` (536×520) is a cut-out on transparency with its red panel
+drawn in, so it needs no plate. It is capped at its own width — the column is wider at
+1440, and filling it would upscale a 1× file — and from `lg` it sits against the
+column's end, which puts its right edge on the measure's, as in the design. The reveal
+lifts it but never scales it: growing the hard-edged panel about its centre walks that
+edge toward the copy before it settles.
+
+## Measurements
+
+Checked against the design at 1440: the heading lines land within 1px, the paragraph
+(15px on a `30rem` measure) sets on the design's four lines with each within ~8px of the
+design's length, and the benefit rows are 111px apart against the design's 110. The
+benefit renders are 56px (the files are 66–69px, so never upscaled), titles 20px medium,
+descriptions 15px.
 
 ## The heading's line break is data
 
@@ -71,7 +84,7 @@ into one at a width where they happen to fit.
 The four PNGs are lit, carry their own red accent marks, and are not drawn on the grid or
 at the weight any Lucide glyph uses — so they cannot be swapped for one, the way
 `features/beyond-college` swapped its hand-drawn set. They are 66–69px in the file and
-render at 40px, so they are never upscaled.
+render at 56px (48px on a phone), so they are never upscaled.
 
 Each one is `aria-hidden` with an empty `alt`: it is a picture of the thing its own title
 names, and describing it would make a screen reader announce "globe", "magnifying glass"
@@ -84,8 +97,3 @@ the moment a description wraps, and the four stop sharing a line.
 ## Copy and assets
 
 All copy is in `constants/`. Artwork lives in `public/assets/next_opportunity/`.
-
-The Internshala board is part of the render, so the brand is credited by the artwork
-rather than by a logo of our own — the same claim `features/early-start` makes by setting
-the wordmark inline in its subtitle. If the brand ships a new mark, both places change
-together.

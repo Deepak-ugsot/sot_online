@@ -37,20 +37,30 @@ export type NextOpportunityBenefit = {
   };
 };
 
+/** A brand mark in the partnership lockup above the heading. */
+export type NextOpportunityLogo = {
+  src: string;
+  /** The brand's name. The mark *is* the content, so this is never empty. */
+  alt: string;
+  /** The file's real pixels, so `next/image` reserves the right ratio. */
+  width: number;
+  height: number;
+};
+
 /**
- * The astronaut holding up the Internshala board over a globe.
+ * The isometric Internshala scene: a laptop on a plinth inside a red panel, with the
+ * things the platform opens up — internships, top companies, remote and on-site roles,
+ * applying — floating round it on cards.
  *
- * **Its ground is not transparent** — the file is a flat `#f3f4f6` plate, which is the
- * section's own `surface`. That is why it can be dropped straight onto the section
- * with no treatment and no plate of its own, and equally why the section's background
- * cannot be changed without the render showing up as a rectangle.
+ * **A cut-out on transparency.** The red panel is drawn in the file and the cards
+ * overhang it, so the render needs no plate of its own and sits on any ground.
  */
 export type NextOpportunityArtwork = {
   src: string;
   /**
-   * What the render says, for a reader who cannot see it. It repeats the section's
-   * own argument rather than describing the picture literally — "astronaut" is not
-   * what it is there to say.
+   * What the render says, for a reader who cannot see it. Its cards name things the
+   * copy does not ("Top Companies", "Opportunities Beyond Borders"), so it is written
+   * out rather than left empty.
    */
   alt: string;
   width: number;
