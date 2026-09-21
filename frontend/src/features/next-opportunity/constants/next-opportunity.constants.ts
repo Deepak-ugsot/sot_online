@@ -95,14 +95,14 @@ export const nextOpportunityBenefits: readonly NextOpportunityBenefit[] = [
 
 /**
  * The section's render — the Internshala search on a laptop, with the kinds of
- * opportunity it finds floating round it. 536×520, a cut-out on transparency; see the
+ * opportunity it finds floating round it. 2045×2080, a cut-out on transparency; see the
  * type for why it needs no plate.
  */
 export const nextOpportunityArtwork: NextOpportunityArtwork = {
   src: opportunityImage("internshala_ecosystem"),
   alt: "A laptop showing an Internshala internship search, surrounded by cards for internships, top companies, remote and on-site roles, applying, a globe, and opportunities beyond borders — with a checklist reading learn, apply, grow.",
-  width: 536,
-  height: 520,
+  width: 2045,
+  height: 2080,
 } as const;
 
 /**

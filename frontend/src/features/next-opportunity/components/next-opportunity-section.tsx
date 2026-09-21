@@ -149,9 +149,10 @@ export function NextOpportunitySection() {
             No plate, no rounding, no shadow — the render is a cut-out with its red
             panel drawn in.
 
-            Capped at the file's own 536px: the column is wider than that at 1440, and
-            filling it would upscale a 1× file. From `lg` it sits against the column's
-            end, so its right edge lands on the measure's — where the design has it.
+            Capped at 536px, the size the design sets it at — the column is wider than
+            that at 1440. The file is ~4× that, so it stays sharp on any screen. From `lg`
+            it sits against the column's end, so its right edge lands on the measure's —
+            where the design has it.
           */}
           <div data-next-opportunity="artwork" className="order-2">
             <Image
