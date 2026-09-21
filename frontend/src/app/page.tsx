@@ -11,12 +11,14 @@ import { CompeteSection } from "@/features/compete";
 import { CurriculumSection } from "@/features/curriculum";
 import { EarlyStartSection } from "@/features/early-start";
 import { EcosystemSection } from "@/features/ecosystem";
+import { FacultySection } from "@/features/faculty";
 import { FaqSection } from "@/features/faq";
 import { SiteFooter } from "@/features/footer";
 import { GallerySection } from "@/features/gallery";
 import { GlobalAmbitionSection } from "@/features/global-ambition";
 import { SiteHeader } from "@/features/header";
 import { HeroSection } from "@/features/hero";
+import { LeadersSection } from "@/features/leaders";
 import { LearnFromPeopleSection } from "@/features/learn-from-people";
 import { NextOpportunitySection } from "@/features/next-opportunity";
 import { NotAnotherCourseSection } from "@/features/not-another-course";
@@ -70,6 +72,8 @@ export default function HomePage() {
           <RealWorldSection />
           <OpportunitiesSection />
           <CareerOsSection />
+          <LeadersSection />
+          <FacultySection />
           <TechScoreSection />
           <EcosystemSection />
           <OneProgramSection />
