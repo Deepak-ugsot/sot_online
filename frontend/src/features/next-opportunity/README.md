@@ -55,10 +55,10 @@ partnership with Internshala" — the cross is decoration, so the relationship i
 
 ## The render
 
-`internshala_ecosystem.png` (536×520) is a cut-out on transparency with its red panel
-drawn in, so it needs no plate. It is capped at its own width — the column is wider at
-1440, and filling it would upscale a 1× file — and from `lg` it sits against the
-column's end, which puts its right edge on the measure's, as in the design. The reveal
+`internshala_ecosystem.png` (2045×2080) is a cut-out on transparency with its red panel
+drawn in, so it needs no plate. It is capped at 536px, the size the design sets it at
+(the column is wider at 1440), and from `lg` it sits against the column's end, which puts
+its right edge on the measure's, as in the design. The reveal
 lifts it but never scales it: growing the hard-edged panel about its centre walks that
 edge toward the copy before it settles.
 
