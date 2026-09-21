@@ -45,7 +45,12 @@ export const assets = {
    * `public/assets/` and point this at it — nothing else changes.
    */
   logoMark: "/ugsot_logo.svg",
-  heroVideo: "/assets/backround_update_BG.mp4",
+  /**
+   * The hero's scroll-scrubbed backdrop: H.264, 1280×720, 24fps, 10s, `moov` ahead of
+   * `mdat` so it can start before it has fully downloaded. See the hero README before
+   * swapping it — how smoothly it scrubs depends on how it was encoded.
+   */
+  heroVideo: "/assets/hero_section_video.mp4",
   /** Outlined "uGSOT Catalyst" wordmark used as the footer watermark. 3851×459, RGBA. */
   footerWatermark: "/assets/uGSOT-Catayst.png",
   /**

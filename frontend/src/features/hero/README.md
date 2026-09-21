@@ -134,7 +134,7 @@ sliding under the fixed site header. Its top padding is what clears that header.
 Referenced through `assets` in `src/config/site.config.ts`, never as a string literal
 in JSX:
 
-- `public/assets/Hero_BG_Video.mp4` — background video (~2.6 MB)
+- `public/assets/hero_section_video.mp4` — background video (~4.7 MB; H.264, 1280×720, 24fps, 10s)
 
 ## Difference from the reference
 
@@ -143,11 +143,12 @@ implementation scrubs an **MP4** instead, with the same choreography and timings
 
 Video is the more fragile of the two: smooth scrubbing depends on the file's keyframe
 density, because seeking to a non-keyframe forces the decoder to walk forward from the
-previous one. `Hero_BG_Video.mp4` currently seeks in 9–36 ms and scrubs cleanly. If a
-future re-cut stutters, re-encode with a keyframe on every frame:
+previous one. `hero_section_video.mp4` has a single keyframe — the same structure as the
+file it replaced, so it scrubs the way that one did. If a future re-cut stutters,
+re-encode with a keyframe on every frame:
 
 ```bash
-ffmpeg -i Hero_BG_Video.mp4 -c:v libx264 -g 1 -keyint_min 1 -sc_threshold 0 -crf 20 -an Hero_BG_Video_scrub.mp4
+ffmpeg -i hero_section_video.mp4 -c:v libx264 -g 1 -keyint_min 1 -sc_threshold 0 -crf 20 -an hero_section_video_scrub.mp4
 ```
 
 That trades file size for seek performance. If it is still not smooth enough, fall

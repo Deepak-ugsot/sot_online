@@ -33,7 +33,7 @@ frontend/
 │   ├── assets/
 │   │   ├── fonts/                 # Licensed .otf files — not in this repo (see "Fonts")
 │   │   ├── login/stage.png        # /login backdrop — 1440×911, composed full-viewport
-│   │   ├── Hero_BG_Video.mp4      # Hero background video
+│   │   ├── hero_section_video.mp4 # Hero background video (scroll-scrubbed)
 │   │   └── uGSOT_white_logo.png   # Brand mark
 │   ├── companyLogo/               # 29 partner logos, all 177px tall (mentors marquee)
 │   └── ugsot_logo.svg             # Favicon
