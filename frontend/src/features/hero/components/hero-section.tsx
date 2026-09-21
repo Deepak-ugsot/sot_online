@@ -96,13 +96,13 @@ export function HeroSection() {
               programme is for *before* they reach the buttons rather than after they
               have already decided to apply.
 
-              Brand red, as the design has it. Red on its own disappears into the
-              footage — `#E6161F` measures barely 1.3:1 against the hero's grey frames,
-              which is why this line was once muted white — so it carries a tight dark
-              shadow and a heavier weight: the shadow draws a dark edge round each
-              letter, which is what the red on its own cannot hold against a mid-grey.
-              Still quieter than the subtext in size: it qualifies the pitch, it is not
-              a third piece of it.
+              Muted white rather than the brand red the design shows: red at this size
+              disappeared into the footage — `#E6161F` measures about 1.5:1 against the
+              hero's pale frames, where 70% white holds its edge.
+
+              Deliberately unshadowed, so the copy scrim behind the column (see
+              `HeroBackground`) is what carries it. Quieter than the subtext above it
+              on purpose: it qualifies the pitch, it is not a third piece of it.
 
               `52rem` is sized to hold it on one line at every desktop width, with
               room to spare — the current line is shorter than the one this cap was
@@ -110,7 +110,7 @@ export function HeroSection() {
             */}
             <p
               data-hero="footnote"
-              className="mt-5 max-w-[52rem] text-[clamp(0.8125rem,1.1vw,1.0625rem)] font-semibold leading-snug text-brand sm:mt-7 sm:leading-relaxed [text-shadow:0_1px_2px_rgba(0,0,0,0.7),0_0_14px_rgba(0,0,0,0.55)]"
+              className="mt-5 max-w-[52rem] text-[clamp(0.8125rem,1.1vw,1.0625rem)] font-medium leading-snug sm:leading-relaxed text-white/70 sm:mt-7"
             >
               {heroFootnote}
             </p>

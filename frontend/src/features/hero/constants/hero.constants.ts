@@ -51,9 +51,8 @@ export const heroCtas: readonly HeroCta[] = [
  * Names the audience while the CTAs are still on screen, so a third-year reader can
  * self-select out before applying — and a first-year reader can recognise themselves.
  *
- * Set in brand red rather than the muted white the rest of the block uses: it is a
- * qualifier the reader is meant to stop on, not a footnote to skim. See the component
- * for what keeps it legible over the footage.
+ * Set in muted white like the rest of the block rather than the design's brand red,
+ * which disappears into the footage at this size — see the component.
  */
 export const heroFootnote =
   "Designed primarily for ambitious Year 1 & Year 2 students.";
