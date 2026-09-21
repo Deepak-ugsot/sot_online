@@ -1,4 +1,5 @@
 import Image from "next/image";
+import type { CSSProperties } from "react";
 
 import { facultyCompaniesLabel } from "../constants/faculty.constants";
 import type { FacultyMember } from "../types/faculty.types";
@@ -24,11 +25,16 @@ type FacultyCardProps = {
  *
  * The portrait sits flush with the card's top edge — the file has its own transparent
  * headroom above the hair, which is what the design's top margin actually is.
+ *
+ * **Every card in the row is the same height.** Roles run one or two lines and people
+ * list one company or six, so the article fills its item (`h-full` — a flex row stretches
+ * its items to the tallest) and the logos are pushed to its foot with `mt-auto`. The row
+ * then reads as one set of cards with their logos on a shared line, whatever each holds.
  */
 export function FacultyCard({ member, duplicate = false }: FacultyCardProps) {
   return (
     <li className="shrink-0 pr-4 motion-reduce:snap-start sm:pr-6">
-      <article className="flex w-[17.5rem] flex-col rounded-2xl border border-black/[0.04] bg-white px-5 pb-5 sm:w-[20.75rem]">
+      <article className="flex h-full w-[17.5rem] flex-col rounded-2xl border border-black/[0.04] bg-white px-5 pb-5 sm:w-[20.75rem]">
         <div className="px-1">
           <Image
             src={member.photo.src}
@@ -49,13 +55,16 @@ export function FacultyCard({ member, duplicate = false }: FacultyCardProps) {
         </p>
 
         {/*
-          Two columns sized to their widest mark rather than a wrapping row: at the card's
-          width a wrapping row fits three logos on the first line and strands the fourth,
-          where the design sets them two by two.
+          A wrapping row, because the lists run from one mark to six. At the card's width
+          a six-mark list breaks three and three, which is how the design sets it.
+          `mt-auto` pins the row to the card's foot (see the component's note); `pt-5` is
+          the least air it keeps under the role when a card is at its tallest.
         */}
         <ul
           aria-label={facultyCompaniesLabel}
-          className="mt-5 grid grid-cols-[repeat(2,max-content)] items-center gap-x-4 gap-y-2.5"
+          // `--logo-h` is the one height every mark shares; a mark with a `scale` in its
+          // data multiplies it (see `FacultyCompany`).
+          className="mt-auto flex flex-wrap items-center gap-x-3.5 gap-y-2.5 pt-5 [--logo-h:1.25rem] sm:[--logo-h:1.4375rem]"
         >
           {member.companies.map((company) => (
             <li key={company.id}>
@@ -65,9 +74,14 @@ export function FacultyCard({ member, duplicate = false }: FacultyCardProps) {
                 width={company.logo.width}
                 height={company.logo.height}
                 sizes="8.5rem"
-                // One height for every mark: each file is 177px tall and trimmed to the
-                // same optical size, so the widths follow with no per-logo nudge.
-                className="h-5 w-auto sm:h-[1.4375rem]"
+                // One height for every mark, so the widths follow — times the mark's own
+                // `scale` where it has one.
+                style={
+                  company.logo.scale
+                    ? ({ "--logo-scale": company.logo.scale } as CSSProperties)
+                    : undefined
+                }
+                className="h-[calc(var(--logo-h)*var(--logo-scale,1))] w-auto"
               />
             </li>
           ))}

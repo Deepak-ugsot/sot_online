@@ -22,6 +22,13 @@ export type FacultyCompany = {
     /** The file's real pixels, so `next/image` reserves the right ratio. */
     width: number;
     height: number;
+    /**
+     * Multiplies the one height every mark shares. Only for a mark whose wordmark takes
+     * up less of its own height than the rest do — the upGrad lockup carries a subline
+     * under its wordmark, so at the shared height it reads a size smaller than its
+     * neighbours. Leave it out and the mark sets at the shared height.
+     */
+    scale?: number;
   };
 };
 

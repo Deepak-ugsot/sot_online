@@ -9,11 +9,11 @@ import { FacultyCard } from "./faculty-card";
  * **A constraint, not a preference.** Each track travels a full -100% of its own width,
  * so at the end of a cycle the remaining `copies - 1` tracks are all that is left
  * covering the window: the loop is seamless only while `(copies - 1) × trackWidth` is at
- * least the window's width. Four cards measure ~1,420px against a window of at most
- * 1,296px, which two copies would only just cover — three leave room for the roster to
- * shrink to two people before anything shows.
+ * least the window's width. Eight cards measure ~2,850px against a window of at most
+ * 1,296px, so two copies close the loop with room to spare. If the roster ever drops to
+ * three people or fewer, the track falls under the window and this needs to be three.
  */
-const TRACK_COPIES = 3;
+const TRACK_COPIES = 2;
 
 type FacultyTrackProps = {
   members: readonly FacultyMember[];
@@ -29,6 +29,7 @@ type FacultyTrackProps = {
 function FacultyTrack({ members, duplicate = false }: FacultyTrackProps) {
   return (
     <ul
+      data-faculty="track"
       aria-hidden={duplicate || undefined}
       // A per-section number from the constants file rather than a class: enumerating
       // durations as Tailwind utilities would put content data into a style map. Same
