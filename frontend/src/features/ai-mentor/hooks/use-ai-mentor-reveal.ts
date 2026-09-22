@@ -42,7 +42,10 @@ export function useAiMentorReveal(scopeRef: RefObject<HTMLElement | null>) {
             isStacked: boolean;
           };
 
-          const scrollTrigger = { trigger: scope, start: "top 85%", once: true };
+          // A fresh `{ trigger, start, once }` literal at each call site below, never a
+          // shared object: ScrollTrigger mutates the config it's handed while wiring up
+          // a tween, so reusing one object across two `gsap.from()` calls hands the
+          // second call a config the first has already altered.
 
           // Animated as one block rather than per-child: the column is a flex stack, so
           // tweening the eyebrow, heading, description, pills and CTA separately would
@@ -52,7 +55,7 @@ export function useAiMentorReveal(scopeRef: RefObject<HTMLElement | null>) {
             y: 60,
             duration: 0.9,
             ease: "power3.out",
-            scrollTrigger,
+            scrollTrigger: { trigger: scope, start: "top 85%", once: true },
           });
 
           gsap.from(AI_MENTOR_SELECTORS.portrait, {
@@ -78,7 +81,7 @@ export function useAiMentorReveal(scopeRef: RefObject<HTMLElement | null>) {
             transformOrigin: "bottom center",
             duration: 1.1,
             ease: "power3.out",
-            scrollTrigger,
+            scrollTrigger: { trigger: scope, start: "top 85%", once: true },
           });
         },
       );
