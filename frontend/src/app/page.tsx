@@ -8,6 +8,7 @@ import { BuiltForStudentsSection } from "@/features/built-for-students";
 import { CareerSection } from "@/features/career";
 import { CareerOsSection } from "@/features/career-os";
 import { CompeteSection } from "@/features/compete";
+import { ConversationsSection } from "@/features/conversations";
 import { CurriculumSection } from "@/features/curriculum";
 import { EarlyStartSection } from "@/features/early-start";
 import { EcosystemSection } from "@/features/ecosystem";
@@ -31,6 +32,7 @@ import { PortfolioSection } from "@/features/portfolio";
 import { ReadinessSection } from "@/features/readiness";
 import { RealWorldSection } from "@/features/real-world";
 import { TechScoreSection } from "@/features/tech-score";
+import { TopTenPercentSection } from "@/features/top-ten-percent";
 import { WhatIsCatalystSection } from "@/features/what-is-catalyst";
 
 /**
@@ -57,6 +59,9 @@ export default function HomePage() {
         <main>
           <HeroSection />
           <WhatIsCatalystSection />
+          <HackathonsSection />
+          <NextOpportunitySection />
+          <TopTenPercentSection />
           <BeyondCollegeSection />
           <GlobalAmbitionSection />
           <CareerSection />
@@ -68,8 +73,6 @@ export default function HomePage() {
           <ReadinessSection />
           <BuildspaceSection />
           <NotAnotherCourseSection />
-          <NextOpportunitySection />
-          <HackathonsSection />
           <CurriculumSection />
           <LearningRoutineSection />
           <LearnFromPeopleSection />
@@ -80,6 +83,7 @@ export default function HomePage() {
           <CareerOsSection />
           <LeadersSection />
           <FacultySection />
+          <ConversationsSection />
           <TechScoreSection />
           <EcosystemSection />
           <OneProgramSection />
