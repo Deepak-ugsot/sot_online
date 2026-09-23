@@ -36,7 +36,7 @@ export function DemoCompact({ index, progress }: DemoCompactProps) {
           <span className="flex h-6 w-6 items-center justify-center rounded-[7px] bg-[var(--bsd-lime)] text-black">
             <DemoIcon name="code" size={14} />
           </span>
-          <span className="text-[13px] font-bold text-white">BuildSpace</span>
+          <span className="text-[13px] font-bold text-white">ProjectBuilder Pro</span>
         </span>
         <span className="rounded-full border border-[var(--bsd-lime-line)] bg-[var(--bsd-lime-dim)] px-2.5 py-1 text-[10px] font-semibold text-[var(--bsd-lime)]">
           {chapter.chapter}

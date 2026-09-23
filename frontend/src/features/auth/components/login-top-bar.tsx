@@ -34,7 +34,7 @@ export function LoginTopBar({ onRequestCall }: LoginTopBarProps) {
           src={assets.logoWhite}
           alt={siteConfig.name}
           // Intrinsic size preserves the aspect ratio; the classes drive rendered height.
-          width={98}
+          width={147}
           height={30}
           priority
           className="h-7 w-auto lg:h-[36px]"

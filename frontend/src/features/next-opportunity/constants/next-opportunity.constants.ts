@@ -17,7 +17,7 @@ export const nextOpportunityHeading: NextOpportunityHeadingCopy = {
 } as const;
 
 export const nextOpportunityDescription =
-  "Get access to the Internshala ecosystem through SOT Catalyst. Explore internships and career opportunities across industries, discover roles that match your skills and interests, and gain real world experience while you're still in college.";
+  "Get access to the Internshala ecosystem through uGSOT Catalyst. Explore internships and career opportunities across industries, discover roles that match your skills and interests, and gain real world experience while you're still in college.";
 
 /** Artwork lives in `public/assets/next_opportunity/`. */
 const opportunityImage = (file: string) =>

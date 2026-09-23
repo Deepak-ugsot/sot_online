@@ -115,6 +115,13 @@
     hint, so the arrow spends most of the cycle still.
   */
   --animate-nudge-right: nudge-right 2.4s var(--ease-cinematic) infinite;
+
+  /*
+    The brochure holding page's drifting sheet. A long, shallow cycle on purpose —
+    the card is a still life, and anything faster than this reads as a hover state
+    that nobody triggered.
+  */
+  --animate-brochure-float: brochure-float 9s ease-in-out infinite;
 }
 
 /*
@@ -475,6 +482,87 @@
   to {
     background-position: -30% 0;
   }
+}
+
+/* ---------------------------------------------------------------------------
+   Brochure holding page
+   ---------------------------------------------------------------------------
+   Lives here rather than in the feature for the same reason the BuildSpace edge
+   does: `@keyframes` and a repeating background are not things a utility class
+   can express.
+--------------------------------------------------------------------------- */
+
+/*
+  The sheet's drift. Rotation is part of the animation rather than a static class
+  on the card, because a `rotate` utility and a `translate` keyframe both write
+  `transform` — the animation would simply win and the tilt would vanish.
+
+  The two halves of the cycle are not mirror images: it rises further than it
+  falls and tips slightly more at the top. A symmetric loop reads as a pendulum.
+*/
+@keyframes brochure-float {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotate(2deg);
+  }
+  50% {
+    transform: translate3d(0, -14px, 0) rotate(2.9deg);
+  }
+}
+
+/*
+  Light crossing the paper.
+
+  A gradient moved by `background-position` rather than a translated element:
+  the sheet is `overflow: hidden`, so a moving child would have to be sized past
+  the card and clipped every frame, and this costs one paint of the sheet itself.
+
+  `220%` wide with the highlight in the middle third is what puts the band fully
+  off one edge at each end of the loop — a narrower gradient reaches its own edge
+  before it reaches the card's, and the sweep appears to stop short.
+*/
+.brochure-sheen {
+  background: linear-gradient(
+      104deg,
+      transparent 38%,
+      rgba(255, 255, 255, 0.07) 50%,
+      transparent 62%
+    )
+    0 0 / 220% 100%;
+  animation: brochure-sweep 7s ease-in-out infinite;
+}
+
+@keyframes brochure-sweep {
+  0%,
+  22% {
+    background-position: 150% 0;
+  }
+  78%,
+  100% {
+    background-position: -50% 0;
+  }
+}
+
+/*
+  The backdrop's ruled plane: two hairline gradients crossed at 64px.
+
+  `color-mix` rather than a flat `rgba` so the rules stay tied to the canvas
+  token — the grid should lighten or darken with the background it is drawn on,
+  not hold a hard-coded white that has to be re-tuned by hand if that changes.
+*/
+.brochure-grid {
+  background-image:
+    linear-gradient(
+      to right,
+      color-mix(in srgb, #ffffff 4.5%, transparent) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      to bottom,
+      color-mix(in srgb, #ffffff 4.5%, transparent) 1px,
+      transparent 1px
+    );
+  background-size: 64px 64px;
 }
 
 /* ---------------------------------------------------------------------------

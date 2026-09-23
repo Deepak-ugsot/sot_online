@@ -39,9 +39,14 @@ export const heroCtas: readonly HeroCta[] = [
   { label: "APPLY TO uGSOT CATALYST", href: "#apply", variant: "primary" },
   {
     label: "DOWNLOAD BROCHURE",
-    // Still the curriculum anchor: there is no brochure PDF to fetch yet, and this is
-    // where the label used to send the reader. Point it at the file once it lands.
-    href: "#curriculum",
+    /*
+      There is still no brochure PDF to fetch, so this goes to a holding page that
+      says so rather than to the curriculum anchor it used to scroll to — a download
+      control that silently scrolls somewhere else reads as a broken link.
+
+      Point it at the file once it lands, and delete `/brochure` with it.
+    */
+    href: "/brochure",
     variant: "secondary",
     icon: "download",
   },

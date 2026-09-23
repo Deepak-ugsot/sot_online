@@ -208,7 +208,7 @@ export const demoShip = {
 
 /** Top bar chrome. */
 export const demoChrome = {
-  brand: "BuildSpace",
+  brand: "ProjectBuilder Pro",
   nav: ["Dashboard", "Library", "My Learning"],
   search: "Search projects, technologies, instructors...",
   streak: "500",

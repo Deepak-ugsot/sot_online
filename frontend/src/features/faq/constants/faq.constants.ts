@@ -70,7 +70,7 @@ export const faqEntries: readonly FaqEntry[] = [
     id: "live-or-recorded",
     question: "Is it live or recorded?",
     answer:
-      "Both. Live sessions and mentor time are scheduled through the week, and the learning material and project work in BuildSpace stay available on demand so you can fit them around your college schedule.",
+      "Both. Live sessions and mentor time are scheduled through the week, and the learning material and project work in ProjectBuilder Pro stay available on demand so you can fit them around your college schedule.",
   },
   {
     id: "icpc-guarantee",
@@ -120,7 +120,7 @@ export const faqEntries: readonly FaqEntry[] = [
     id: "whats-included",
     question: "What's included in \u20B950,000/year?",
     answer:
-      "The whole programme, not a module of it: programming and maths, DSA, competitive programming and ICPC preparation, full stack development, systems and cloud, AI and GenAI, open source and GSoC guidance, real projects, free access to BuildSpace, the AI Mentor, industry mentorship, competitions, Career OS and the internship ecosystem. The total programme fee is \u20B91,00,000 across two years.",
+      "The whole programme, not a module of it: programming and maths, DSA, competitive programming and ICPC preparation, full stack development, systems and cloud, AI and GenAI, open source and GSoC guidance, real projects, free access to ProjectBuilder Pro, the AI Mentor, industry mentorship, competitions, Career OS and the internship ecosystem. The total programme fee is \u20B91,00,000 across two years.",
   },
 ] as const;
 
