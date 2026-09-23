@@ -31,14 +31,19 @@ export function useConversationsReveal(scopeRef: RefObject<HTMLElement | null>) 
           duration: 0.7,
           ease: "power3.out",
           stagger: 0.12,
-          // The portrait wrapper is one of these `beat` targets, and from `lg` it needs
-          // to end the animation with no inline `transform` at all: a `translate(0, 0)`
-          // left behind is visually identical to none, but — like `position` — it still
-          // establishes a containing block for absolutely positioned descendants, which
-          // is exactly what the quote card is once it needs to reach past this box (see
-          // `ConversationsSection`). Left uncleared, the card stays pinned to this
-          // element's own box no matter what `position` rule tries to hand it to `copy`
-          // instead.
+          // A `translate(0, 0)` left behind is visually identical to none, but — like
+          // `position` — it still establishes a containing block for absolutely
+          // positioned descendants, so every target is handed back with no inline
+          // `transform` at all rather than with an identity one.
+          //
+          // That alone is not what keeps the quote card in place, and must not be
+          // mistaken for it: a tween's transform is live for its whole duration, not
+          // only at its end, so any target that is also the card's positioning parent
+          // owns the card for those 0.7s however this clears up afterwards. `beat` is
+          // therefore pinned to boxes the card is never inside — the heading, an inner
+          // portrait box, and the card itself — so the wrapper that does position it
+          // stays untransformed throughout. Keep it that way when adding targets here;
+          // `ConversationsSection` carries the full note.
           clearProps: "transform",
           scrollTrigger: {
             trigger: CONVERSATIONS_SELECTORS.copy,
