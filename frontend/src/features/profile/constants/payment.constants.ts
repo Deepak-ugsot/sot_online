@@ -35,7 +35,7 @@ export const paymentCopy = {
 } as const;
 
 export const paymentStats: readonly PaymentStat[] = [
-  { id: "program", label: "Program", value: "SOT Catalyst — 2 Year" },
+  { id: "program", label: "Program", value: "uGSOT Catalyst — 2 Year" },
   { id: "total", label: "Total Fee", value: "₹1,00,000" },
   { id: "paid", label: "Amount Paid", value: "₹50,000" },
   { id: "due", label: "Amount Due", value: "₹50,000", emphasis: "due" },

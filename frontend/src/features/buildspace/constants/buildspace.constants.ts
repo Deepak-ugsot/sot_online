@@ -10,7 +10,7 @@ import type {
  */
 
 export const buildspaceHeading: BuildspaceHeadingCopy = {
-  accent: "BuildSpace",
+  accent: "ProjectBuilder Pro",
   trail: "- your engineering playground inside Catalyst",
 };
 
@@ -22,7 +22,7 @@ export const buildspaceHeading: BuildspaceHeadingCopy = {
  * "free" claim: the subtitle already makes that one, and two of them inside eight words
  * reads as a pitch rather than as a fact.
  */
-export const buildspaceEyebrow = "Inside BuildSpace";
+export const buildspaceEyebrow = "Inside ProjectBuilder Pro";
 
 /**
  * One plain sentence, not the split lead/badge/trail of the old light layout. The red
@@ -31,7 +31,7 @@ export const buildspaceEyebrow = "Inside BuildSpace";
  * the sentence up.
  */
 export const buildspaceSubtitle =
-  "As an uGSOT Catalyst learner, get FREE ACCESS to BuildSpace to build real projects and in-demand skills.";
+  "As an uGSOT Catalyst learner, get FREE ACCESS to ProjectBuilder Pro to build real projects and in-demand skills.";
 
 /** The demo canvas's intrinsic size. Every coordinate below is in these pixels. */
 export const BUILDSPACE_CANVAS_WIDTH = 1280;
@@ -89,7 +89,7 @@ export const buildspaceCursorBeats: (BuildspaceCursorBeat | null)[] = [
 export const buildspaceOutro = {
   lead: "Learn by building.",
   trail: "From learning to shipping.",
-  badge: "BuildSpace",
+  badge: "ProjectBuilder Pro",
 };
 
 export const BUILDSPACE_SELECTORS = {

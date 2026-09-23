@@ -110,7 +110,7 @@ export const oneProgramRails: readonly OneProgramRail[] = [
     direction: "up",
     seconds: 30,
     items: [
-      capability("buildspace", "BuildSpace"),
+      capability("buildspace", "ProjectBuilder Pro"),
       capability("ai-mentor", "AI Mentor"),
       capability("industry-mentorship", "Industry Mentorship"),
       capability("competitions", "Competitions"),

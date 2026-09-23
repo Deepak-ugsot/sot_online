@@ -33,7 +33,24 @@ export const navLinks: readonly NavLink[] = [
 
 /** Static assets served from `public/`. Centralised so paths are never string-literal'd in JSX. */
 export const assets = {
-  logoWhite: "/assets/uGSOT_white_logo.png",
+  /**
+   * The Catalyst wordmark, set white with the red corner mark left in colour — for
+   * the dark chrome the header, the footer, the login screen and `/brochure` all sit
+   * on. Every one of those reads it off this one entry, so the site logo changes in
+   * one place.
+   *
+   * Derived from the brand's `catalyst_logo-05` artwork, which ships as black-on-white
+   * JPEG: the white was unmultiplied back out to an alpha channel, and the letters
+   * recoloured. Black artwork on a JPEG's opaque white card cannot go in the header —
+   * it would be a white rectangle over the hero footage.
+   */
+  logoWhite: "/assets/catalyst_logo_white.png",
+  /**
+   * The same wordmark in its own colours, for light chrome. Nothing renders it yet —
+   * the one light-chrome header (`AppHeader`, signed in) still carries `logoMark`
+   * below. Point that at this when the signed-in header takes the full lockup.
+   */
+  logoInk: "/assets/catalyst_logo.png",
   /**
    * The brand mark on its own, in red — for light chrome, where the white lockup
    * above is invisible.

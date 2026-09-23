@@ -113,7 +113,7 @@ export function SiteFooter() {
             <Image
               src={assets.logoWhite}
               alt={siteConfig.name}
-              width={150}
+              width={225}
               height={46}
               className="h-[46px] w-auto"
             />
