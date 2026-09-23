@@ -121,18 +121,35 @@ export function ConversationsSection() {
                 traded off (mid-150s to high-200s in px either way), so one pair of
                 sizes safe for that whole span costs nothing bigger scaling would have
                 bought. */}
-            <div
-              data-conversations="beat"
-              className="relative mx-auto mt-8 w-full max-w-[22rem] sm:max-w-[25rem] lg:static lg:mx-0 lg:mt-0 lg:w-auto lg:max-w-none lg:flex-1"
-            >
-              <Image
-                src={conversationsPortrait.src}
-                alt={conversationsPortrait.alt}
-                width={conversationsPortrait.width}
-                height={conversationsPortrait.height}
-                sizes="(min-width: 1024px) 26rem, 85vw"
-                className="h-auto w-full select-none"
-              />
+            <div className="relative mx-auto mt-8 w-full max-w-[22rem] sm:max-w-[25rem] lg:static lg:mx-0 lg:mt-0 lg:w-auto lg:max-w-none lg:flex-1">
+              {/* **The reveal's `y` rides this inner box, never the wrapper above it.**
+                  The same containing-block rule the `lg:static` note turns on, arriving
+                  from the other side: a `transform` establishes a containing block for
+                  absolutely positioned descendants of its own accord, exactly as
+                  `position` and `container-type` do — and unlike them it is not something
+                  a `lg:` rule can decline. Animating the wrapper therefore handed it the
+                  card back for as long as the tween ran, however firmly `lg:static` had
+                  given it away: the card resolved `lg:left-[24%]`/`lg:w-[40%]` against
+                  this narrow column (~139px wide, too narrow even for the name it sets
+                  `whitespace-nowrap`) and then jumped a clear 269px across the row to its
+                  real place the frame the tween's `clearProps` landed.
+
+                  Animating a box the card is *not* inside is what keeps the wrapper's own
+                  `transform` `none` for the entire tween rather than only after it, so
+                  the card is laid out against `copy` from its very first frame. The card
+                  carries its own `beat` below and rises in on the same stagger; a
+                  transform on an absolutely positioned element offsets it after layout
+                  and never re-parents it, so it can animate itself freely. */}
+              <div data-conversations="beat">
+                <Image
+                  src={conversationsPortrait.src}
+                  alt={conversationsPortrait.alt}
+                  width={conversationsPortrait.width}
+                  height={conversationsPortrait.height}
+                  sizes="(min-width: 1024px) 26rem, 85vw"
+                  className="h-auto w-full select-none"
+                />
+              </div>
 
               {/* A flat `#feebed`, not a translucent `bg-brand/*` — sampled directly off
                   the reference. The card sits over the portrait's own fade-to-transparent
@@ -150,7 +167,10 @@ export function ConversationsSection() {
                   than stacking above them, as the design sets it — `items-start` over a
                   baseline alignment because it has to sit against the name's *cap* line,
                   and the two have neither the same font size nor the same baseline. */}
-              <div className="absolute bottom-[6%] left-[-6%] w-[80%] rounded-2xl bg-[#feebed] p-4 shadow-[0_16px_32px_rgba(230,22,31,0.1)] sm:px-5 lg:bottom-[12%] lg:left-[24%] lg:w-[40%]">
+              <div
+                data-conversations="beat"
+                className="absolute bottom-[6%] left-[-6%] w-[80%] rounded-2xl bg-[#feebed] p-4 shadow-[0_16px_32px_rgba(230,22,31,0.1)] sm:px-5 lg:bottom-[12%] lg:left-[24%] lg:w-[40%]"
+              >
                 <div className="flex items-start gap-1.5">
                   <span
                     aria-hidden="true"
